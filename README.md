@@ -11,6 +11,7 @@
         - [**Configuración fecha y hora**](#configuración-fecha-y-hora)
         - [**Cuentas administradoras**](#cuentas-administradoras)
         - [**Habilitar cortafuegos**](#habilitar-cortafuegos)
+        - [**Comprobar conexión**](#comprobar-conexión)
       - [1.1.2 Instalación del servidor web](#112-instalación-del-servidor-web)
         - [Instalación](#instalación)
         - [Verficación del servicio](#verficación-del-servicio)
@@ -52,6 +53,7 @@ Este documento es una guía detallada del proceso de instalación y configuraci�
 #### 1.1.1 **Configuración inicial**
 
 ##### Nombre y configuraicón de red
+Descargar la iso de Ubuntu Server en la página (Server install image) : https://releases.ubuntu.com/noble/
 
 > **Nombre de la máquina**: daw-used\
 > **Memoria RAM**: 2G\
@@ -61,71 +63,9 @@ Este documento es una guía detallada del proceso de instalación y configuraci�
 > **GW**: xx.xx.xx.xx/22\
 > **DNS**: xx.xx.xx.xx
 
-Editar el fichero de configuración del interface de red  **/etc/netplan**,
-
-```bash
-
-# This is the network config written by 'subiquity'
-network:
-  ethernets:
-    enp0s3:
-      addresses:
-       - 10.199.10.49/22
-      nameservers:
-         addresses:
-         - 10.151.123.21
-         - 10.151.126.21
-      routes:
-          - to: default
-             via: 10.199.8.1
-         search: [educa.jcyl.es]
-  version: 2
-````
-
-##### **Actualizar el sistema**
-
-```bash
-sudo apt update
-sudo apt upgrade
-```
-
-##### **Configuración fecha y hora**
-
-[Establecer fecha, hora y zona horaria](https://somebooks.es/establecer-la-fecha-hora-y-zona-horaria-en-la-terminal-de-ubuntu-20-04-lts/ "Cambiar fecha y hora")
-
-##### **Cuentas administradoras**
-
-> - [X] root(inicio)
-> - [X] miadmin/paso
-> - [X] miadmin2/paso
-
-##### **Habilitar cortafuegos**
-
-como activar cortafuegos
-```bash
-sudo ufw enable
-```
-
-#### 1.1.2 Instalación del servidor web
-
-##### Instalación
-Descargar la iso de Ubuntu Server en la página (Server install image) : https://releases.ubuntu.com/noble/
-
 Para saber que sistema operativo se tiene.
 ```bash
 uname -a
-```
-Crear el servidor en la maquina virtual con los datos de configuración configurando la red de la maquina en adaptador puente y instalar el servidor siguiendo la configuración.
-<!-- https://markdown.es/sintaxis-markdown/-->
-
-* Cuando esté instalado, se actualiza.
-  Actualiza la base de datos local de los paquetes disponibles, pero no instala ni actualiza el software
-```bash
-sudo apt update
-```
-Instala las versiones más recientes de los programas.
-```bash
-sudo apt upgrade -y
 ```
 
 * Para cambiar el nombre de la maquina si fuera necesario. 
@@ -145,7 +85,6 @@ Para que cambie, en el prompt, hay que cerrar sessión.
 ```bash
 exit
 ```
-
 
 * Para ver Interfaces de red y sus direcciones IP:
 ```bash
@@ -182,6 +121,8 @@ o listar particiones con detalles del disco físico
 fdisk -l
 ```
 
+
+Editar el fichero de configuración del interface de red  **/etc/netplan**,
 * Para configurar la red de interface:
   Se hace una copia de seguridad del archivo de configuración que se encuentra en /etc/netplan. 
 ```bash
@@ -192,15 +133,86 @@ sudo cp 50-cloud-init.yaml 50-cloud-init.yaml.backup
 sudo mv 50-cloud-init.yaml enp0s3.yaml
 ```
 
+```bash
+
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    enp0s3:
+      addresses:
+       - 10.199.10.49/22
+      nameservers:
+         addresses:
+         - 10.151.123.21
+         - 10.151.126.21
+      routes:
+          - to: default
+             via: 10.199.8.1
+         search: [educa.jcyl.es]
+  version: 2
+````
 * Para aplicar la configuración
 ```bash
 sudo netplan apply
 ```
 
-* Para activar el cortafuego
+##### **Actualizar el sistema**
+
+```bash
+sudo apt update
+sudo apt upgrade
+```
+
+##### **Configuración fecha y hora**
+
+[Establecer fecha, hora y zona horaria](https://somebooks.es/establecer-la-fecha-hora-y-zona-horaria-en-la-terminal-de-ubuntu-20-04-lts/ "Cambiar fecha y hora")
+* para ver la hora del servidor
+```bash
+date
+```
+
+* Si hubiera que cambiar la hora del servidor, se haría así
+```bash
+timedatectl set-timezone Europe/Madrid
+```
+##### **Cuentas administradoras**
+
+> - [X] root(inicio)
+> - [X] miadmin/paso
+> - [X] miadmin2/paso
+
+* Creación del usuario miadmin2 perteneciente al grupo sudo
+```bash
+sudo useradd miadmin2
+sudo usermod -aG sudo miadmin2
+```
+* Pra crear un usuario que pertenezca a varios grupos
+```bash
+sudo useradd -m -G sudo,adm,cdrom,dip,plugdev,lxd -s/bin/bash nombreUsuario
+```
+* Para ver en que grupo está miadmin2
+```bash
+cat /etc/group | grep miadmin
+```
+* Para quitar o poner permisos
+```bash
+cat /etc/passwd | grep miadmin
+```
+* Para saber la carpeta shell de un usuario, por ejemplo miadmin.
+```bash
+cat /etc/passwd | grep miadmin
+```
+* Para crear una usuario con una shell concreta
+```bash
+sudo usermod -s /bin/bash miadmin
+```
+##### **Habilitar cortafuegos**
+
+como activar cortafuegos
 ```bash
 sudo ufw enable
 ```
+
 * Para desactivar el cortafuego
 ```bash
 sudo ufw disable
@@ -223,20 +235,8 @@ sudo ufw delete numdeproceso
 ```bash
 sudo ufw status
 ```
-* para ver la hora del servidor
-```bash
-date
-```
 
-* Si hubiera que cambiar la hora del servidor, se haría así
-```bash
-timedatectl set-timezone Europe/Madrid
-```
-* Para ver la fecha y la hora del servidor
-```bash
-date
-```
-
+##### **Comprobar conexión**
 * Se hace ping del anfitrion al servidor. En el cmd del anfitrion.
 ```bash
 ping [IP servidor]
@@ -251,7 +251,9 @@ ssh usuario@ipServidor
 ```bash
 sudo shutdown -t 0
 ```
+#### 1.1.2 Instalación del servidor web
 
+##### Instalación
 * Actualizar
 ```bash
 sudo apt update
@@ -280,12 +282,6 @@ sudo ufw status numbered
 ```bash
 sudo ufw delete numeroproceso
 ```
-
-* Se puede ver el index de Apache2
-```bash
-sudo nano /var/www/html/index.html
-```
-En el navegador se puede con la URL:http//IPServidor/index.html
 
 * Se crea un directorio de errores. Y hay que indicarlo en el 000-default
 ErrorLog /var/www/html/error/error.log
@@ -323,34 +319,15 @@ sudo systemctl restart apache2
 ```
 
 ##### Verficación del servicio
+* Comprobar si se puede ver el index de Apache2
+```bash
+sudo nano /var/www/html/index.html
+```
+En el navegador se puede con la URL:http//IPServidor/index.html
 
 ##### Virtual Hosts
 ##### Permisos y usuarios
-* Creación del usuario miadmin2 perteneciente al grupo sudo
-```bash
-sudo useradd miadmin2
-sudo usermod -aG sudo miadmin2
-```
-* Pra crear un usuario que pertenezca a varios grupos
-```bash
-sudo useradd -m -G sudo,adm,cdrom,dip,plugdev,lxd -s/bin/bash nombreUsuario
-```
-* Para ver en que grupo está miadmin2
-```bash
-cat /etc/group | grep miadmin
-```
-* Para quitar o poner permisos
-```bash
-cat /etc/passwd | grep miadmin
-```
-* Para saber la carpeta shell de un usuario, por ejemplo miadmin.
-```bash
-cat /etc/passwd | grep miadmin
-```
-* Para crear una usuario con una shell concreta
-```bash
-sudo usermod -s /bin/bash miadmin
-```
+
 
 * Creación del usuario operador web.
     -M → No crear el directorio home (el home será /var/www/html, pero no lo crea).
@@ -632,3 +609,4 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
