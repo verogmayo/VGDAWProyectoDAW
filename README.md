@@ -125,6 +125,14 @@ sudo apt update
 ```bash
 sudo apt upgrade
 ```
+* Para cambir el nombre de la maquina si fuera necesario. Primero se mira el nombre actual.(fichero: /etc/host)
+```bash
+sudo hostamectl
+```
+* Despues hay que cambiarl en /etc/hosts
+```bash
+sudo nano /etc/hosts
+```
 
 * Para ver Interfaces de red y sus direcciones IP:
 ```bash
@@ -248,7 +256,29 @@ sudo usermod -s /bin/bash miadmin
 ```bash
 sudo useradd -M -d /var/www/html -N -g www-data -s /bin/bash operadorweb
 ```
+Información de los usuarios
+```bash
+id operadorweb
+```
+o
+```bash
+cat /etc/passwd | grep operador
+```
 
+Cambiar de contraseña
+```bash
+sudo passwd operadorweb
+```
+
+Para cambiar el grupo del propietario
+```bash
+sudo chown -R operadorweb:www-data /var/www/html
+```
+
+Para cambiar permisos
+```bash
+sudo chmod -R 775 /var/www/html
+```
 #### 1.1.3 Ejecución PHP con PHP-FPM
 
 FPM (FastCGI Process Manager) es un servidor de aplicaciones PHP que se encarga de interpretar código PHP.
