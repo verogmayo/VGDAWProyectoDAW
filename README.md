@@ -119,20 +119,33 @@ Crear el servidor en la maquina virtual con los datos de configuración configur
 <!-- https://markdown.es/sintaxis-markdown/-->
 
 * Cuando esté instalado, se actualiza.
+  Actualiza la base de datos local de los paquetes disponibles, pero no instala ni actualiza el software
 ```bash
 sudo apt update
 ```
+Instala las versiones más recientes de los programas.
 ```bash
-sudo apt upgrade
+sudo apt upgrade -y
 ```
-* Para cambir el nombre de la maquina si fuera necesario. Primero se mira el nombre actual.(fichero: /etc/host)
+
+* Para cambiar el nombre de la maquina si fuera necesario. 
+  Primero se mira el nombre actual.
 ```bash
-sudo hostamectl
+sudo hostnamectl
 ```
-* Despues hay que cambiarl en /etc/hosts
+ Se cambia
+ ```bash
+sudo hostnamectl set-hostname nombreMaquina
+```
+Despues hay que cambiarlo en /etc/hosts
 ```bash
 sudo nano /etc/hosts
 ```
+Para que cambie, en el prompt, hay que cerrar sessión.
+```bash
+exit
+```
+
 
 * Para ver Interfaces de red y sus direcciones IP:
 ```bash
@@ -143,64 +156,83 @@ ip a
 ip r
 ```
 
-* Para ver el nombre de la máquina.
+* Para comprobar las particiones: 
+  vista jerárquica (disco → particiones → puntos de montaje)
 ```bash
-hostname
+lsblk
 ```
-* Se hace una copia de seguridad del archivo de configuración que se encuentra en /etc/netplan.
+o 
+```bash
+df -h
+```
+o una vista completa del sistema de archivos + permisos.
+```bash
+lsblk -fm
+```
+o mostrar todos los dispositivos, incluso los vacíos o no usados
+```bash
+lsblk -a
+```
+o mostrar solo los nombres, sin formato visual
+```bash
+lsblk -fn
+```
+o listar particiones con detalles del disco físico
+```bash
+fdisk -l
+```
+
+* Para configurar la red de interface:
+  Se hace una copia de seguridad del archivo de configuración que se encuentra en /etc/netplan. 
 ```bash
 sudo cp 50-cloud-init.yaml 50-cloud-init.yaml.backup
 ```
-* Se cambia el nombre del archivo
+* Para cambiar el nombre del archivo
 ```bash
 sudo mv 50-cloud-init.yaml enp0s3.yaml
 ```
 
-* Se comprueban las particiones 
-```bash
-lsblk
-```
-o
-```bash
-df -h
-```
-* Se aplica la configuración
+* Para aplicar la configuración
 ```bash
 sudo netplan apply
 ```
 
-* Se activa el cortafuego
+* Para activar el cortafuego
 ```bash
 sudo ufw enable
 ```
+* Para desactivar el cortafuego
+```bash
+sudo ufw disable
+```
 
-* Se activa el puerto 22
+* Para activar el puerto 22
 ```bash
 sudo ufw allow 22
 ```
-* Para borrar puertos primero hay que saber cual es el numero de proceso de puerto
+* Para borrar puertos 
+  primero hay que saber cual es el numero de proceso de puerto
 ```bash
-sudo ufw status numered
+sudo ufw status numbered
 ```
-* Para borrar un puerto
+  y borrar el puerto
 ```bash
-sudo ufw delete [num de proceso]
+sudo ufw delete numdeproceso
 ```
 * Para ver el status de cortafuergos
 ```bash
 sudo ufw status
 ```
-
-* Se hace ping del servidor al anfitrion
+* para ver la hora del servidor
 ```bash
-sudo ping [IP Anfitrion]
+date
 ```
 
 * Si hubiera que cambiar la hora del servidor, se haría así
 ```bash
 timedatectl set-timezone Europe/Madrid
 ```
-* Para ver la hora del servidor
+* Para ver la fecha y la hora del servidor
 ```bash
 date
 ```
@@ -220,6 +252,75 @@ ssh usuario@ipServidor
 sudo shutdown -t 0
 ```
 
+* Actualizar
+```bash
+sudo apt update
+```
+* Instalar las versiones más recientes de los programas.
+```bash
+sudo apt upgrade -y
+```
+* Instalar Apache2
+```bash
+sudo apt install apache2 -y
+```
+
+* Verificar el estado del servicio
+```bash
+sudo systemctl status apache2
+```
+* Se abre el puerto 80
+```bash
+sudo ufw allow 80
+```
+* Se borra el puerto 80 v6
+```bash
+sudo ufw status numbered
+```
+```bash
+sudo ufw delete numeroproceso
+```
+
+* Se puede ver el index de Apache2
+```bash
+sudo nano /var/www/html/index.html
+```
+En el navegador se puede con la URL:http//IPServidor/index.html
+
+* Se crea un directorio de errores. Y hay que indicarlo en el 000-default
+ErrorLog /var/www/html/error/error.log
+
+![Alt](images/apache2000DefaultError.png)
+
+* Modificar apache2.conf para .htaccess
+```bash
+sudo nano /etc/apache2/apache2.conf
+```
+Buscar la sección 
+<Directory /var/www/>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+
+Y cambiar a 
+<Directory /var/www/>
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
+
+![Alt](images/apache2Conf.png)
+
+* Crear el archivo .htaccess
+```bash
+sudo touch /var/www/html/.htaccess
+
+```
+* Hacer restart de apache
+```bash
+sudo systemctl restart apache2
+```
 
 ##### Verficación del servicio
 
@@ -227,14 +328,21 @@ sudo shutdown -t 0
 ##### Permisos y usuarios
 * Creación del usuario miadmin2 perteneciente al grupo sudo
 ```bash
+sudo useradd miadmin2
 sudo usermod -aG sudo miadmin2
 ```
-
+* Pra crear un usuario que pertenezca a varios grupos
+```bash
+sudo useradd -m -G sudo,adm,cdrom,dip,plugdev,lxd -s/bin/bash nombreUsuario
+```
 * Para ver en que grupo está miadmin2
 ```bash
 cat /etc/group | grep miadmin
 ```
 * Para quitar o poner permisos
+```bash
+cat /etc/passwd | grep miadmin
+```
 * Para saber la carpeta shell de un usuario, por ejemplo miadmin.
 ```bash
 cat /etc/passwd | grep miadmin
@@ -243,6 +351,7 @@ cat /etc/passwd | grep miadmin
 ```bash
 sudo usermod -s /bin/bash miadmin
 ```
+
 * Creación del usuario operador web.
     -M → No crear el directorio home (el home será /var/www/html, pero no lo crea).
 
@@ -265,20 +374,29 @@ o
 cat /etc/passwd | grep operador
 ```
 
-Cambiar de contraseña
+Para cambiar de contraseña
 ```bash
 sudo passwd operadorweb
 ```
 
-Para cambiar el grupo del propietario
+Para cambiar el grupo del propietario (www-data (para web))
 ```bash
 sudo chown -R operadorweb:www-data /var/www/html
 ```
-
+Para borrar un usuario de un grupo
+```bash
+sudo gpasswd -d nombreusuario nombregrupo
+```
 Para cambiar permisos
 ```bash
 sudo chmod -R 775 /var/www/html
 ```
+* Para borrar un usuario
+```bash
+sudo deluser nombreusuario
+```
+
+
 #### 1.1.3 Ejecución PHP con PHP-FPM
 
 FPM (FastCGI Process Manager) es un servidor de aplicaciones PHP que se encarga de interpretar código PHP.
@@ -357,10 +475,12 @@ Usa una dirección IP y un puerto para comunicarse, por lo tanto usa el protocol
 * Si php-fpm está escuchando en un  SOCKET UNIX (local)
   
 Existe un **archivo especial** en `/run/php/php8.3-fpm.sock`que actua como punto de comunicación dentro de la propia máquina en sistemas UNIX/Linux y no usa puertos ni direcciones IP.
-
+ 
+ Se pone esta expresion en el archivo /etc/apache2/sites-available/000-default.conf
 ```bash
   ProxyPassMatch ^/(.*\.php)$ unix:/run/php/php8.3-fpm.sock|fcgi://127.0.0.1/var/www/html
 ```
+![Alt](images/apache2000DefaultPHP.png)
 
 Otra forma de hacerlo:
 
