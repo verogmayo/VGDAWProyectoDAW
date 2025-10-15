@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mostrar Markdown</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div id="contenido"></div>
+
+  <script>
+    fetch('README.md') 
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('contenido').innerHTML = marked.parse(text);
+      });
+  </script>
+</body>
+</html>

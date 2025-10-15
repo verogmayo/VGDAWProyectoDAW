@@ -553,6 +553,14 @@ Está escuchando por TCP/IP en la dirección local
 ##### **Cuentas administradoras**
 #### 1.2.2 **Navegadores**
 #### 1.2.3 **MobaXterm**
+*Descargar MobaXterm en este enlace : https://mobaxterm.mobatek.net/download.html
+Para crear una sesión ssh, hacer clic en el botón de session arriba a la izquierda. 
+![Alt](images/moba-crearSesion.png)
+Cuando aparezca la ventana, hacer clic en SSH
+![Alt](images/moba-crearSesionSsh.png)
+
+
+
 #### 1.2.4 **Netbeans**
 * Crear un proyecto PHP en Netbeans
 Se hace clic en File -> New Project o se hace clic en el pestaña del cuadrado naranja con un más

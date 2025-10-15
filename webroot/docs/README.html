@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>README.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <h1 id="cfgs-desarrollo-de-aplicaciones-web">
+      CFGS Desarrollo de Aplicaciones Web
+    </h1>
+    <ul>
+      <li>
+        <a href="#cfgs-desarrollo-de-aplicaciones-web"
+          >CFGS Desarrollo de Aplicaciones Web</a
+        >
+
+		<!-- =========================
+		1. ENTORNO DE DESARROLLO
+		============================ -->
+		
+        <ul>
+          <li>
+            <a href="#1-entorno-de-desarrollo">1. Entorno de Desarrollo</a>
+
+			<!-- ============== Ubuntu ================ -->
+			
+            <ul>
+              <li>
+                <a href="#11-ubuntu-server-24043-lts"
+                  >1.1 Ubuntu Server 24.04.3 LTS</a
+                >
+                <ul>
+                  <li>
+                    <a href="#111-configuraci%C3%B3n-inicial"
+                      >1.1.1 <strong>Configuración inicial</strong></a
+                    >
+                    <ul>
+                      <li>
+                        <a href="#nombre-y-configuraic%C3%B3n-de-red"
+                          >Nombre y configuraicón de red</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#actualizar-el-sistema"
+                          ><strong>Actualizar el sistema</strong></a
+                        >
+                      </li>
+                      <li>
+                        <a href="#configuraci%C3%B3n-fecha-y-hora"
+                          ><strong>Configuración fecha y hora</strong></a
+                        >
+                      </li>
+                      <li>
+                        <a href="#cuentas-administradoras"
+                          ><strong>Cuentas administradoras</strong></a
+                        >
+                      </li>
+                      <li>
+                        <a href="#habilitar-cortafuegos"
+                          ><strong>Habilitar cortafuegos</strong></a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#112-instalaci%C3%B3n-del-servidor-web"
+                      >1.1.2 Instalación del servidor web</a
+                    >
+                    <ul>
+                      <li><a href="#instalaci%C3%B3n">Instalación</a></li>
+                      <li>
+                        <a href="#verficaci%C3%B3n-del-servicio"
+                          >Verficación del servicio</a
+                        >
+                      </li>
+                      <li><a href="#virtual-hosts">Virtual Hosts</a></li>
+                      <li>
+                        <a href="#permisos-y-usuarios">Permisos y usuarios</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li><a href="#113-php">1.1.3 PHP</a></li>
+                  <li><a href="#114-mysql">1.1.4 MySQL</a></li>
+                  <li><a href="#115-xdebug">1.1.5 XDebug</a></li>
+                  <li><a href="#116-dns">1.1.6 DNS</a></li>
+                  <li><a href="#117-sftp">1.1.7 SFTP</a></li>
+                  <li><a href="#118-apache-tomcat">1.1.8 Apache Tomcat</a></li>
+                  <li><a href="#119-ldap">1.1.9 LDAP</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#12-windows-11">1.2 Windows 11</a>
+                <ul>
+                  <li>
+                    <a href="#121-configuraci%C3%B3n-inicial"
+                      >1.2.1 <strong>Configuración inicial</strong></a
+                    >
+                    <ul>
+                      <li>
+                        <a href="#nombre-y-configuraci%C3%B3n-de-red"
+                          ><strong>Nombre y configuración de red</strong></a
+                        >
+                      </li>
+                      <li>
+                        <a href="#cuentas-administradoras-1"
+                          ><strong>Cuentas administradoras</strong></a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#122-navegadores"
+                      >1.2.2 <strong>Navegadores</strong></a
+                    >
+                  </li>
+                  <li>
+                    <a href="#123-mobaxterm"
+                      >1.2.3 <strong>MobaXterm</strong></a
+                    >
+                  </li>
+                  <li>
+                    <a href="#124-netbeans">1.2.4 <strong>Netbeans</strong></a>
+                  </li>
+                  <li>
+                    <a href="#125-visual-studio-code"
+                      >1.2.5 <strong>Visual Studio Code</strong></a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#2-github">2. GitHub</a></li>
+          <li>
+            <a href="#3entorno-de-explotaci%C3%B3n">3.Entorno de Explotación</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">DAW/DWES Tema2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center">
+            <img src="../images/portada.jpg" alt="Alt" />
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            INSTALACIÓN, CONFIGURACIÓN Y DOCUMENTACIÓN DE ENTORNO DE DESARROLLO
+            Y DEL ENTORNO DE EXPLOTACIÓN
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2 id="1-entorno-de-desarrollo">1. Entorno de Desarrollo</h2>
+    <h3 id="11-ubuntu-server-24043-lts">1.1 Ubuntu Server 24.04.3 LTS</h3>
+    <p>
+      Este documento es una guía detallada del proceso de instalación y
+      configuración de un servidor de aplicaciones en Ubuntu Server utilizando
+      Apache, con soporte PHP y MySQL
+    </p>
+    <h4 id="111-configuraci%C3%B3n-inicial">
+      1.1.1 <strong>Configuración inicial</strong>
+    </h4>
+    <h5 id="nombre-y-configuraic%C3%B3n-de-red">
+      Nombre y configuraicón de red
+    </h5>
+    <blockquote>
+      <p>
+        <strong>Nombre de la máquina</strong>: daw-used<br />
+        <strong>Memoria RAM</strong>: 2G<br />
+        <strong>Particiones</strong>: 150G(/) y resto (/var)<br />
+        <strong>Configuración de red interface</strong>: xxxx <br />
+        <strong>Dirección IP</strong> :xx.xx.xx.xx/22<br />
+        <strong>GW</strong>: xx.xx.xx.xx/22<br />
+        <strong>DNS</strong>: xx.xx.xx.xx
+      </p>
+    </blockquote>
+    <p>
+      Editar el fichero de configuración del interface de red
+      <strong>/etc/netplan</strong>,
+    </p>
+    <pre class="hljs"><code><div>
+<span class="hljs-comment"># This is the network config written by 'subiquity'</span>
+network:
+  ethernets:
+    enp0s3:
+      addresses:
+       - 10.199.10.49/22
+      nameservers:
+         addresses:
+         - 10.151.123.21
+         - 10.151.126.21
+      routes:
+          - to: default
+             via: 10.199.8.1
+         search: [educa.jcyl.es]
+  version: 2
+</div></code></pre>
+    <h5 id="actualizar-el-sistema"><strong>Actualizar el sistema</strong></h5>
+    <pre class="hljs"><code><div>sudo apt update
+sudo apt upgrade
+</div></code></pre>
+    <h5 id="configuraci%C3%B3n-fecha-y-hora">
+      <strong>Configuración fecha y hora</strong>
+    </h5>
+    <p>
+      <a
+        href="https://somebooks.es/establecer-la-fecha-hora-y-zona-horaria-en-la-terminal-de-ubuntu-20-04-lts/"
+        title="Cambiar fecha y hora"
+        >Establecer fecha, hora y zona horaria</a
+      >
+    </p>
+    <h5 id="cuentas-administradoras">
+      <strong>Cuentas administradoras</strong>
+    </h5>
+    <blockquote>
+      <ul>
+        <li>
+          <input type="checkbox" id="checkbox0" checked="true" /><label
+            for="checkbox0"
+            >root(inicio)</label
+          >
+        </li>
+        <li>
+          <input type="checkbox" id="checkbox1" checked="true" /><label
+            for="checkbox1"
+            >miadmin/paso</label
+          >
+        </li>
+        <li>
+          <input type="checkbox" id="checkbox2" checked="true" /><label
+            for="checkbox2"
+            >miadmin2/paso</label
+          >
+        </li>
+      </ul>
+    </blockquote>
+    <h5 id="habilitar-cortafuegos"><strong>Habilitar cortafuegos</strong></h5>
+    <p>como activar cortafuegos</p>
+    <pre
+      class="hljs"
+    ><code><div>sudo ufw <span class="hljs-built_in">enable</span>
+</div></code></pre>
+    <h4 id="112-instalaci%C3%B3n-del-servidor-web">
+      1.1.2 Instalación del servidor web
+    </h4>
+    <h5 id="instalaci%C3%B3n">Instalación</h5>
+    <p>
+      Descargar la iso de Ubuntu Server en la página (Server install image) :
+      https://releases.ubuntu.com/noble/
+    </p>
+    <p>Para saber que sistema operativo se tiene.</p>
+    <pre class="hljs"><code><div>uname -a
+</div></code></pre>
+    <p>
+      Crear el servidor en la maquina virtual con los datos de configuración
+      configurando la red de la maquina en adaptador puente y instalar el
+      servidor siguiendo la configuración.
+    </p>
+    <!-- https://markdown.es/sintaxis-markdown/-->
+    <ul>
+      <li>Cuando esté instalado, se actualiza.</li>
+    </ul>
+    <pre class="hljs"><code><div>sudo apt update
+</div></code></pre>
+    <pre class="hljs"><code><div>sudo apt upgrade
+</div></code></pre>
+    <ul>
+      <li>Para ver Interfaces de red y sus direcciones IP:</li>
+    </ul>
+    <pre class="hljs"><code><div>ip a
+</div></code></pre>
+    <ul>
+      <li>Para ver la tabla de enrutamiento.</li>
+    </ul>
+    <pre class="hljs"><code><div>ip r
+</div></code></pre>
+    <ul>
+      <li>Para ver el nombre de la máquina.</li>
+    </ul>
+    <pre class="hljs"><code><div>hostname
+</div></code></pre>
+    <ul>
+      <li>
+        Se hace una copia de seguridad del archivo de configuración que se
+        encuentra en /etc/netplan.
+      </li>
+    </ul>
+    <pre
+      class="hljs"
+    ><code><div>sudo cp 50-cloud-init.yaml 50-cloud-init.yaml.backup
+</div></code></pre>
+    <ul>
+      <li>Se cambia el nombre del archivo</li>
+    </ul>
+    <pre class="hljs"><code><div>sudo mv 50-cloud-init.yaml enp0s3.yaml
+</div></code></pre>
+    <ul>
+      <li>Se comprueban las particiones</li>
+    </ul>
+    <pre class="hljs"><code><div>lsblk
+</div></code></pre>
+    <p>o</p>
+    <pre class="hljs"><code><div>df -h
+</div></code></pre>
+    <ul>
+      <li>Se aplica la configuración</li>
+    </ul>
+    <pre class="hljs"><code><div>sudo netplan apply
+</div></code></pre>
+    <ul>
+      <li>Se activa el cortafuego</li>
+    </ul>
+    <pre
+      class="hljs"
+    ><code><div>sudo ufw <span class="hljs-built_in">enable</span>
+</div></code></pre>
+    <ul>
+      <li>Se activa el puerto 22</li>
+    </ul>
+    <pre class="hljs"><code><div>sudo ufw allow 22
+</div></code></pre>
+    <ul>
+      <li>
+        Para borrar puertos primero hay que saber cual es el numero de proceso
+        de puerto
+      </li>
+    </ul>
+    <pre class="hljs"><code><div>sudo ufw status numered
+</div></code></pre>
+    <ul>
+      <li>Para borrar un puerto</li>
+    </ul>
+    <pre class="hljs"><code><div>sudo ufw delete [num de proceso]
+</div></code></pre>
+    <ul>
+      <li>Para ver el status de cortafuergos</li>
+    </ul>
+    <pre class="hljs"><code><div>sudo ufw status
+</div></code></pre>
+    <ul>
+      <li>Se hace ping del servidor al anfitrion</li>
+    </ul>
+    <pre class="hljs"><code><div>sudo ping [IP Anfitrion]
+</div></code></pre>
+    <ul>
+      <li>Si hubiera que cambiar la hora del servidor, se haría así</li>
+    </ul>
+    <pre
+      class="hljs"
+    ><code><div>timedatectl <span class="hljs-built_in">set</span>-timezone Europe/Madrid
+</div></code></pre>
+    <ul>
+      <li>Para ver la hora del servidor</li>
+    </ul>
+    <pre class="hljs"><code><div>date
+</div></code></pre>
+    <ul>
+      <li>Se hace ping del anfitrion al servidor. En el cmd del anfitrion.</li>
+    </ul>
+    <pre class="hljs"><code><div>ping [IP servidor]
+</div></code></pre>
+    <ul>
+      <li>Para conectarse al servidor desde el anfitrion</li>
+    </ul>
+    <pre class="hljs"><code><div>ssh usuario@ipServidor
+</div></code></pre>
+    <ul>
+      <li>
+        Para apagar el servidor desde el anfitrion una vez dentro.(0 es el
+        tiempo de espera para apagar)
+      </li>
+    </ul>
+    <pre class="hljs"><code><div>sudo shutdown -t 0
+</div></code></pre>
+    <h5 id="verficaci%C3%B3n-del-servicio">Verficación del servicio</h5>
+    <h5 id="virtual-hosts">Virtual Hosts</h5>
+    <h5 id="permisos-y-usuarios">Permisos y usuarios</h5>
+    <ul>
+      <li>Creación del usuario miadmin2 perteneciente al grupo sudo</li>
+    </ul>
+    <pre class="hljs"><code><div>sudo usermod -aG sudo miadmin2
+</div></code></pre>
+    <ul>
+      <li>Para ver en que grupo está miadmin2</li>
+    </ul>
+    <pre class="hljs"><code><div>cat /etc/group | grep miadmin
+</div></code></pre>
+    <ul>
+      <li>Para quitar o poner permisos</li>
+      <li>Para saber la carpeta shell de un usuario, por ejemplo miadmin.</li>
+    </ul>
+    <pre class="hljs"><code><div>cat /etc/passwd | grep miadmin
+</div></code></pre>
+    <ul>
+      <li>Para crear una usuario con una shell concreta</li>
+    </ul>
+    <pre class="hljs"><code><div>sudo usermod -s /bin/bash miadmin
+</div></code></pre>
+    <ul>
+      <li>
+        Creación del usuario operador web. -M → No crear el directorio home (el
+        home será /var/www/html, pero no lo crea).
+      </li>
+    </ul>
+    <p>
+      -d /var/www/html → Establece /var/www/html como directorio home del
+      usuario.
+    </p>
+    <p>-N → No crea un grupo con el mismo nombre que el usuario.</p>
+    <p>-g www-data → Asigna el grupo primario www-data.</p>
+    <p>-s /bin/bash → Asigna la shell Bash.</p>
+    <pre
+      class="hljs"
+    ><code><div>sudo useradd -M -d /var/www/html -N -g www-data -s /bin/bash operadorweb
+</div></code></pre>
+
+		<!-- ============== PHP ================ -->
+		
+		
+    <h4 id="113-php">1.1.3 PHP</h4>
+    <ul>
+      <li>
+        Actualiza el sistema e instala Apache: Abre la terminal en tu servidor
+        Ubuntu y ejecuta los siguientes comandos para actualizar el sistema e
+        instalar Apache.
+      </li>
+    </ul>
+    <pre class="hljs"><code><div>sudo apt update 
+</div></code></pre>
+    <pre class="hljs"><code><div>sudo apt upgrade -y  
+</div></code></pre>
+    <ul>
+      <li>
+        Añade el repositorio PPA de Ondrej para PHP Instala el paquete
+        software-properties-common si no está instalado y añade el repositorio
+        PPA de Ondrej para obtener versiones recientes de PHP.
+      </li>
+    </ul>
+    <pre class="hljs"><code><div>sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:ondrej/php -y
+</div></code></pre>
+    <p>Para ver si el repositorio se ha instalado correctamente:</p>
+    <pre class="hljs"><code><div>ls /etc/apt/sources.list.d/ | grep ondrej
+</div></code></pre>
+    <p>Para actualizar los repositorios después de añadir el PPA:</p>
+    <pre class="hljs"><code><div>sudo apt update
+</div></code></pre>
+    <ul>
+      <li>
+        Instala PHP-FPM y módulos de Apache Instala la versión deseada de PHP
+        (en este ejemplo, PHP 8.3), el módulo de Apache correspondiente para
+        PHP-FPM, y otras extensiones útiles.
+      </li>
+    </ul>
+    <pre
+      class="hljs"
+    ><code><div>sudo apt install php8.3 libapache2-mod-php8.3 php8.3-fpm -y
+</div></code></pre>
+    <p>
+      Configuración del Multi-Processing Module (MPM) El módulo mpm_prefork y
+      libapache2-mod-php8.3 (mod_php) no pueden funcionar al mismo tiempo que
+      mpm_event y proxy_fcgi (necesario para PHP-FPM). Necesitamos desactivar
+      los primeros.
+    </p>
+    <p>
+      Se desactiva el módulo mod_php: Esto elimina la dependencia con
+      mpm_prefork.
+    </p>
+    <pre class="hljs"><code><div>sudo a2dismod php8.3
+</div></code></pre>
+    <p>Se desactiva mpm_prefork:</p>
+    <pre class="hljs"><code><div>sudo a2dismod mpm_prefork
+</div></code></pre>
+    <p>
+      Activa mpm_event y proxy_fcgi: Estos módulos habilitan la comunicación con
+      PHP-FPM.
+    </p>
+    <pre class="hljs"><code><div>sudo a2enmod mpm_event proxy_fcgi
+</div></code></pre>
+    <ul>
+      <li>Configura y habilita PHP-FPM para Apache</li>
+    </ul>
+    <p>Habilita la configuración de PHP-FPM para Apache.</p>
+    <p>Bash</p>
+    <p>
+      sudo a2enconf php8.3-fpm Reinicia el servidor Apache Reinicia Apache para
+      aplicar todos los cambios de módulos y configuraciones:
+    </p>
+    <pre class="hljs"><code><div>sudo systemctl restart apache2
+</div></code></pre>
+    <ul>
+      <li>
+        Verifica la instalación Para confirmar que PHP y Apache están
+        funcionando correctamente con PHP-FPM, crea un archivo info.php en el
+        directorio web de Apache y visita esa página en tu navegador.
+      </li>
+    </ul>
+    <p>Se crea el archivo info.php en el directorio /var/www/html:</p>
+    <pre class="hljs"><code><div>sudo nano /var/www/html/info.php
+</div></code></pre>
+    <p>Se pega el siguiente código dentro del archivo info.php:</p>
+    <p>PHP
+		&lt;?php <br>
+		phpinfo();
+		?&gt;</p>
+ 
+    <p>Se verifica en el navegador accediendo a la IP de tu máquina virtual</p>
+    <p>http://IP/info.php</p>
+    <ul>
+      <li>
+        Modificar Directivas de PHP Modificar display_errors para mostrar
+        errores y memory_limit para aumentar el limite de memoria de PHP.
+      </li>
+    </ul>
+    <p>Se edita el archivo de configuración de PHP-FPM:</p>
+	<pre class="hljs"><code><div>sudo nano /etc/php/8.3/fpm/php.ini
+</div></code></pre>
+    
+Se busca y se cambian los siguientes valores:(Ctrl+W)
+
+<pre class="hljs"><code><div>
+display_errors = On
+display_startup_errors = On
+memory_limit = 256M
+</div></code></pre>
+Se Reinicia el servicio PHP-FPM para aplicar los cambios:
+
+<pre class="hljs"><code><div>
+sudo systemctl restart php8.3-fpm
+</div></code></pre>
+    <h4 id="114-mysql">1.1.4 MySQL</h4>
+    <h4 id="115-xdebug">1.1.5 XDebug</h4>
+    <h4 id="116-dns">1.1.6 DNS</h4>
+    <h4 id="117-sftp">1.1.7 SFTP</h4>
+    <h4 id="118-apache-tomcat">1.1.8 Apache Tomcat</h4>
+    <h4 id="119-ldap">1.1.9 LDAP</h4>
+
+
+	<!-- ============== WINDOWS ================ -->
+	
+    <h3 id="12-windows-11">1.2 Windows 11</h3>
+    <h4 id="121-configuraci%C3%B3n-inicial">
+      1.2.1 <strong>Configuración inicial</strong>
+    </h4>
+    <h5 id="nombre-y-configuraci%C3%B3n-de-red">
+      <strong>Nombre y configuración de red</strong>
+    </h5>
+    <h5 id="cuentas-administradoras">
+      <strong>Cuentas administradoras</strong>
+    </h5>
+
+	<!-- ============== NAVEGADORES ================ -->
+	
+    <h4 id="122-navegadores">1.2.2 <strong>Navegadores</strong></h4>
+
+	<!-- ============== MOBAXTREM ================ -->
+	
+    <h4 id="123-mobaxterm">1.2.3 <strong>MobaXterm</strong></h4>
+
+
+	<!-- ============== NETBEANS ================ -->
+	
+    <h4 id="124-netbeans">1.2.4 <strong>Netbeans</strong></h4>
+    <ul>
+      <li>
+        Crear un proyecto PHP en Netbeans Se hace clic en File -&gt; New Project
+        o se hace clic en el pestaña del cuadrado naranja con un más
+      </li>
+    </ul>
+    <p><img src="../images/File-NewProject.png" alt="Alt" /></p>
+    <p><img src="../images/botonNewProject.png" alt="Alt" /></p>
+    <p>
+      En el primer paso de la creación de projyecto, se selecciona PHP en
+      Categories, y PHP Aplicación from Remote Server y se hace clic en Next
+    </p>
+    <p><img src="../images/newFile-paso1.png" alt="Alt" /></p>
+    <p>
+      En el paso 2 se indica el nombre del proyecto, y la ubicación en local y
+      se hace clic en Next 
+    </p>
+	<p><img src="../images/newFile-paso2.png" alt="Alt" /></p>
+    <p>
+      En el paso 3 se indica la IP del servidor...
+    </p>
+	<p><img src="../images/newFile-paso3-1.png" alt="Alt" /></p>
+    <p>
+      y se hace clic en Manage... para configurar la conexion al servidor
+      remoto, donde se indicará el nombre del servidor, la IP , el puerto, el
+      nombre del usuario con permisos para actuar en las carpetas del proyecto,
+      la contraseña....
+    </p>
+	<p><img src="../images/newFile-paso3-conexion.png" alt="Alt" /></p>
+	<p>se hace un test de conexión y saldrá un mensaje de confirmación
+      hacer clic en Yes,</p>
+	<p><img src="../images/mensajeConfirmacion.png" alt="Alt" /></p>
+    <p>
+       si el test es ok, hacer clic en OK...(el servidor
+      remoto tiene que estar encendido sino no hace la conexion)
+	</p>
+	<p><img src="../images/conexionOk.png" alt="Alt" /></p>
+      <p>
+      se cierra la ventana de conexion se indica la ubicación de la carpeta del
+      proyecto en el servidor y se hace clic en Next en la ventana del paso 3.
+    </p>
+	<p> <img src="../images/newFile-paso3-2.png" alt="Alt" /></p>
+    <p>
+      Sale de nuevo el mensaje de Confirmación de conexión y se hace clic en
+      Yes. 
+    </p>
+	<p><img src="../images/mensajeConfirmacion.png" alt="Alt" /></p>
+    <p>
+      Se checkea que la carpeta del proyecto tenga todos los elementos
+      necesarios y se hace clic en finish.
+    </p>
+	<p><img src="../images/newFile-paso4.png" alt="Alt" /></p>
+    <p>
+      Sale de nuevo el mensaje de Confirmación de conexión y se hace clic en
+      Yes.
+    </p>
+	<p> <img src="../images/mensajeConfirmacion.png" alt="Alt" /></p>
+    <p>
+      El proyecto aparecerá en la parte izquierda del IDE.
+    </p>
+	<p> <img src="../images/newFile-Fin.png" alt="Alt" /></p>
+    <h4 id="125-visual-studio-code">
+      1.2.5 <strong>Visual Studio Code</strong>
+    </h4>
+
+
+	<!-- ============== GITHUB ================ -->
+	
+    <h2 id="2-github">2. GitHub</h2>
+
+
+	<!-- ============== ENTORNO DE EXPLOTACIÍON ================ -->
+	
+    <h2 id="3entorno-de-explotaci%C3%B3n">3.Entorno de Explotación</h2>
+    <hr />
+    <blockquote>
+      <p>
+        Véronique Grué<br />
+        Curso: 2025/2026<br />
+        2º Curso CFGS Desarrollo de Aplicaciones Web<br />
+        Despliegue de aplicaciones web
+      </p>
+    </blockquote>
+  </body>
+</html>
