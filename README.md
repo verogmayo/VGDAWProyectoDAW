@@ -542,6 +542,47 @@ Está escuchando por TCP/IP en la dirección local
 
 #### 1.1.4 MySQL
 #### 1.1.5 XDebug
+
+##### ⚙️ Instalación y configuración
+
+##### Verifica si Xdebug está instalado
+
+```bash
+sudo php -v | grep xdebug
+```
+
+##### Si no aparece, instalálo:
+```bash
+sudo apt install php8.3-xdebug
+```
+
+Luego se edita el fichero de configuración:
+
+```bash
+sudo nano /etc/php/8.3/fpm/conf.d/20-xdebug.ini
+```
+
+Y añade
+
+```bash
+xdebug.mode=develop,debug
+xdebug.start_with_request=yes
+xdebug.client_host=127.0.0.1
+xdebug.client_port=9003
+xdebug.log=/tmp/xdebug.log
+xdebug.log_level=7
+xdebug.idekey="netbeans-xdebug"
+xdebug.discover_client_host=1
+```
+
+Guarda y reinicia el servidor
+
+```bash
+sudo systemctl restart apache2
+# o si usas php-fpm
+sudo systemctl restart php8.3-fpm
+```
+
 #### 1.1.6 DNS
 #### 1.1.7 SFTP
 #### 1.1.8 Apache Tomcat
@@ -617,4 +658,5 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
