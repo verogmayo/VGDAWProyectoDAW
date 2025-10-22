@@ -1,0 +1,4 @@
+ErrorDocument 404 /VGDAWProyectoDAW/error/404.html
+ErrorDocument 403 /VGDAWProyectoDAW/error/403.html
+ErrorDocument 500 /VGDAWProyectoDAW/error/500.html
+
