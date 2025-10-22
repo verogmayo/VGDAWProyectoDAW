@@ -594,10 +594,13 @@ sudo systemctl restart php8.3-fpm
 ##### **Cuentas administradoras**
 #### 1.2.2 **Navegadores**
 #### 1.2.3 **MobaXterm**
-*Descargar MobaXterm en este enlace : https://mobaxterm.mobatek.net/download.html
+Descargar MobaXterm en este enlace : https://mobaxterm.mobatek.net/download.html
 Para crear una sesión ssh, hacer clic en el botón de session arriba a la izquierda. 
+
 ![Alt](images/moba-crearSesion.png)
+
 Cuando aparezca la ventana, hacer clic en SSH
+
 ![Alt](images/moba-crearSesionSsh.png)
 
 
@@ -611,7 +614,7 @@ Se hace clic en File -> New Project o se hace clic en el pestaña del cuadrado n
 
 ![Alt](images/botonNewProject.png)
 
-En el primer paso de la creación de projyecto, se selecciona PHP en Categories, y PHP Aplicación from Remote Server y se hace clic en Next
+En el primer paso de la creación de proyecto, se selecciona PHP en Categories, y PHP Aplicación from Remote Server y se hace clic en Next
 
 ![Alt](images/newFile-paso1.png)
 
@@ -658,5 +661,6 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
