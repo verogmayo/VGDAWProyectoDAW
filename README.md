@@ -17,7 +17,7 @@
         - [Verficación del servicio](#verficación-del-servicio)
         - [Virtual Hosts](#virtual-hosts)
         - [Permisos y usuarios](#permisos-y-usuarios)
-        - [HTTPS](#Instalación de los certificados)
+        - [HTTPS](#HTTPS)
       - [1.1.3 Ejecución PHP con PHP-FPM](#113-ejecución-php-con-php-fpm)
         - [**Instalación**](#instalación-1)
         - [Ficheros de configuración de PHP para php-fpm:](#ficheros-de-configuración-de-php-para-php-fpm)
@@ -736,6 +736,7 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
 
