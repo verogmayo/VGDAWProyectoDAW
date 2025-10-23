@@ -17,11 +17,12 @@
         - [Verficación del servicio](#verficación-del-servicio)
         - [Virtual Hosts](#virtual-hosts)
         - [Permisos y usuarios](#permisos-y-usuarios)
+        - [HTTPS](#Instalación de los certificados)
       - [1.1.3 Ejecución PHP con PHP-FPM](#113-ejecución-php-con-php-fpm)
-  - [**Instalación**](#instalación-1)
-  - [Ficheros de configuración de PHP para php-fpm:](#ficheros-de-configuración-de-php-para-php-fpm)
-  - [**Configuración de Apache2 con PHP-FPM**](#configuración-de-apache2-con-php-fpm)
-  - [**Comprobación de funcionamiento PHP-FPM**](#comprobación-de-funcionamiento-php-fpm)
+        - [**Instalación**](#instalación-1)
+        - [Ficheros de configuración de PHP para php-fpm:](#ficheros-de-configuración-de-php-para-php-fpm)
+        - [**Configuración de Apache2 con PHP-FPM**](#configuración-de-apache2-con-php-fpm)
+        - [**Comprobación de funcionamiento PHP-FPM**](#comprobación-de-funcionamiento-php-fpm)
       - [1.1.4 MySQL](#114-mysql)
       - [1.1.5 XDebug](#115-xdebug)
       - [1.1.6 DNS](#116-dns)
@@ -373,6 +374,80 @@ sudo chmod -R 775 /var/www/html
 sudo deluser nombreusuario
 ```
 
+##### HTTPS
+Creación de los certificados SSL en apache.
+
+Se actualiza el servidor
+```bash
+sudo apt update
+```
+```bash
+sudo apt upgrade
+```
+Se crea el certificado SSL(Se pueden cambiar el nombre de los ficheros)
+```bash
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-vg-used.key -out /etc/ssl/certs/vg-used.crt
+```
+
+Hay que rellenar la infomracion solicitada
+
+```bash
+Country Name (2 letter code) [AU]:ES
+State or Province Name (full name) [Some-State]:ZAMORA
+Locality Name (eg, city) []:BENAVENTE
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:IES LOS SAUCES
+Organizational Unit Name (eg, section) []:INFORMATICA
+Common Name (e.g. server FQDN or YOUR name) []:vg-used
+Email Address []:veronique.gru@educa.jcyl.es
+```
+
+Se reinicia apache2
+```bash
+sudo systemctl restart apache2 
+```
+
+Se entra en la carpeta /etc/apache2/sites-available/
+```bash
+cd /etc/apache2/sites-available/
+ls
+```
+Se hace una copia del archivo default-ssl.conf
+```bash
+sudo cp default-ssl.conf vg-used.conf
+ls
+```
+Se modifican los nombres de los archivos
+
+```bash
+ #   SSLCertificateFile directive is needed.
+        SSLCertificateFile      /etc/ssl/certs/vg-used.crt
+        SSLCertificateKeyFile   /etc/ssl/private/apache-vg-used.key
+ #   Server Certificate Chain:
+ls
+```
+
+```bash
+sudo a2ensite vg-used.conf
+ls
+```
+ Se reinicia el servicio apache
+```bash
+sudo systemctl restart apache2
+ls
+```
+ Se habilita el puerto 443
+ ```bash
+sudo ufw allow 443
+ls
+```
+
+Se borra el puerto 443 v6
+```bash
+sudo ufw status numbered
+```
+```bash
+sudo ufw delete numeroproceso
+```
 
 #### 1.1.3 Ejecución PHP con PHP-FPM
 
@@ -661,6 +736,7 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
 
