@@ -384,6 +384,10 @@ sudo apt update
 ```bash
 sudo apt upgrade
 ```
+Habilitar el modulo ssl por si no estuviera habilitado
+```bash
+sudo a2enmod ssl
+```
 Se crea el certificado SSL(Se pueden cambiar el nombre de los ficheros)
 ```bash
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-vg-used.key -out /etc/ssl/certs/vg-used.crt
@@ -416,8 +420,11 @@ Se hace una copia del archivo default-ssl.conf
 sudo cp default-ssl.conf vg-used.conf
 ls
 ```
-Se modifican los nombres de los archivos
-
+Se entra en vg-used.conf
+```bash
+sudo nano vg-used.conf
+```
+Se modifican los nombres de los archivos, en el archivo vg-used.conf, del certificado ssl(se indican los que se pusieron al crear el certificado ).
 ```bash
  #   SSLCertificateFile directive is needed.
         SSLCertificateFile      /etc/ssl/certs/vg-used.crt
@@ -428,12 +435,10 @@ ls
 
 ```bash
 sudo a2ensite vg-used.conf
-ls
 ```
  Se reinicia el servicio apache
 ```bash
 sudo systemctl restart apache2
-ls
 ```
  Se habilita el puerto 443
  ```bash
@@ -736,6 +741,7 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
 
