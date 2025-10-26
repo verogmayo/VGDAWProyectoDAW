@@ -621,6 +621,221 @@ listen = 127.0.0.1:9000
 Está escuchando por TCP/IP en la dirección local
 
 #### 1.1.4 MySQL
+##### 📝 Guía de Instalación y Configuración de MySQL en Ubuntu
+
+Esta guía detalla la instalación del servidor MySQL, su aseguramiento y la configuración del módulo PHP necesario para la conexión con el servidor web Apache2.
+
+-----
+
+###### Instalación de MySQL y Apache
+
+  * Actualizar el sistema
+
+<!-- end list -->
+
+```bash
+sudo apt update
+```
+
+  * Instalar las versiones más recientes de los programas.
+
+<!-- end list -->
+
+```bash
+sudo apt upgrade -y
+```
+
+  * Instalar apache2 (si es necesario)
+
+<!-- end list -->
+
+```bash
+sudo apt install apache2 -y
+```
+
+  * Instalar el servidor MySQL
+
+<!-- end list -->
+
+```bash
+sudo apt install mysql-server
+```
+
+  * Verificar el estado del servicio apache2
+
+<!-- end list -->
+
+```bash
+sudo systemctl status apache2
+```
+
+  * Verificar el estado del servicio MySQL
+
+<!-- end list -->
+
+```bash
+sudo systemctl status mysql
+```
+
+  * Mirar si el puerto 80 está abierto, sino hay que abrirlo.
+
+<!-- end list -->
+
+```bash
+sudo ufw status
+```
+
+  * Abrir el puerto MySQL (3306)
+
+<!-- end list -->
+
+```bash
+sudo ufw allow 3306
+```
+  * y quitar el  3306 v6
+```bash
+sudo ufw status numbered
+sudo ufw delete numeroproceso
+```
+
+-----
+
+##### Asegurar la Instalación de MySQL
+
+  * Ejecutar el asistente de configuración de seguridad. Se te pedirá establecer la contraseña de `root` y aplicar restricciones de seguridad.
+
+<!-- end list -->
+
+```bash
+sudo mysql_secure_installation
+```
+
+-----
+
+##### Instalar y Habilitar Módulo PHP
+
+  * Instalar el módulo de PHP para MySQL (Ajustar la versión de PHP, e.g., `php8.3-mysql`)
+
+<!-- end list -->
+
+```bash
+sudo apt install php8.3-mysql
+```
+
+  * Reiniciar Apache
+
+<!-- end list -->
+
+```bash
+sudo systemctl restart apache2
+```
+
+-----
+
+##### Configuración del Usuario y la Base de Datos
+
+  * Entrar al cliente MySQL como `root`
+
+<!-- end list -->
+
+```bash
+sudo mysql
+```
+
+  * **Crear la base de datos `prueba`**
+
+<!-- end list -->
+
+```sql
+CREATE DATABASE prueba;
+```
+
+  * **Crear el usuario `operadorweb`** y concederle todos los privilegios.
+  * La contraseña tiene que tener al menos, 8 caracteres, debe contenter 1 mayuscula y una minuscula, debe incluir al menos un numero, debe incluir al menos un caracter especial. La contraseña no puede contener el nombre del usuario.
+
+<!-- end list -->
+
+```sql
+CREATE USER 'operadorweb'@'%' IDENTIFIED BY 'contrasena';
+GRANT ALL PRIVILEGES ON *.* TO 'operadorweb'@'%';
+FLUSH PRIVILEGES;
+EXIT
+```
+
+  * Para entrar como `operadorweb` (te pedirá la contraseña):
+
+<!-- end list -->
+
+```bash
+mysql -u operadorweb -p
+```
+
+  * **Crear la tabla `alumno`** (Asegúrate de estar dentro de la base de datos: `USE prueba;`)
+
+<!-- end list -->
+
+```sql
+CREATE TABLE IF NOT EXISTS alumno(
+    idAlumno INT PRIMARY KEY,
+    nombre VARCHAR(50),
+    apellidos VARCHAR(100),
+    direccion VARCHAR(200),
+    numTelefono VARCHAR(9),
+    ciudad VARCHAR(50)
+) ENGINE=InnoDB;
+```
+
+  * **Insertar registros de prueba**
+
+<!-- end list -->
+
+```sql
+INSERT INTO alumno (idAlumno, nombre, apellidos, direccion, numTelefono, ciudad)
+VALUES
+(1, 'Juan', 'Pérez López', 'Calle Mayor 12', '600123456', 'Madrid'),
+(2, 'María', 'García Fernández', 'Avenida del Sol 45', '601234567', 'Barcelona'),
+(3, 'Carlos', 'Sánchez Ruiz', 'Plaza Nueva 7', '602345678', 'Sevilla'),
+(4, 'Lucía', 'Martínez Gómez', 'Calle de la Luna 23', '603456789', 'Valencia'),
+(5, 'Ana', 'Torres Jiménez', 'Camino Real 15', '604567890', 'Bilbao');
+```
+
+  * Salir del cliente MySQL
+
+<!-- end list -->
+
+```sql
+EXIT
+```
+
+-----
+
+### Verificar Conexión desde PHP
+
+  * Crear un archivo de prueba en la carpeta web, por ejemplo `/var/www/html/testmysql.php`. **¡No olvides cambiar `'contrasena'` por la contraseña real\!**
+
+<!-- end list -->
+
+```php
+<?php
+$conexion = mysqli_connect('localhost', 'operadorweb', 'contrasena', 'prueba');
+if ($conexion) {
+    echo '✅ Conexión a MySQL exitosa.';
+} else {
+    echo '❌ Error de conexión: ' . mysqli_connect_error();
+}
+?>
+```
+
+  * Abre el navegador y accede a la URL de prueba (sustituye la IP por la de tu servidor).
+
+<!-- end list -->
+
+```
+http://IP/testmysql.php
+```
+
+
+
 #### 1.1.5 XDebug
 
 ##### ⚙️ Instalación y configuración
@@ -741,6 +956,7 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
 
