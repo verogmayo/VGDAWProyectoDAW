@@ -728,17 +728,17 @@ Ejemplo de salida:
 mysql        874  0.0  5.2 1351180 105300 ?      Ssl  10:16   0:01 /usr/sbin/mariadbd
 miadmin     5257  0.0  0.1   9728  2304 pts/0    S+   10:40   0:00 grep --color=auto mariadb
 
-
+```
 
 ###### Ver con consola de MariaDB
 
-Entrar al cliente:
+Se entra al cliente:
 
 ```bash
 sudo mariadb
 ```
 
-Luego ejecuta:
+Luego se ejecuta:
 
 ```sql
 SHOW VARIABLES LIKE 'port';
@@ -795,7 +795,7 @@ mariadb -u adminsql -p -h your_server_ip
 
 ##### Asegurar el servidor MariaDB
 
-Ejecuta el script de seguridad:
+Se ejecuta el script de seguridad:
 
 ```bash
 sudo mysql_secure_installation
@@ -897,7 +897,7 @@ Permite ver qué hace el programa internamente mientras se ejecuta, paso a paso,
 sudo php -v | grep xdebug
 ```
 
-Si no aparece, instálalo:
+Si no aparece, se instala:
 
 ```bash
 sudo apt install php8.3-xdebug
@@ -907,7 +907,7 @@ sudo apt install php8.3-xdebug
 
 ###### Configuración del módulo Xdebug
 
-Edita el archivo de configuración:
+Se edita el archivo de configuración:
 
 ```bash
 sudo nano /etc/php/8.3/fpm/conf.d/20-xdebug.ini
@@ -926,7 +926,7 @@ xdebug.idekey="netbeans-xdebug"
 xdebug.discover_client_host=1
 ```
 
-Guarda los cambios y reinicia el servicio:
+SE guardan los cambios y se reinicia el servicio:
 
 ```bash
 sudo systemctl restart apache2
@@ -1009,7 +1009,15 @@ Cuando aparezca la ventana, hacer clic en SSH
 
 ![Alt](images/moba-crearSesionSsh.png)
 
+Se rellena. El host, es la IP del servidor y se puede indicar el usuario si se quiere, y se le da a OK
+![Alt](images/moba-crearSesionSsh2.png)
 
+Se hace clic en la conexión, que se encuentra  en la parte izquierda.S
+
+![Alt](images/moba-entrarSesionSsh.png)
+
+Aparece la terminal con el usuario, si se ha indicado en la creación, sino habrá que indicar el usuario y la contraseña.
+![Alt](images/moba-entrarSesionSsh2.png)
 
 #### 1.2.4 **Netbeans**
 * Crear un proyecto PHP en Netbeans
@@ -1067,6 +1075,7 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
 
