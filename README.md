@@ -23,7 +23,7 @@
         - [Ficheros de configuración de PHP para php-fpm:](#ficheros-de-configuración-de-php-para-php-fpm)
         - [**Configuración de Apache2 con PHP-FPM**](#configuración-de-apache2-con-php-fpm)
         - [**Comprobación de funcionamiento PHP-FPM**](#comprobación-de-funcionamiento-php-fpm)
-      - [1.1.4 MySQL](#114-mysql)
+      - [1.1.4 MariaDB](#114-mariadb)
       - [1.1.5 XDebug](#115-xdebug)
       - [1.1.6 DNS](#116-dns)
       - [1.1.7 SFTP](#117-sftp)
@@ -620,12 +620,336 @@ listen = 127.0.0.1:9000
 
 Está escuchando por TCP/IP en la dirección local
 
-#### 1.1.4 MySQL
+#### 1.1.4 MariaDB
+
+
+
+# MariaDB
+
+MariaDB es un sistema de gestión de bases de datos relacional (RDBMS), muy similar a MySQL, permitiendo almacenar, organizar y acceder a información mediante el lenguaje **SQL (Structured Query Language)**.  
+Es una alternativa moderna y abierta a MySQL, muy usada en servidores web, aplicaciones empresariales y sistemas en la nube.
+
+
+
+##### Instalación de MariaDB
+
+En consola escribe los siguientes comandos:
+
+```bash
+sudo apt update
+sudo apt install mariadb-server -y
+````
+
+
+
+##### Configurar Acceso Remoto en el fichero de configuración MariaDB(donde está definido el puerto: port=3306)
+
+Esto permitirá conectarse a la base de datos MariaDB desde otros equipos.
+Edita el fichero de configuración:
+
+```bash
+sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
+```
+
+Se localiza la línea:
+
+```bash
+bind-address = 127.0.0.1
+```
+
+Y y se cambia por:
+
+```bash
+bind-address = 0.0.0.0
+```
+
+Esto permite que MariaDB acepte conexiones desde cualquier IP.
+
+Reinicia el servidor MariaDB:
+
+```bash
+sudo systemctl restart mariadb
+```
+
+
+
+##### Comandos útiles del servicio
+
+| Acción                         | Comando                          | Descripción                                                  |
+| ------------------------------ | -------------------------------- | ------------------------------------------------------------ |
+| Iniciar el servicio            | `sudo systemctl start mariadb`   | Inicia el servidor MariaDB.                                  |
+| Detener el servicio            | `sudo systemctl stop mariadb`    | Detiene el servidor MariaDB.                                 |
+| Reiniciar el servicio          | `sudo systemctl restart mariadb` | Reinicia el servidor.                                        |
+| Ver estado del servicio        | `sudo systemctl status mariadb`  | Muestra si el servidor está activo o inactivo.               |
+| Habilitar inicio automático    | `sudo systemctl enable mariadb`  | Configura el servicio para iniciarse al arrancar el sistema. |
+| Deshabilitar inicio automático | `sudo systemctl disable mariadb` | Evita que el servicio se inicie automáticamente.             |
+| Ver versión instalada          | `mariadb --version`              | Muestra la versión actual de MariaDB instalada.              |
+
+
+
+##### Comprobación del puerto usado por el servidor
+
+MariaDB usa el puerto **tcp/3306** por defecto.
+Si el puerto no está abierto, se abre :
+
+ * Se abre el puerto 3306
+```bash
+sudo ufw allow 3306
+```
+* Se borra el puerto 3306 v6
+```bash
+sudo ufw status numbered
+```
+```bash
+sudo ufw delete numeroproceso
+```
+
+###### Usando comandos del sistema
+
+```bash
+sudo ss -punta | grep mariadb
+```
+
+Ejemplo de salida:
+
+```
+tcp   LISTEN 0      80           0.0.0.0:3306       0.0.0.0:*     users:(("mariadbd",pid=874,fd=24))
+
+```
+
+Otros comando util: Listar los procesos en ejecución relacionados con MariaDB.
+
+```bash
+sudo ps -aux | grep mariadb
+```
+Ejemplo de salida:
+
+```
+mysql        874  0.0  5.2 1351180 105300 ?      Ssl  10:16   0:01 /usr/sbin/mariadbd
+miadmin     5257  0.0  0.1   9728  2304 pts/0    S+   10:40   0:00 grep --color=auto mariadb
+
+
+
+###### Ver con consola de MariaDB
+
+Entrar al cliente:
+
+```bash
+sudo mariadb
+```
+
+Luego ejecuta:
+
+```sql
+SHOW VARIABLES LIKE 'port';
+```
+
+Resultado esperado:
+
+| Variable_name | Value |
+| ------------- | ----- |
+| port          | 3306  |
+
+
+
+##### Creación de un usuario administrador con contraseña
+
+En sistemas Ubuntu con MariaDB 10.3, el usuario **root** se autentica mediante el complemento **unix_socket** por defecto, en lugar de una contraseña.
+Esto ofrece mayor seguridad, pero puede complicar el acceso desde programas externos (p. ej., phpMyAdmin).
+
+> **No se recomienda modificar la cuenta root.**
+> En su lugar, crea una cuenta administrativa independiente para autenticación con contraseña.
+
+Se abre el cliente de MariaDB:
+
+```bash
+sudo mariadb
+```
+
+Luego se crea un nuevo usuario con privilegios de root:
+
+```sql
+CREATE USER 'adminsql'@'%' IDENTIFIED BY 'paso';
+GRANT ALL ON *.* TO 'adminsql'@'%' WITH GRANT OPTION;
+```
+
+O también se puede usar:
+
+```sql
+GRANT ALL ON *.* TO 'adminsql'@'%' IDENTIFIED BY 'paso' WITH GRANT OPTION;
+```
+
+ Se puede listar todos los usuarios y sus hosts:
+
+```sql
+SELECT User, Host FROM mysql.user;
+```
+
+Conectarse de forma remota con el nuevo usuario: (fuera del cliente MariaDB)
+
+```bash
+mariadb -u adminsql -p -h your_server_ip
+```
+
+---
+
+##### Asegurar el servidor MariaDB
+
+Ejecuta el script de seguridad:
+
+```bash
+sudo mysql_secure_installation
+```
+
+Este asistente te permitirá:
+
+* Configurar una contraseña fuerte para root.
+* Eliminar usuarios anónimos.
+* Deshabilitar el inicio de sesión remoto del root.
+* Eliminar bases de datos de prueba.
+* Recargar las tablas de privilegios.
+
+###### Pasos del asistente
+
+1. Pulsa **Enter** si no hay contraseña de root definida.
+2. Define una **contraseña segura** para el usuario root.
+3. Elimina el usuario anónimo (**Sí**).
+4. Desactiva el acceso remoto del usuario root (**Sí**).
+5. Elimina la base de datos de prueba (**Sí**).
+6. Recarga los privilegios (**Sí**).
+
+![Alt](images/asistenteSeguridadMariaDB1.png)
+![Alt](images/asistenteSeguridadMariaDB2.png)
+
+
+
+#### 1.6 Módulos PHP
+
+##### a) `php8.3-mysql`
+
+El módulo **php8.3-mysql** es la extensión que permite a PHP conectarse y comunicarse con servidores de bases de datos **MySQL** o **MariaDB**.  
+Sin este módulo, PHP no puede ejecutar consultas SQL, ni leer ni escribir datos en su base de datos.
+
+###### Instalación del módulo y reinicio del servicio PHP-FPM
+
+```bash
+sudo apt install php8.3-mysql
+sudo systemctl restart php8.3-fpm
+````
+
+###### Comparativa de módulos
+
+| Módulo          | Propósito                                                        | Estado actual          |
+| --------------- | ---------------------------------------------------------------- | ---------------------- |
+| `php-mysql`     | Módulo antiguo (mezclaba `mysql` y `mysqli`)                     | ❌ Obsoleto desde PHP 7 |
+| `php-mysqli`    | Extensión mejorada orientada a MySQL/MariaDB                     | ✅ Activa y recomendada |
+| `php-pdo-mysql` | Permite conexión vía PDO (interfaz orientada a objetos y segura) | ✅ Activa y recomendada |
+
+###### Mostrar qué extensiones están instaladas
+
+```bash
+sudo php -m | grep mysql
+```
+
+
+##### b) `php8.3-intl`
+
+La extensión **php8.3-intl** (Internationalization) está basada en la biblioteca **ICU (International Components for Unicode)**.
+Permite que PHP muestre información adaptada a la región e idioma sin configuraciones manuales.
+
+######Instalación
+
+```bash
+sudo apt install php8.3-intl
+```
+
+###### Funciones principales
+
+| Funcionalidad                           | Descripción                                                              | Ejemplo                                                |
+| --------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------ |
+| **Formateo de fechas y horas**          | Muestra las fechas según idioma o país                                   | `27 de octubre de 2025 (es)` / `October 27, 2025 (en)` |
+| **Formateo de números**                 | Usa separadores decimales y de miles según la región                     | `1.220,66 (es_ES)` / `1,220.66 (en_US)`                |
+| **Monedas**                             | Formatea precios automáticamente según el país                           | `€ 1.200,50` / `$ 1,200.50`                            |
+| **Traducción y comparación de cadenas** | Ordena y compara texto con reglas locales                                | Útil para ordenar palabras con acentos                 |
+| **Normalización Unicode**               | Asegura que caracteres acentuados o especiales se comparen correctamente | Útil para búsquedas y validaciones                     |
+
+
+
+#####  `XDebug`
+
+**Xdebug** es una extensión de PHP diseñada para ayudar en la **depuración (debugging)** y el **análisis de rendimiento (profiling)** del código PHP.
+Permite ver qué hace el programa internamente mientras se ejecuta, paso a paso, y medir su rendimiento.
+
+###### Funciones principales
+
+* 🐞 Depurador paso a paso (*step debugging*)
+
+  * Permite pausar la ejecución del script en cualquier punto (*breakpoint*).
+  * Permite inspeccionar variables, pilas de llamadas (*call stack*) y expresiones.
+  * Se puede usar junto a IDEs como **VSCode**, **NetBeans**, **PhpStorm**, etc.
+  * Comunicación mediante el protocolo **DBGp** (puerto 9003).
+
+---
+
+###### Verificar si está instalado
+
+```bash
+sudo php -v | grep xdebug
+```
+
+Si no aparece, instálalo:
+
+```bash
+sudo apt install php8.3-xdebug
+```
+
+---
+
+###### Configuración del módulo Xdebug
+
+Edita el archivo de configuración:
+
+```bash
+sudo nano /etc/php/8.3/fpm/conf.d/20-xdebug.ini
+```
+
+Agrega las siguientes líneas:
+
+```ini
+xdebug.mode=develop,debug
+xdebug.start_with_request=yes
+xdebug.client_host=127.0.0.1
+xdebug.client_port=9003
+xdebug.log=/tmp/xdebug.log
+xdebug.log_level=7
+xdebug.idekey="netbeans-xdebug"
+xdebug.discover_client_host=1
+```
+
+Guarda los cambios y reinicia el servicio:
+
+```bash
+sudo systemctl restart apache2
+# o si usas php-fpm
+sudo systemctl restart php8.3-fpm
+```
+
+---
+
+###### Permisos para los logs
+
+```bash
+sudo touch /tmp/xdebug.log
+sudo chmod 666 /tmp/xdebug.log
+sudo chown root:root /tmp/xdebug.log
+```
+
+
 
 
 #### 1.1.5 XDebug
 
-##### ⚙️ Instalación y configuración
+##### Instalación y configuración
 
 ##### Verifica si Xdebug está instalado
 
@@ -743,6 +1067,7 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
 
