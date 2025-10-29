@@ -1012,7 +1012,7 @@ Cuando aparezca la ventana, hacer clic en SSH
 Se rellena. El host, es la IP del servidor y se puede indicar el usuario si se quiere, y se le da a OK
 ![Alt](images/moba-crearSesionSsh2.png)
 
-Se hace clic en la conexión, que se encuentra  en la parte izquierda.S
+Se hace clic en la conexión, que se encuentra  en la parte izquierda.
 
 ![Alt](images/moba-entrarSesionSsh.png)
 
@@ -1075,6 +1075,7 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
 
