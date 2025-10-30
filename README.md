@@ -13,7 +13,7 @@
         - [**Habilitar cortafuegos**](#habilitar-cortafuegos)
         - [**Instalar Antivirus**](#instalar-antivirus)
         - [**Comprobar conexión**](#comprobar-conexión)
-      - [1.1.2 Instalación del servidor web](#112-instalación-del-servidor-web)
+      - [1.1.2 Instalación del servidor Apache HTTP](#112-instalación-del-servidor-apache-http)
         - [Instalación](#instalación)
         - [Verficación del servicio](#verficación-del-servicio)
         - [Virtual Hosts](#virtual-hosts)
@@ -1122,6 +1122,7 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
 
