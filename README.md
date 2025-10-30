@@ -11,6 +11,7 @@
         - [**Configuración fecha y hora**](#configuración-fecha-y-hora)
         - [**Cuentas administradoras**](#cuentas-administradoras)
         - [**Habilitar cortafuegos**](#habilitar-cortafuegos)
+        - [**Instalar Antivirus**](#instalar-antivirus)
         - [**Comprobar conexión**](#comprobar-conexión)
       - [1.1.2 Instalación del servidor web](#112-instalación-del-servidor-web)
         - [Instalación](#instalación)
@@ -236,6 +237,52 @@ sudo ufw delete numdeproceso
 ```bash
 sudo ufw status
 ```
+
+##### **Instalar Antivirus**
+
+Se actualiza el servidor
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+Se intala el clamav
+
+```bash
+sudo apt install clamav clamav-daemon -y
+```
+Se actualiza la base de datos del virus:
+Pimero se detiene el servicio
+```bash
+sudo systemctl stop clamav-freshclam
+```
+
+y se actualiza la base de datos manualmente
+```bash
+sudo freshclam
+```
+
+Se inicia y habilita para el arranque automatico
+```bash
+sudo systemctl start clamav-freshclam
+sudo systemctl enable clamav-freshclam
+```
+
+Se verifica el servicio de actualización de definiciones de virus esté activo:
+```bash
+systemctl status clamav-freshclam
+```
+
+
+Para escanear un archivo o directorio
+Escanea un directorio
+```bash
+sudo clamscan -i /home/
+```
+Escanea un archivo
+```bash
+sudo clamscan /home/file.sh
+```
+
 
 ##### **Comprobar conexión**
 * Se hace ping del anfitrion al servidor. En el cmd del anfitrion.
@@ -1075,6 +1122,7 @@ El proyecto aparecerá en la parte izquierda del IDE.
 > Curso: 2025/2026  
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
+
 
 
 
