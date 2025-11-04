@@ -1,10 +1,10 @@
 # CFGS Desarrollo de Aplicaciones Web
 
 - [3 Git y GitHub](#3-git-y-github)
-      - [3.1 **Git**](#3.1-git)
+    - [3.1 **Git**](#3.1-git)
         - [**Descarga e Instalación**](#descarga-e-instalacion)
         - [**Inicialización y Configuración**](#inicializacion-y-configuracion)
-      - [3.2 **Git Hub**](#3.2-github)
+    - [3.2 **Git Hub**](#3.2-github)
       
 
 ## 3-Git-y-GitHub
@@ -23,7 +23,7 @@
 
 ---
 
-####️# 2. Instalar Git
+##### 2. Instalar Git
 
 1. Se ejecuta el instalador descargado.
 2. Se acepta los términos de licencia y se siguen los pasos recomendados:
@@ -42,7 +42,7 @@
 
 ---
 
-####️# 3. Verificar la instalación
+##### 3. Verificar la instalación
 
  Se abre **Símbolo del sistema (CMD)**, **PowerShell**, **GitBash** o la **terminal de VS Code** y se ejecuta:
 
@@ -58,7 +58,7 @@ git version 2.47.1.windows.1
 ---
 #### **Inicialización y Configuración**
 
-####️# 1. Inicialización
+##### 1. Inicialización 
 Se abre el editor de texto dentro de la carpeta del proyecto y se inicializa git.
 ```bash
 git init
@@ -68,7 +68,7 @@ Tambien se puede clonar de un repositorio de github
   ```bash
   git clone <URL>
   ```
-####️# 2. Nombre y email
+##### 2. Nombre y email 
 Se debe de configurar git con un nombre y un correo
 Estos datos se asocian a los *commits*:
 
@@ -81,7 +81,7 @@ git config --global user.email "email@ejemplo.com"
 
 ---
 
-####️# 3. Configurar el editor de texto (opcional)
+##### 3. Configurar el editor de texto (opcional) 
 
 
 ```bash
@@ -89,7 +89,7 @@ git config --global core.editor "editorDeTexto"
 ```
 
 ---
-####️# 4. Verificar la configuración
+##### 4. Verificar la configuración 
 
 ```bash
 git config --list
@@ -98,4 +98,3 @@ git config --list
 
 
 ## 3.2  **GitHub**
-
