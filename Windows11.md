@@ -1,5 +1,5 @@
 - [CFGS Desarrollo de Aplicaciones Web](#cfgs-desarrollo-de-aplicaciones-web)
-   - [2 Windows 11](#12-windows-11)
+   - [2 Windows 11](#2-windows-11)
       - [2.1 **Configuración inicial**](#121-configuración-inicial)
         - [**Nombre y configuración de red**](#nombre-y-configuración-de-red)
         - [**Cuentas administradoras**](#cuentas-administradoras-1)
