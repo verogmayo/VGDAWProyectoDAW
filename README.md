@@ -16,17 +16,3 @@
 > 2º Curso CFGS Desarrollo de Aplicaciones Web  
 > Despliegue de aplicaciones web
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
