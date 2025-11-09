@@ -2,7 +2,7 @@
   - [1. Entorno de Desarrollo](#1-entorno-de-desarrollo)
     - [1.1 Ubuntu Server 24.04.3 LTS](#11-ubuntu-server-24043-lts)
       - [1.1.1 **Configuración inicial**](#111-configuración-inicial)
-        - [Nombre y configuraicón de red](#nombre-y-configuraicón-de-red)
+        - [Nombre y configuración de red](#nombre-y-configuraicón-de-red)
         - [**Actualizar el sistema**](#actualizar-el-sistema)
         - [**Configuración fecha y hora**](#configuración-fecha-y-hora)
         - [**Cuentas administradoras**](#cuentas-administradoras)
@@ -57,6 +57,11 @@ Para saber que sistema operativo se tiene.
 uname -a
 ```
 
+Para saber la versión,
+```bash
+lsb_release -a
+```
+
 * Para cambiar el nombre de la maquina si fuera necesario. 
   Primero se mira el nombre actual.
 ```bash
@@ -82,6 +87,10 @@ ip a
 * Para ver la tabla de enrutamiento.
 ```bash
 ip r
+```
+* Para saber el DNS del servidor.
+```bash
+resolvectl status
 ```
 
 * Para comprobar las particiones: 
@@ -111,6 +120,8 @@ fdisk -l
 ```
 
 
+
+
 Editar el fichero de configuración del interface de red  **/etc/netplan**,
 * Para configurar la red de interface:
   Se hace una copia de seguridad del archivo de configuración que se encuentra en /etc/netplan. 
@@ -122,8 +133,12 @@ sudo cp 50-cloud-init.yaml 50-cloud-init.yaml.backup
 sudo mv 50-cloud-init.yaml enp0s3.yaml
 ```
 
+* Y se edita el fichero /etc/netplan
 ```bash
+sudo mv 50-cloud-init.yaml enp0s3.yaml
+```
 
+```bash
 # This is the network config written by 'subiquity'
 network:
   ethernets:
@@ -140,6 +155,7 @@ network:
          search: [educa.jcyl.es]
   version: 2
 ````
+
 * Para aplicar la configuración
 ```bash
 sudo netplan apply
@@ -183,18 +199,17 @@ sudo useradd -m -G sudo,adm,cdrom,dip,plugdev,lxd -s/bin/bash nombreUsuario
 ```bash
 cat /etc/group | grep miadmin
 ```
-* Para quitar o poner permisos
+* Para ver los usuarios, y saber su carpeta shell (grep es para filtrar)
 ```bash
-cat /etc/passwd | grep miadmin
+cat /etc/passwd | grep nombreUsuario
 ```
-* Para saber la carpeta shell de un usuario, por ejemplo miadmin.
-```bash
-cat /etc/passwd | grep miadmin
-```
-* Para crear una usuario con una shell concreta
+
+* Para crear un usuario con una shell concreta
 ```bash
 sudo usermod -s /bin/bash miadmin
 ```
+
+
 ##### **Habilitar cortafuegos**
 
 como activar cortafuegos
@@ -207,10 +222,16 @@ sudo ufw enable
 sudo ufw disable
 ```
 
+* Para ver los puertos y su estado
+```bash
+sudo ufw status
+```
+
 * Para activar el puerto 22
 ```bash
 sudo ufw allow 22
 ```
+
 * Para borrar puertos 
   primero hay que saber cual es el numero de proceso de puerto
 ```bash
@@ -220,10 +241,7 @@ sudo ufw status numbered
 ```bash
 sudo ufw delete numdeproceso
 ```
-* Para ver el status de cortafuergos
-```bash
-sudo ufw status
-```
+
 
 ##### **Instalar Antivirus**
 
@@ -232,11 +250,12 @@ Se actualiza el servidor
 sudo apt update && sudo apt upgrade -y
 ```
 
-Se intala el clamav
+Se intala el antivirus clamav
 
 ```bash
 sudo apt install clamav clamav-daemon -y
 ```
+
 Se actualiza la base de datos del virus:
 Pimero se detiene el servicio
 ```bash
@@ -270,6 +289,10 @@ Escanea un archivo
 sudo clamscan /home/file.sh
 ```
 
+Para saber la version del antivirus
+```bash
+clamscan --version
+```
 
 ##### **Comprobar conexión**
 * Se hace ping del anfitrion al servidor. En el cmd del anfitrion.
@@ -318,7 +341,7 @@ sudo ufw status numbered
 sudo ufw delete numeroproceso
 ```
 
-* Se crea un directorio de errores. Y hay que indicarlo en el 000-default
+* Se crea un directorio de errores. Y hay que indicarlo en el /etc/apache2/sites-availables/000-default
 ErrorLog /var/www/html/error/error.log
 
 ![Alt](images/apache2000DefaultError.png)
@@ -427,7 +450,7 @@ Se crea el certificado SSL(Se pueden cambiar el nombre de los ficheros)
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-vg-used.key -out /etc/ssl/certs/vg-used.crt
 ```
 
-Hay que rellenar la infomracion solicitada
+Hay que rellenar la información solicitada
 
 ```bash
 Country Name (2 letter code) [AU]:ES
@@ -487,6 +510,14 @@ sudo ufw status numbered
 ```bash
 sudo ufw delete numeroproceso
 ```
+
+##### HTTP A HTTPS
+Para redireccionar apache HTTP a HTTPS hay que editar el fichero /etc/apache2/sites-available/000-default.conf
+Se añade la linea : Redirect y la url a la que se quiere redireccionar.
+```bash
+sudo nano /etc/apache2/sites-available/000-default.conf
+```
+![Alt](images/httpRedirecionado.png)
 
 #### 1.1.3 Ejecución PHP con PHP-FPM
 

@@ -3,17 +3,17 @@
 # ==========================================
 
 # Archivos y carpetas de NetBeans
-/nbproject/private/
-/nbproject/Makefile-*.mk
-/nbproject/Package-*.bash
-/nbproject/configurations.xml
-/nbproject/project.properties
-/nbproject/project.xml.backup
+#/nbproject/private/
+#/nbproject/Makefile-*.mk
+#/nbproject/Package-*.bash
+#/nbproject/configurations.xml
+#/nbproject/project.properties
+#/nbproject/project.xml.backup
 
 # Si quieres ignorar TODO el directorio nbproject excepto el project.xml,
 # (útil cuando quieres compartir solo la configuración básica del proyecto)
 # descomenta las siguientes líneas:
-# /nbproject/*
+ /nbproject/*
 # !/nbproject/project.xml
 
 # ==========================================
@@ -22,9 +22,9 @@
 
 
 # Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
+#Thumbs.db
+#ehthumbs.db
+#Desktop.ini
 
 
 # ==========================================
@@ -32,8 +32,8 @@ Desktop.ini
 # ==========================================
 
 # Composer
-/vendor/
-/composer.lock
+#/vendor/
+#/composer.lock
 # (si quieres versionar composer.lock, coméntalo)
 
 # ==========================================
@@ -41,28 +41,28 @@ Desktop.ini
 # ==========================================
 
 # Logs
-*.log
+#*.log
 
 # Cachés de PHP
-.cache/
-tmp/
-temp/
-*.tmp
+#.cache/
+#tmp/
+#temp/
+#*.tmp
 
 # Sesiones, uploads o archivos generados
-/session/
-uploads/
-.cache/
-*.bak
+#/session/
+#uploads/
+#.cache/
+#*.bak
 
 # ==========================================
 # Configuración del entorno local
 # ==========================================
 
 # Archivos de entorno o configuración sensible
-.env
-.env.local
-.env.*.local
+#.env
+#.env.local
+#.env.*.local
 
 # Configuración del IDE
 .idea/
@@ -74,17 +74,17 @@ uploads/
 # Cobertura de tests (PHPUnit, etc.)
 # ==========================================
 
-/coverage/
-/build/
-/reports/
+#/coverage/
+#/build/
+#/reports/
 
 # ==========================================
 # Otros archivos no deseados
 # ==========================================
 
 # Archivos de respaldo y swap
-*.swp
-*.swo
-*.bak
-*.orig
+#*.swp
+#*.swo
+#*.bak
+#*.orig
 
