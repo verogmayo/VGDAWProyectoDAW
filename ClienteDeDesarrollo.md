@@ -1,18 +1,24 @@
-- [CFGS Desarrollo de Aplicaciones Web](#cfgs-desarrollo-de-aplicaciones-web)
-   - [2 Windows 11](#2-windows-11)
-      - [2.1 **Configuración inicial**](#121-configuración-inicial)
-        - [**Nombre y configuración de red**](#nombre-y-configuración-de-red)
-        - [**Cuentas administradoras**](#cuentas-administradoras-1)
-      - [2.2 **Navegadores**](#122-navegadores)
-      - [2.3 **MobaXterm**](#123-mobaxterm)
-      - [2.4 **Netbeans**](#124-netbeans)
-      - [2.5 **Visual Studio Code**](#125-visual-studio-code)
+# CLIENTE DE DESARROLLO
+|  DAW/DWES Tema2 |
+|:-----------:|
+|![Alt](images/portada.jpg)|
+| INSTALACIÓN, CONFIGURACIÓN Y DOCUMENTACIÓN DEL CLIENTE DE DESARROLLO |
 
-### 2 Windows 11
+
+- [CLIENTE DE DESARROLLO](#cliente-de-desarrollo)
+    - [Windows 11](#windows-11)
+      - [2.1 **Configuración inicial**](#21-configuración-inicial)
+      - [2.2 **Navegadores**](#22-navegadores)
+      - [2.3 **MobaXterm**](#23-mobaxterm)
+      - [2.4 **Netbeans**](#24-netbeans)
+      - [2.5 **Visual Studio Code**](#25-visual-studio-code)
+
+### Windows 11
 #### 2.1 **Configuración inicial**
-##### **Nombre y configuración de red**
-##### **Cuentas administradoras**
+
 #### 2.2 **Navegadores**
+
+
 #### 2.3 **MobaXterm**
 Descargar MobaXterm en este enlace : https://mobaxterm.mobatek.net/download.html
 Para crear una sesión ssh, hacer clic en el botón de session arriba a la izquierda. 
