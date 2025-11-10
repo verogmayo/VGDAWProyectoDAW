@@ -1,8 +1,8 @@
 # SERVIDOR DE DESARROLLO
-|  DAW/DWES Tema2 |
+|  |
 |:-----------:|
 |![Alt](images/portada.jpg)|
-| INSTALACIÓN, CONFIGURACIÓN Y DOCUMENTACIÓN DE ENTORNO DE DESARROLLO Y DEL ENTORNO DE EXPLOTACIÓN |
+| INSTALACIÓN, CONFIGURACIÓN Y DOCUMENTACIÓN DEL SERVIDOR DE DESARROLLO |
 
 
 - [SERVIDOR DE DESARROLLO](#servidor-de-desarrollo)
@@ -31,6 +31,7 @@
     - [Instalación y Configuración de MariaDB](#instalación-y-configuración-de-mariadb)
     - [Consola de MariaDB](#consola-de-mariadb)
     - [Creación de un usuario administrador](#creación-de-un-usuario-administrador)
+  - [1.5 PHPMyadmin](#15-phpmyadmin)
   - [1.6 Módulos PHP](#16-módulos-php)
     - [a) `php8.3-mysql`](#a-php83-mysql)
       - [Instalación del módulo y reinicio del servicio PHP-FPM](#instalación-del-módulo-y-reinicio-del-servicio-php-fpm)
@@ -135,6 +136,7 @@ Editar el fichero de configuración del interface de red  **/etc/netplan**,
 * Para configurar la red de interface:
   Se hace una copia de seguridad del archivo de configuración que se encuentra en /etc/netplan. 
 ```bash
+cd /etc/netplan
 sudo cp 50-cloud-init.yaml 50-cloud-init.yaml.backup
 ```
 * Para cambiar el nombre del archivo
@@ -143,9 +145,7 @@ sudo mv 50-cloud-init.yaml enp0s3.yaml
 ```
 
 * Y se edita el fichero /etc/netplan
-```bash
-sudo mv 50-cloud-init.yaml enp0s3.yaml
-```
+
 
 ```bash
 # This is the network config written by 'subiquity'
@@ -254,7 +254,8 @@ sudo ufw delete numdeproceso
 
 Se actualiza el servidor
 ```bash
-sudo apt update && sudo apt upgrade -y
+sudo apt update
+sudo apt upgrade -y
 ```
 
 Se intala el antivirus clamav
@@ -348,7 +349,22 @@ sudo ufw status numbered
 sudo ufw delete numeroproceso
 ```
 
-* Se crea un directorio de errores. Y hay que indicarlo en el /etc/apache2/sites-availables/000-default
+* Se crea un directorio de errores. 
+
+```bash
+sudo mkdir /var/www/html/error
+sudo touch /var/www/html/error/error.log
+```
+* Y hay que indicarlo en el /etc/apache2/sites-available/000-default, ya antes haremos una copia por si surje algún imprevisto. 
+```bash
+sudo cp 000-default.conf 000-default.conf.backup
+```
+
+```bash
+sudo nano /etc/apache2/sites-available/000-default.conf
+```
+
+
 ErrorLog /var/www/html/error/error.log
 
 ![Alt](images/apache2000DefaultError.png)
@@ -477,9 +493,9 @@ cd /etc/apache2/sites-available/
 ```
 Se hace una copia del archivo default-ssl.conf
 ```bash
-sudo cp default-ssl.conf vg-used.conf
+sudo cp default-ssl.conf vg-used-ssl.conf
 ```
-Se entra en vg-used.conf
+Se entra en vg-used-ssl.conf
 ```bash
 sudo nano vg-used.conf
 ```
@@ -728,7 +744,7 @@ Luego se crea un nuevo usuario con privilegios de root:
 
 ```sql
 CREATE USER 'adminsql'@'%' IDENTIFIED BY 'paso';
-GRANT ALL ON *.* TO 'adminsql'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'adminsql'@'%' WITH GRANT OPTION;
 ```
 
 O también se puede usar:
@@ -780,6 +796,42 @@ Este asistente te permitirá:
 
 ![Alt](images/asistenteSeguridadMariaDB2.png)
 
+
+## 1.5 PHPMyadmin
+* Se actualiza el servidor
+```bash
+sudo apt update
+sudo apt upgrade
+````
+* Se instala phpMyadmin
+```bash
+sudo apt install phpmyadmin
+````
+* Se abre la consola de instalación
+Se selcciona apache como servidor web, con la barra espaciadora y se mueve el cursor con las flechas y con tab hacia el Ok.
+![alt text](images/phpmyadminConf1.png)
+
+Se confirma la base de datos selecionando YES
+![alt text](images/phpmiadminConf2.png)
+
+Se indica la contraseña
+![alt text](images/phpmiadminConf3.png)
+
+Se confirma la contraseña
+![alt text](images/phpmiadminConf4.png)
+
+* Se crea un enlace simbolico de phpMyadmin a Apache
+```bash
+sudo ln -sf /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
+````
+* Se habilita la configuración de phpmyadmin
+```bash
+sudo a2enconf phpmyadmin
+````
+* Se hace el restar a Apache
+```bash
+sudo systemctl restart apache2
+````
 
 ## 1.6 Módulos PHP
 

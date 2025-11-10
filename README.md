@@ -1,5 +1,9 @@
 
 # CFGS Desarrollo de Aplicaciones Web
+| DAW/DWES Tema2 |
+|:-----------:|
+|![Alt](images/portada.jpg)|
+| INSTALACIÓN, CONFIGURACIÓN Y DOCUMENTACIÓN DE ENTORNO DE DESARROLLO Y DEL ENTORNO DE EXPLOTACIÓN |
 
 
   - [1. Servidor de Desarrollo](ServidorDeDesarrollo.md)
