@@ -1,11 +1,15 @@
 
 # CFGS Desarrollo de Aplicaciones Web
+| DAW/DWES Tema2 |
+|:-----------:|
+|![Alt](images/portada.jpg)|
+| INSTALACIÓN, CONFIGURACIÓN Y DOCUMENTACIÓN DE ENTORNO DE DESARROLLO Y DEL ENTORNO DE EXPLOTACIÓN |
 
 
-  - [1. Entorno de Desarrollo](EntornoDeDesarrollo.md)
-  - [2. Windows 11](Windows11.md)
+  - [1. Servidor de Desarrollo](ServidorDeDesarrollo.md)
+  - [2. Cliente de desarrollo](ClienteDeDesarrollo.md)
   - [3. Git y GitHub](Git.md)
-  - [4.Entorno de Explotación](EntornoDeExplotacion.md)
+  - [4. Entorno de Explotación](EntornoDeExplotacion.md)
 
 
 
