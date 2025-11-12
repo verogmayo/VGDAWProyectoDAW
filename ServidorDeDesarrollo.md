@@ -1,3 +1,5 @@
+[Volver al menu principal](README.md)
+
 # SERVIDOR DE DESARROLLO
 |  |
 |:-----------:|
@@ -202,7 +204,7 @@ timedatectl set-timezone Europe/Madrid
 sudo useradd miadmin2
 sudo usermod -aG sudo miadmin2
 ```
-* Pra crear un usuario que pertenezca a varios grupos
+* Para crear un usuario que pertenezca a varios grupos
 ```bash
 sudo useradd -m -G sudo,adm,cdrom,dip,plugdev,lxd -s/bin/bash nombreUsuario
 ```

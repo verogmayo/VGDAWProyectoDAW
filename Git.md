@@ -1,11 +1,22 @@
+[Volver al menu principal](README.md)
+
 # CFGS Desarrollo de Aplicaciones Web
 
-- [3 Git y GitHub](#3-git-y-github)
-    - [3.1 **Git**](#3.1-git)
-        - [**Descarga e Instalación**](#descarga-e-instalacion)
-        - [**Inicialización y Configuración**](#inicializacion-y-configuracion)
-    - [3.2 **Git Hub**](#3.2-github)
-      
+- [CFGS Desarrollo de Aplicaciones Web](#cfgs-desarrollo-de-aplicaciones-web)
+  - [3-Git-y-GitHub](#3-git-y-github)
+    - [3.1 **Git**](#31-git)
+      - [**Descarga e Instalación**](#descarga-e-instalación)
+        - [1. Descargar Git](#1-descargar-git)
+        - [2. Instalar Git](#2-instalar-git)
+        - [3. Verificar la instalación](#3-verificar-la-instalación)
+      - [**Inicialización y Configuración**](#inicialización-y-configuración)
+        - [1. Inicialización](#1-inicialización)
+        - [2. Nombre y email](#2-nombre-y-email)
+        - [3. Configurar el editor de texto (opcional)](#3-configurar-el-editor-de-texto-opcional)
+        - [4. Verificar la configuración](#4-verificar-la-configuración)
+        - [5. Merge con "ola"](#5-merge-con-ola)
+  - [3.2  **GitHub**](#32--github)
+    - [Crear un repositorio](#crear-un-repositorio)
 
 ## 3-Git-y-GitHub
 
@@ -97,9 +108,7 @@ git config --list
 ---
 
 
-## 3.2  **GitHub**
-
-### Merge con "ola"
+##### 5. Merge con "ola"
 
 * Primero se hace el merge de developerVG a master --no--ff
  ```bash
@@ -131,3 +140,18 @@ git merge master --ff
 # Subir a GitHub
 git push origin developerVG
 ```
+
+## 3.2  **GitHub**
+
+### Crear un repositorio
+* Para crear un repositorio en gitHub se hace clic en el icono que está arriba a la derecha y se elije Repositories.
+
+![alt text](images/githubCrearRepo.png)
+
+* Se hace clic en new, arriba a  la derecha
+
+![alt text](images/githubCrearRepo2.png)
+
+* Se indica un nombre para el repositorio y si no se necesita nada mas, se puede hacer clic en Creat Repository
+
+![alt text](images/githubCrearRepo3.png)
