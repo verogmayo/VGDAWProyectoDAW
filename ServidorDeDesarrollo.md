@@ -1,3 +1,5 @@
+[Volver al menu principal](README.md)
+
 # SERVIDOR DE DESARROLLO
 |  |
 |:-----------:|
@@ -200,7 +202,7 @@ timedatectl set-timezone Europe/Madrid
 sudo useradd miadmin2
 sudo usermod -aG sudo miadmin2
 ```
-* Pra crear un usuario que pertenezca a varios grupos
+* Para crear un usuario que pertenezca a varios grupos
 ```bash
 sudo useradd -m -G sudo,adm,cdrom,dip,plugdev,lxd -s/bin/bash nombreUsuario
 ```
@@ -529,12 +531,31 @@ sudo ufw delete numeroproceso
 ```
 
 ### HTTP A HTTPS
-Para redireccionar apache HTTP a HTTPS hay que editar el fichero /etc/apache2/sites-available/000-default.conf
+Para redireccionar apache HTTP a HTTPS hay que 
+* Activar el modulo alias
+```bash
+sudo a2enmod alias
+```
+* Recargar Apache
+```bash
+sudo systemctl reload apache2
+```
+* Editar el fichero /etc/apache2/sites-available/000-default.conf
 Se añade la linea : Redirect y la url a la que se quiere redireccionar.
 ```bash
 sudo nano /etc/apache2/sites-available/000-default.conf
 ```
 ![Alt](images/httpRedireccionado.png)
+
+* Recargar Apache
+```bash
+sudo systemctl reload apache2
+```
+* Se verifica el estado
+```bash
+sudo apache2ctl configtest
+```
+Debe mostrar : Syntax OK
 
 
 ## 1.3 Ejecución PHP con PHP-FPM
