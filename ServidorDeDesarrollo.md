@@ -43,6 +43,8 @@
       - [Funciones principales](#funciones-principales)
   - [1.5 XDebug](#15-xdebug)
   - [1.6 DNS](#16-dns)
+    - [En Plesk](#en-plesk)
+    - [En el servidor](#en-el-servidor)
   - [1.7 SFTP](#17-sftp)
   - [1.8 LDAP](#18-ldap)
 
@@ -966,6 +968,42 @@ sudo chown root:root /tmp/xdebug.log
 ```
 
 ## 1.6 DNS
+Redireccion por DNS
+### En Plesk 
+* Se va a Sitios web y dominios y en la parte central vamos a la pestaña y hacemos clic en hosting y DNS
+![alt text](images/dnsPlesk.png)
+
+* Se hace clic en DNS
+ 
+![alt text](images/dnsPlesk1.png)
+
+* en Añadir registro
+
+![alt text](images/dnsPlesk2.png)
+
+* y se rellena el formulario
+  
+![alt text](images/dnsPlesk3.png)
+
+### En el servidor
+* Se hace una copia del ficheros /etc/apache2/sites-available/000-default.conf 
+Se entre en la carpeta /etc/apache2/sites-available y se hace la copia del fichero
+```bash
+sudo cp 000-default sitio1-veroniquegru-ieslossauces-es.conf
+```
+* Se modifica el archivo
+![alt text](images/dnsServidor.png)
+
+* Se habilita el sitio
+```bash
+sudo a2ensite sitio1-veroniquegru-ieslossauces-es.conf
+```
+* Y se recarga el Apache
+```bash
+sudo systemctl reload apache2
+```
+
+
 
 ## 1.7 SFTP
 * Usuarios Enjaulados
