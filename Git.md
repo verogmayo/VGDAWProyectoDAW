@@ -14,7 +14,7 @@
         - [2. Nombre y email](#2-nombre-y-email)
         - [3. Configurar el editor de texto (opcional)](#3-configurar-el-editor-de-texto-opcional)
         - [4. Verificar la configuración](#4-verificar-la-configuración)
-        - [5. Merge con "ola"](#5-merge-con-ola)
+      - [**Merge con "ola"**](#merge-con-ola)
   - [3.2  **GitHub**](#32--github)
     - [Crear un repositorio](#crear-un-repositorio)
 
@@ -108,7 +108,7 @@ git config --list
 ---
 
 
-##### 5. Merge con "ola"
+####  **Merge con "ola"**
 
 * Primero se hace el merge de developerVG a master --no--ff
  ```bash
