@@ -47,6 +47,8 @@
     - [En el servidor](#en-el-servidor)
   - [1.7 SFTP](#17-sftp)
   - [1.8 LDAP](#18-ldap)
+  - [1.9 Herramientas de Desarrollo](#19-herramientas-de-desarrollo)
+    - [1.9.1 PHPDocumentor](#191-phpdocumentor)
 
 
 
@@ -1078,4 +1080,69 @@ sudo systemctl restart ssh
 ## 1.8 LDAP 
 Protocolo Ligero de Acceso a Directorios (Lightweight Directory Access Protocol)
 
+## 1.9 Herramientas de Desarrollo
+### 1.9.1 PHPDocumentor
+* Se actualiza el servidor
+```bash
+sudo apt update
+sudo apt upgrade
+```
+Antes de instalar phpDocumentor, es crucial instalar las extensiones de PHP que
+necesita para procesar archivos y plantillas XML/HTML.
+* Instalar la extensión XML: Necesaria para leer la configuración y plantillas
+de phpDocumentor.
+```Bash
+sudo apt install php8.3-xml
+```
 
+* Instalar la extensión MBString: Necesaria para el manejo correcto de
+cadenas de múltiples bytes (caracteres especiales, acentos).
+```Bash
+sudo apt install php8.3-mbstring
+```
+
+* Reiniciar el servicio de PHP: Para que las extensiones recién instaladas se
+carguen.
+```Bash
+sudo service php8.3-fpm restart # Si usas PHP-FPM
+o
+sudo service apache2 restart # Si usas Apache
+```
+
+* Descarga e Instalación de phpDocumentor (Método PHAR)
+  Descargar el archivo PHAR: Utiliza wget para descargar el ejecutable a tu
+servidor
+wget https://phpdoc.org/phpDocumentor.phar
+
+* Se pasa el archivo al servidor y se le otorga los permisos de ejecucion
+(yo lo he copiado en la carpeta de DWES)
+```Bash
+sudo chmod +x phpDocumentor.phar
+```
+* Se mueve a una ubicación global /usr/local/bin y se renombra a phpdoc para poder ejecutarlo desde cualquier directorio
+```Bash
+sudo  mv phpDocumentor.phar /usr/local/bin/phpdoc
+```
+
+* Se ejecuta phpdoc
+```Bash
+phpdoc
+```
+
+* Se entra en la carpeta del codigo fuente:
+```Bash
+cd /var/www/html/VGDWESProyectoTema3/codigoPHP
+```
+Para que no haya problema para que se cree la carpeta docs en la carpeta codigoPHP, hay que dar permisos.
+```Bash
+sudo chown -R www-data:www-data /var/www/html/VGDWESProyectoTema4
+sudo chmod -R 775 /var/www/html/VGDWESProyectoTema4
+```
+* Se ejecuta el phpDocumentor
+```Bash
+phpdoc --directory . --target docs
+```
+--directory .: Busca archivos PHP en el directorio actual.
+--target doc: Genera el HTML de salida en la carpeta docs.
+El proceso finalizará creando la carpeta docs con el archivo index.html, que
+contiene tu documentación.
