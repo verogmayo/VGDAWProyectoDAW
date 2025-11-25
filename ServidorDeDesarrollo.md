@@ -164,10 +164,10 @@ network:
          addresses:
          - 10.151.123.21
          - 10.151.126.21
+         search: [educa.jcyl.es]
       routes:
           - to: default
-             via: 10.199.8.1
-         search: [educa.jcyl.es]
+            via: 10.199.8.1
   version: 2
 ````
 
@@ -1005,6 +1005,10 @@ sudo a2ensite sitio1-veroniquegru-ieslossauces-es.conf
 sudo systemctl reload apache2
 ```
 
+* Para saber los sitios que están habilitados
+```bash
+sudo systemctl reload apache2
+```
 
 
 ## 1.7 SFTP
