@@ -102,4 +102,4 @@ Se entra en la configuración principal de la cuenta
 la ip se encuentra abajo del todo.  
 ![alt text](images/configuracionIP.png)
 y se configura de la misma manera que en local, con la ip y el usuario y contraseña de plesk.
- Ver [Crear una sessión SFTP](#crear-una-sessión-sftp)
+ Ver [Crear una sessión SFTP](ClienteDeDesarrollo.md#crear-una-sessión-sftp)
