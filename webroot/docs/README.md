@@ -14,7 +14,7 @@
       - [1.1.2 Instalación del servidor web](#112-instalación-del-servidor-web)
         - [Instalación](#instalación)
         - [Verficación del servicio](#verficación-del-servicio)
-        - [Virtual Hosts](#virtual-hosts)
+        - [Sitios Virtuales](#sitios-virtuales)
         - [Permisos y usuarios](#permisos-y-usuarios)
       - [1.1.3 PHP](#113-php)
       - [1.1.4 MySQL](#114-mysql)
@@ -211,7 +211,10 @@ sudo shutdown -t 0
 
 ##### Verficación del servicio
 
-##### Virtual Hosts
+##### Sitios Virtuales
+
+
+
 ##### Permisos y usuarios
 * Creación del usuario miadmin2 perteneciente al grupo sudo
 ```bash

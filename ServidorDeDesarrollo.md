@@ -42,13 +42,14 @@
       - [Instalación](#instalación-2)
       - [Funciones principales](#funciones-principales)
   - [1.5 XDebug](#15-xdebug)
-  - [1.6 DNS](#16-dns)
+  - [1.6 REDIRECCION POR DNS](#16-redireccion-por-dns)
     - [**En Plesk**](#en-plesk)
     - [**En el servidor**](#en-el-servidor)
   - [1.7 SFTP](#17-sftp)
   - [1.8 LDAP](#18-ldap)
   - [1.9 Herramientas de Desarrollo](#19-herramientas-de-desarrollo)
     - [1.9.1 PHPDocumentor](#191-phpdocumentor)
+  - [1.10 phpMyAdmin](#110-phpmyadmin)
 
 
 
@@ -1029,7 +1030,7 @@ sudo chmod 666 /tmp/xdebug.log
 sudo chown root:root /tmp/xdebug.log
 ```
 
-## 1.6 DNS
+## 1.6 REDIRECCION POR DNS
 Redireccion por DNS
 ### **En Plesk** 
 * Se va a Sitios web y dominios y en la parte central vamos a la pestaña y hacemos clic en hosting y DNS
@@ -1210,3 +1211,5 @@ phpdoc --directory . --target docs
 --target doc: Genera el HTML de salida en la carpeta docs.
 El proceso finalizará creando la carpeta docs con el archivo index.html, que
 contiene tu documentación.
+
+## 1.10 phpMyAdmin
