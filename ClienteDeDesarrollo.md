@@ -21,6 +21,7 @@
       - [Depurar un fichero en Netbeans](#depurar-un-fichero-en-netbeans)
     - [2.5 **Visual Studio Code**](#25-visual-studio-code)
 
+
 ## Windows 11
 ### 2.1 **Configuración inicial**
 * Despues de instalar el ubuntu server en la maquina virtual se prueba la conexion con el anfitrion.
@@ -190,5 +191,6 @@ Para poner los break point hay que hacer clic en la parte izquierda del codido, 
 * Para salir del debug se hace clic en "stop".
 
 ![alt text](images/netbeansDebug4.png)
+
 
 ### 2.5 **Visual Studio Code**

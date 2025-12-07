@@ -17,6 +17,7 @@
       - [**Merge con "ola"**](#merge-con-ola)
   - [3.2  **GitHub**](#32--github)
     - [Crear un repositorio](#crear-un-repositorio)
+  - [Generación de una clave ssh](#generación-de-una-clave-ssh)
 
 ## 3-Git-y-GitHub
 
@@ -155,3 +156,32 @@ git push origin developerVG
 * Se indica un nombre para el repositorio y si no se necesita nada mas, se puede hacer clic en Creat Repository
 
 ![alt text](images/githubCrearRepo3.png)
+
+## Generación de una clave ssh 
+
+* Se abre el gitbash y se pega este texto
+```bash
+ssh-keygen -t ed25519 -C "veronique.gru@educa.jcyl.es"
+```
+y se siguen las instrucciones.
+![alt text](images/sshKey4.png)  
+Se aigna una contraseña para más seguridad, que hay que recordar porque sino no se podrá utilizar la clave.
+
+* Se crean los archivos, la clave privada y la clave publica que habrá que guradar para poder utilizarlas.
+![alt text](images/sshKey5.png)  
+
+* Se entra en los Settings de GitHub.  
+![alt text](images/settingsGithub.png)  
+
+* Y se entra en SSH and GPG keys en en menu de la izquierda  
+![alt text](images/ssh.png)  
+
+* Se crea una nueva ssh key haciendo clic en new ssh Key  
+![alt text](images/newsshKey.png)  
+
+* Se  le da un nombre se elige el tipo de key y se copia la clave publica en el recuadro 
+![alt text](images/sshKey2.png)  
+
+* Y se ve la clave publica agregada. 
+![alt text](images/sshKey3.png)  
+

@@ -17,22 +17,22 @@
     - [**Habilitar cortafuegos**](#habilitar-cortafuegos)
     - [**Instalar Antivirus**](#instalar-antivirus)
     - [**Comprobar conexión**](#comprobar-conexión)
-  - [1.2 Apache2](#12-apache2)
+  - [**1.2 Apache2**](#12-apache2)
     - [Instalación](#instalación)
-    - [Verficación del servicio](#verficación-del-servicio)
-    - [Virtual Hosts](#virtual-hosts)
-    - [Permisos y usuarios](#permisos-y-usuarios)
-    - [HTTPS](#https)
-    - [HTTP A HTTPS](#http-a-https)
+    - [**Verficación del servicio**](#verficación-del-servicio)
+    - [**Permisos y usuarios**](#permisos-y-usuarios)
+    - [**HTTPS**](#https)
+    - [**HTTP A HTTPS**](#http-a-https)
   - [1.3 Ejecución PHP con PHP-FPM](#13-ejecución-php-con-php-fpm)
     - [**Instalación**](#instalación-1)
     - [**Configuración de Apache2 con PHP-FPM**](#configuración-de-apache2-con-php-fpm)
-    - [**Activarlo para cada virtualhost**](#activarlo-para-cada-virtualhost)
+    - [**Activarlo para todos los virtualhost**](#activarlo-para-todos-los-virtualhost)
+    - [**Configuración del php.ini para un entorno de desarrollo.**](#configuración-del-phpini-para-un-entorno-de-desarrollo)
     - [**Comprobación de funcionamiento PHP-FPM**](#comprobación-de-funcionamiento-php-fpm)
   - [1.4 MariaDB](#14-mariadb)
-    - [Instalación y Configuración de MariaDB](#instalación-y-configuración-de-mariadb)
-    - [Consola de MariaDB](#consola-de-mariadb)
-    - [Creación de un usuario administrador](#creación-de-un-usuario-administrador)
+    - [**Instalación y Configuración de MariaDB**](#instalación-y-configuración-de-mariadb)
+    - [**Consola de MariaDB**](#consola-de-mariadb)
+    - [**Creación de un usuario administrador**](#creación-de-un-usuario-administrador)
   - [1.5 PHPMyadmin](#15-phpmyadmin)
   - [1.6 Módulos PHP](#16-módulos-php)
     - [a) `php8.3-mysql`](#a-php83-mysql)
@@ -42,11 +42,14 @@
       - [Instalación](#instalación-2)
       - [Funciones principales](#funciones-principales)
   - [1.5 XDebug](#15-xdebug)
-  - [1.6 DNS](#16-dns)
-    - [En Plesk](#en-plesk)
-    - [En el servidor](#en-el-servidor)
+  - [1.6 REDIRECCION POR DNS](#16-redireccion-por-dns)
+    - [**En Plesk**](#en-plesk)
+    - [**En el servidor**](#en-el-servidor)
   - [1.7 SFTP](#17-sftp)
   - [1.8 LDAP](#18-ldap)
+  - [1.9 Herramientas de Desarrollo](#19-herramientas-de-desarrollo)
+    - [1.9.1 PHPDocumentor](#191-phpdocumentor)
+  - [1.10 phpMyAdmin](#110-phpmyadmin)
 
 
 
@@ -162,10 +165,10 @@ network:
          addresses:
          - 10.151.123.21
          - 10.151.126.21
+         search: [educa.jcyl.es]
       routes:
           - to: default
-             via: 10.199.8.1
-         search: [educa.jcyl.es]
+            via: 10.199.8.1
   version: 2
 ````
 
@@ -321,7 +324,7 @@ ssh usuario@ipServidor
 sudo shutdown -t 0
 ```
 
-## 1.2 Apache2
+## **1.2 Apache2**
 
 ### Instalación
 * Actualizar
@@ -403,15 +406,15 @@ sudo touch /var/www/html/.htaccess
 sudo systemctl restart apache2
 ```
 
-### Verficación del servicio
+### **Verficación del servicio**
 * Comprobar si se puede ver el index de Apache2
 ```bash
 sudo nano /var/www/html/index.html
 ```
 En el navegador se puede con la URL:http//IPServidor/index.html
 
-### Virtual Hosts
-### Permisos y usuarios
+
+### **Permisos y usuarios**
 
 * Creación del usuario operador web.
     -M → No crear el directorio home (el home será /var/www/html, pero no lo crea).
@@ -455,7 +458,7 @@ sudo chmod -R 775 /var/www/html
 sudo deluser nombreusuario
 ```
 
-### HTTPS
+### **HTTPS**
 Creación de los certificados SSL en apache.
 
 Se actualiza el servidor
@@ -532,7 +535,7 @@ sudo ufw status numbered
 sudo ufw delete numeroproceso
 ```
 
-### HTTP A HTTPS
+### **HTTP A HTTPS**
 Para redireccionar apache HTTP a HTTPS hay que 
 * Activar el modulo alias
 ```bash
@@ -584,23 +587,83 @@ Para habilitar los modulos Proxy_FCGI y SetEnvif
 sudo a2enmod proxy_fcgi setenvif
 ```
 
-### **Activarlo para cada virtualhost**
+### **Activarlo para todos los virtualhost**
 
-Para que se comunique entre php y el apache
- 
- Se pone esta expresion en el archivo /etc/apache2/sites-available/000-default.conf
+El fichero de configuración php8.3-fpm en el directorio /etc/apache2/conf-available, por defecto funciona cuando php-fpm está escuchando en un socket UNIX
+Se configura de la siguiente forma:
+
+Se abre el fichero /etc/apache2/conf-available/php8.3-fpm.conf
+
 ```bash
-  ProxyPassMatch ^/(.*\.php)$ unix:/run/php/php8.3-fpm.sock|fcgi://127.0.0.1/var/www/html
-```
-![Alt](images/apache2000DefaultPHP.png)
+sudo nano /etc/apache2/conf-available/php8.3-fpm.conf
+``` 
+Y se copia esto o se comprueba si ya está:
+```bash
+ <FilesMatch ".+\.ph(?:ar|p|tml)$">
+    SetHandler "proxy:unix:/run/php/php8.3-fpm.sock|fcgi://localhost"
+</FilesMatch>
+```  
+
+![alt text](images/phpVirtualHost.png)  
 
   
-Por último activamos (o comprobamos que esta activado):
+Por último activamos (o comprobamos que esta activado) y se recarga apache2:
 
 ```bash
 sudo a2enconf php8.3-fpm
+systemctl reload apache2
 ```
 
+### **Configuración del php.ini para un entorno de desarrollo.**
+
+Primero se hace una copia del archivo.  
+```bash
+cd /etc/php/8.3/fpm/
+sudo cp php.ini php.ini.bk2025
+sudo nano php.ini
+```
+
+* Configuración PHP por Entorno
+
+Esta tabla compara las configuraciones de PHP para los entornos de **Desarrollo** y **Producción** en las secciones **General** y **Errores**.
+
+| Directiva | DESARROLLO | PRODUCCIÓN |
+| :--- | :--- | :--- |
+| **GENERAL** | | |
+| `file-uploads` | `On` | `On` |
+| `allow-url_fopen` | `On` | `Off` |
+| `memory_limit` | `256M` | `256M` |
+| `upload_max_filesize` | `100M` | `100M` |
+| `max_execution_time` | `360` | `360` |
+| `date.timezone` | `Europe/Madrid` | `Europe/Madrid` |
+| **ERRORES** | | |
+| `display_errors` | `On` | `Off` |
+| `error_reporting` | `E_ALL` | `E_ALL & ~E_NOTICE` |
+| `display_startup_errors` | `On` | `Off` |
+| `log_errors` | `On` | `On` |
+| `error_log` | `/var/log/php_errors.log` | - |
+
+---
+
+![alt text](images/phpIniUpload.png)   
+![alt text](images/phpIniAllow.png)
+![alt text](images/phpIniMemory.png)
+![alt text](images/phpIniDisplay.png) 
+![alt text](images/phpIniLogErr.png)  
+![alt text](images/phpIniErrRep.png)  
+
+* Se reinicia el servicio php y se comprueba que está corriendo.
+
+```bash
+sudo systemctl restart php8.3-fpm.service
+sudo systemctl status php8.3-fpm.service
+```
+Se puede comprobar que los datos se han cambiado en el php.info().
+
+* Para ver los módulos activos de php:
+```bash
+apache2ctl -M
+```
 ### **Comprobación de funcionamiento PHP-FPM**
 ---
 
@@ -625,7 +688,7 @@ listen = 127.0.0.1:9000
 
 Está escuchando por TCP/IP en la dirección local
 
- 
+
 
 ## 1.4 MariaDB
 
@@ -633,7 +696,7 @@ MariaDB es un sistema de gestión de bases de datos relacional (RDBMS), muy simi
 Es una alternativa moderna y abierta a MySQL, muy usada en servidores web, aplicaciones empresariales y sistemas en la nube.
 
 
-### Instalación y Configuración de MariaDB
+### **Instalación y Configuración de MariaDB**
 
 En consola escribe los siguientes comandos:
 
@@ -728,7 +791,7 @@ miadmin     5257  0.0  0.1   9728  2304 pts/0    S+   10:40   0:00 grep --color=
 
 ```
 
-### Consola de MariaDB
+### **Consola de MariaDB**
 
 Se entra al cliente:
 
@@ -749,7 +812,7 @@ Resultado esperado:
 | port          | 3306  |
 
 
-### Creación de un usuario administrador 
+### **Creación de un usuario administrador**
 
 En sistemas Ubuntu con MariaDB 10.3, el usuario **root** se autentica mediante el complemento **unix_socket** por defecto, en lugar de una contraseña.
 Esto ofrece mayor seguridad, pero puede complicar el acceso desde programas externos (p. ej., phpMyAdmin).
@@ -854,7 +917,7 @@ sudo a2enconf phpmyadmin
 * Se hace el restar a Apache
 ```bash
 sudo systemctl restart apache2
-````
+```
 
 ## 1.6 Módulos PHP
 
@@ -868,7 +931,7 @@ Sin este módulo, PHP no puede ejecutar consultas SQL, ni leer ni escribir datos
 ```bash
 sudo apt install php8.3-mysql
 sudo systemctl restart php8.3-fpm
-````
+```
 
 ###### Mostrar qué extensiones están instaladas
 
@@ -967,9 +1030,9 @@ sudo chmod 666 /tmp/xdebug.log
 sudo chown root:root /tmp/xdebug.log
 ```
 
-## 1.6 DNS
+## 1.6 REDIRECCION POR DNS
 Redireccion por DNS
-### En Plesk 
+### **En Plesk** 
 * Se va a Sitios web y dominios y en la parte central vamos a la pestaña y hacemos clic en hosting y DNS
 ![alt text](images/dnsPlesk.png)
 
@@ -985,7 +1048,7 @@ Redireccion por DNS
   
 ![alt text](images/dnsPlesk3.png)
 
-### En el servidor
+### **En el servidor**
 * Se hace una copia del ficheros /etc/apache2/sites-available/000-default.conf 
 Se entre en la carpeta /etc/apache2/sites-available y se hace la copia del fichero
 ```bash
@@ -1003,6 +1066,10 @@ sudo a2ensite sitio1-veroniquegru-ieslossauces-es.conf
 sudo systemctl reload apache2
 ```
 
+* Para saber los sitios que están habilitados
+```bash
+sudo systemctl reload apache2
+```
 
 
 ## 1.7 SFTP
@@ -1078,4 +1145,71 @@ sudo systemctl restart ssh
 ## 1.8 LDAP 
 Protocolo Ligero de Acceso a Directorios (Lightweight Directory Access Protocol)
 
+## 1.9 Herramientas de Desarrollo
+### 1.9.1 PHPDocumentor
+* Se actualiza el servidor
+```bash
+sudo apt update
+sudo apt upgrade
+```
+Antes de instalar phpDocumentor, es crucial instalar las extensiones de PHP que
+necesita para procesar archivos y plantillas XML/HTML.
+* Instalar la extensión XML: Necesaria para leer la configuración y plantillas
+de phpDocumentor.
+```Bash
+sudo apt install php8.3-xml
+```
 
+* Instalar la extensión MBString: Necesaria para el manejo correcto de
+cadenas de múltiples bytes (caracteres especiales, acentos).
+```Bash
+sudo apt install php8.3-mbstring
+```
+
+* Reiniciar el servicio de PHP: Para que las extensiones recién instaladas se
+carguen.
+```Bash
+sudo service php8.3-fpm restart # Si usas PHP-FPM
+o
+sudo service apache2 restart # Si usas Apache
+```
+
+* Descarga e Instalación de phpDocumentor (Método PHAR)
+  Descargar el archivo PHAR: Utiliza wget para descargar el ejecutable a tu
+servidor
+wget https://phpdoc.org/phpDocumentor.phar
+
+* Se pasa el archivo al servidor y se le otorga los permisos de ejecucion
+(yo lo he copiado en la carpeta de DWES)
+```Bash
+sudo chmod +x phpDocumentor.phar
+```
+* Se mueve a una ubicación global /usr/local/bin y se renombra a phpdoc para poder ejecutarlo desde cualquier directorio
+```Bash
+sudo  mv phpDocumentor.phar /usr/local/bin/phpdoc
+```
+
+* Se ejecuta phpdoc
+```Bash
+phpdoc
+```
+
+* Se entra en la carpeta del codigo fuente:
+```Bash
+cd /var/www/html/VGDWESProyectoTema3/codigoPHP
+```
+Para que no haya problema para que se cree la carpeta docs en la carpeta codigoPHP, hay que dar permisos.
+```Bash
+sudo chown -R www-data:www-data /var/www/html/VGDWESProyectoTema4
+sudo chmod -R 775 /var/www/html/VGDWESProyectoTema4
+```
+* Se ejecuta el phpDocumentor
+```Bash
+phpdoc --directory . --target docs
+```
+--directory .: Busca archivos PHP en el directorio actual.
+--target doc: Genera el HTML de salida en la carpeta docs.
+El proceso finalizará creando la carpeta docs con el archivo index.html, que
+contiene tu documentación.
+
+## 1.10 phpMyAdmin
