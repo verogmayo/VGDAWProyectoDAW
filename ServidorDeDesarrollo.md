@@ -23,6 +23,7 @@
     - [**Permisos y usuarios**](#permisos-y-usuarios)
     - [**HTTPS**](#https)
     - [**HTTP A HTTPS**](#http-a-https)
+    - [Módulos de Apache Instalados](#módulos-de-apache-instalados)
   - [1.3 Ejecución PHP con PHP-FPM](#13-ejecución-php-con-php-fpm)
     - [**Instalación**](#instalación-1)
     - [**Configuración de Apache2 con PHP-FPM**](#configuración-de-apache2-con-php-fpm)
@@ -34,22 +35,25 @@
     - [**Consola de MariaDB**](#consola-de-mariadb)
     - [**Creación de un usuario administrador**](#creación-de-un-usuario-administrador)
   - [1.5 PHPMyadmin](#15-phpmyadmin)
+    - [Instalación](#instalación-2)
+    - [Configuración](#configuración)
   - [1.6 Módulos PHP](#16-módulos-php)
     - [a) `php8.3-mysql`](#a-php83-mysql)
       - [Instalación del módulo y reinicio del servicio PHP-FPM](#instalación-del-módulo-y-reinicio-del-servicio-php-fpm)
           - [Mostrar qué extensiones están instaladas](#mostrar-qué-extensiones-están-instaladas)
     - [b) `php8.3-intl`](#b-php83-intl)
-      - [Instalación](#instalación-2)
+      - [Instalación](#instalación-3)
       - [Funciones principales](#funciones-principales)
-  - [1.5 XDebug](#15-xdebug)
-  - [1.6 REDIRECCION POR DNS](#16-redireccion-por-dns)
+    - [Módulos y Extensiones Comunes de PHP](#módulos-y-extensiones-comunes-de-php)
+  - [1.7 XDebug](#17-xdebug)
+  - [1.8 REDIRECCION POR DNS](#18-redireccion-por-dns)
     - [**En Plesk**](#en-plesk)
     - [**En el servidor**](#en-el-servidor)
-  - [1.7 SFTP](#17-sftp)
-  - [1.8 LDAP](#18-ldap)
-  - [1.9 Herramientas de Desarrollo](#19-herramientas-de-desarrollo)
-    - [1.9.1 PHPDocumentor](#191-phpdocumentor)
-  - [1.10 phpMyAdmin](#110-phpmyadmin)
+  - [1.9 Redirección DirectoryIndex](#19-redirección-directoryindex)
+  - [1.10 SFTP](#110-sftp)
+  - [1.11 LDAP](#111-ldap)
+  - [1.12 Herramientas de Desarrollo](#112-herramientas-de-desarrollo)
+    - [1.2.1 PHPDocumentor](#121-phpdocumentor)
 
 
 
@@ -170,7 +174,7 @@ network:
           - to: default
             via: 10.199.8.1
   version: 2
-````
+```
 
 * Para aplicar la configuración
 ```bash
@@ -562,6 +566,45 @@ sudo apache2ctl configtest
 ```
 Debe mostrar : Syntax OK
 
+### Módulos de Apache Instalados
+
+
+| Módulo | Tipo | Descripción | Uso Principal |
+| :--- | :--- | :--- | :--- |
+| **core\_module** | Static | Funcionalidad **fundamental** del servidor. | No puede ser desactivado, maneja las directivas básicas como `AllowOverride`. |
+| **so\_module** | Static | Habilita la carga de otros módulos **compartidos** (*Shared Objects*). | Permite usar la directiva `LoadModule`. Es vital para el funcionamiento modular. |
+| **watchdog\_module** | Static | Herramienta interna para monitorear y gestionar procesos. | Mantenimiento de la estabilidad y procesos internos. |
+| **http\_module** | Static | Implementa el protocolo HTTP. | Maneja la comunicación y las peticiones web. |
+| **log\_config\_module** | Static | Configuración de los archivos de registro (logs). | Define los formatos de los logs (`CustomLog`, `ErrorLog`). |
+| **logio\_module** | Static | Registro de la entrada/salida de la red (bytes transferidos). | Añade información de I/O a los logs. |
+| **version\_module** | Static | Permite definir configuraciones basadas en la versión de Apache. | Útil para compatibilidad en entornos heterogéneos. |
+| **unixd\_module** | Static | Funcionalidad específica para sistemas Unix (gestión de ID de usuario y grupo). | Define el usuario y grupo bajo el que se ejecuta Apache (`User`, `Group`). |
+| **access\_compat\_module** | Shared | Proporciona compatibilidad con directivas de control de acceso antiguas. | Permite usar directivas obsoletas como `Order`, `Deny`, `Allow`. |
+| **alias\_module** | Shared | Mapea URLs a directorios fuera de la raíz del documento. | Define rutas virtuales (`Alias`, `ScriptAlias`). |
+| **auth\_basic\_module** | Shared | Implementa la **autenticación básica** HTTP simple. | Pide nombre de usuario y contraseña para acceder a recursos. |
+| **authn\_core\_module** | Shared | Base para todos los módulos de autenticación (el motor central). | Requerido por cualquier módulo que maneje credenciales. |
+| **authn\_file\_module** | Shared | Autenticación basada en archivos de texto (`.htpasswd`). | Verifica credenciales contra un archivo local. |
+| **authz\_core\_module** | Shared | Base para todos los módulos de autorización (el motor central). | Define quién tiene permitido acceder a los recursos (`Require`). |
+| **authz\_host\_module** | Shared | Autorización basada en el **nombre de host o dirección IP** del cliente. | Restringe el acceso por IP o dominio. |
+| **authz\_user\_module** | Shared | Autorización basada en el **usuario autenticado**. | Restringe el acceso a usuarios específicos. |
+| **autoindex\_module** | Shared | Genera automáticamente un **listado de archivos** si no hay `DirectoryIndex`. | Muestra el contenido de un directorio si no hay `index.html`. |
+| **deflate\_module** | Shared | **Compresión de contenido** antes de enviarlo al cliente. | Reduce el tamaño de los datos (HTML, CSS, JS) para una carga más rápida. |
+| **dir\_module** | Shared | Maneja la configuración de **`DirectoryIndex`**. | Define el archivo predeterminado a cargar (como `index.php`). |
+| **env\_module** | Shared | Manipulación de **variables de entorno**. | Permite pasar variables de entorno a los scripts (ej: a PHP). |
+| **filter\_module** | Shared | Permite el procesamiento de contenido a través de filtros. | Es la base para aplicar otros módulos (como `deflate`) al contenido. |
+| **mime\_module** | Shared | Determina el **tipo MIME** (contenido) de los archivos. | Envía la cabecera `Content-Type` correcta (ej: `text/html`, `image/jpeg`). |
+| **mpm\_event\_module** | Shared | **Módulo Multipróceso (MPM)**. Maneja el modelo de concurrencia y procesos. | Modelo eficiente para manejar muchas peticiones simultáneas, común en sistemas modernos. |
+| **negotiation\_module** | Shared | Negociación de contenido (elegir el mejor idioma, codificación, etc.). | Sirve el archivo `.en.html` si el navegador pide inglés. |
+| **proxy\_module** | Shared | Permite que Apache actúe como un servidor **proxy**. | Reenvía peticiones a otros servidores o aplicaciones. |
+| **proxy\_fcgi\_module** | Shared | Conector de proxy para **FastCGI**. | **Crucial para PHP**: Permite que Apache pase peticiones a un proceso PHP-FPM dedicado. |
+| **reqtimeout\_module** | Shared | Establece límites de tiempo para recibir el encabezado y el cuerpo de una solicitud. | Protege contra ataques lentos (Slowloris). |
+| **setenvif\_module** | Shared | Establece variables de entorno basándose en encabezados HTTP. | Útil para personalizar el comportamiento del servidor según el cliente. |
+| **socache\_shmcb\_module** | Shared | Soporte para caché de objetos en memoria compartida. | Usado a menudo por el módulo `ssl_module` para almacenamiento en caché de sesiones TLS. |
+| **ssl\_module** | Shared | Implementa el cifrado **SSL/TLS (HTTPS)**. | Permite manejar certificados y comunicación segura. |
+| **status\_module** | Shared | Proporciona una página con el **estado y rendimiento** del servidor. | Permite monitorear el uso de procesos y la carga de Apache. |
+
+---
+
 
 ## 1.3 Ejecución PHP con PHP-FPM
 
@@ -884,15 +927,31 @@ Este asistente te permitirá:
 
 
 ## 1.5 PHPMyadmin
+### Instalación
+* Enlace tutorial :https://www.devtutorial.io/how-to-install-phpmyadmin-with-apache-on-ubuntu-24-04-p3467.html
+
+Antes de instalar se miran los modulos instalados.
+```bash
+php -m > /home/miadmin/listadomodulos.txt
+```
+Despues de instalar:
+```bash
+php -m > /home/miadmin/listadomodulos2.txt
+```
+Y comparamos los dos ficheros. En /home/miadmin, se buscan las diferencias entre los archivos.
+```bash
+diff listadomodulos.txt listadomodulos2.txt
+```
+
 * Se actualiza el servidor
 ```bash
 sudo apt update
 sudo apt upgrade
-````
+```
 * Se instala phpMyadmin
 ```bash
 sudo apt install phpmyadmin
-````
+```
 * Se abre la consola de instalación
 Se selcciona apache como servidor web, con la barra espaciadora y se mueve el cursor con las flechas y con tab hacia el Ok.
 ![alt text](images/phpmyadminConf1.png)
@@ -906,18 +965,27 @@ Se indica la contraseña
 Se confirma la contraseña
 ![alt text](images/phpmiadminConf4.png)
 
+### Configuración
+
 * Se crea un enlace simbolico de phpMyadmin a Apache
 ```bash
 sudo ln -sf /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
-````
+```
 * Se habilita la configuración de phpmyadmin
 ```bash
 sudo a2enconf phpmyadmin
-````
+```
 * Se hace el restar a Apache
 ```bash
 sudo systemctl restart apache2
 ```
+* Se prueba en el navegador si funciona.  
+![alt text](images/phpMyadminNavegador.png)  
+
+* Se ponen las credenciales del usuario de la base de datos. En este caso adminsql, y se accede a la base de datos.  
+![alt text](images/phpmyadminNavegador2.png)  
+Se puede ver el la parte izquierda las bases de datos creadas.  
+
 
 ## 1.6 Módulos PHP
 
@@ -961,14 +1029,72 @@ sudo apt install php8.3-intl
 | **Normalización Unicode**               | Asegura que caracteres acentuados o especiales se comparen correctamente | Útil para búsquedas y validaciones                     |
 
 
-## 1.5 XDebug
+### Módulos y Extensiones Comunes de PHP
+
+| Módulo | Descripción | Uso Principal |
+| :--- | :--- | :--- |
+| **bz2** | Soporte para el algoritmo de compresión **Bzip2**. | Leer y escribir archivos comprimidos `.bz2`. |
+| **calendar** | Funciones para convertir entre diferentes sistemas de calendario. | Conversión entre calendarios (Juliano, Gregoriano, Hebreo, etc.). |
+| **Core** | El corazón de PHP. Contiene todas las funcionalidades básicas del lenguaje. | Funciones y constantes fundamentales (siempre habilitado). |
+| **ctype** | Funciones para verificar el tipo de caracteres. | Comprobación de si un carácter es alfanumérico, dígito, etc. |
+| **curl** | Soporte para la librería **cURL**. | Realizar peticiones HTTP, FTP y otras transferencias de red. |
+| **date** | Manejo de fechas y horas, incluyendo la clase `DateTime`. | Formateo, manipulación y cálculo de fechas y zonas horarias. |
+| **dom** | Manipulación del **DOM (Document Object Model)**. | Analizar y manipular documentos HTML y XML como objetos. |
+| **exif** | Extracción de información de metadatos (EXIF) de archivos de imágenes. | Leer la información de la cámara (fecha, modelo, exposición) de fotos. |
+| **FFI** | **Foreign Function Interface**. Permite llamar a funciones de bibliotecas compartidas de C nativas. | Interoperabilidad con código C sin necesidad de extensiones. |
+| **fileinfo** | Detección del **tipo de contenido** (MIME) de un archivo. | Determinar de forma segura si un archivo es una imagen, PDF, etc. |
+| **filter** | Herramientas para **validar y sanear** entradas de datos. | Limpiar entradas de usuario (formularios, URLs) para evitar inyecciones. |
+| **ftp** | Funciones del **Protocolo de Transferencia de Archivos (FTP)**. | Conexión, subida y descarga de archivos a través de FTP. |
+| **gd** | Soporte para la librería **GD Graphics Library**. | Creación, manipulación y generación de imágenes (miniaturas, CAPTCHAs). |
+| **gettext** | Soporte para internacionalización (i18n) usando la librería GNU **gettext**. | Localización de cadenas de texto de la aplicación. |
+| **hash** | Funciones de *hashing* criptográfico. | Generación de *hashes* seguros (SHA-256, MD5, etc.). |
+| **iconv** | Conversión de codificación de caracteres. | Convertir cadenas entre diferentes codificaciones (ej: UTF-8 a ISO-8859-1). |
+| **intl** | Extensión de **Internacionalización** basada en la librería ICU. | Soporte avanzado para formatos de moneda, fechas, ordenación de texto (collator). |
+| **json** | Codificación y decodificación de datos en formato **JSON**. | Intercambio de datos con APIs web (REST, etc.). |
+| **libxml** | Soporte para la librería **libxml**. Requerido por otras extensiones XML y DOM. | Funciones básicas para trabajar con XML. |
+| **mbstring** | **Multibyte String**. Funciones para manipular cadenas de caracteres multibyte. | Trabajar correctamente con codificaciones como UTF-8 (necesario para la mayoría de los idiomas). |
+| **mcrypt** | (Obsoleto en PHP 7.2+) Interfaz para la librería de **cifrado Mcrypt**. | Tareas de cifrado y descifrado. |
+| **mysqli** | Interfaz mejorada para la base de datos **MySQL**. | Conexión y manipulación de bases de datos MySQL. |
+| **mysqlnd** | **MySQL Native Driver**. Sustituto de bajo nivel para `libmysql`. | Proporciona un controlador más rápido para las extensiones `mysqli` y `PDO_MySQL`. |
+| **openssl** | Funciones de criptografía basadas en la librería **OpenSSL**. | Implementación de SSL/TLS, *hashing*, certificados y cifrado seguro. |
+| **pcntl** | **Process Control**. Funciones para la gestión de procesos en sistemas POSIX. | Crear *forks* y gestionar procesos hijo (común en scripts de *daemon*). |
+| **pcre** | **Perl Compatible Regular Expressions**. | Motor de expresiones regulares (como `preg_match`). |
+| **PDO** | **PHP Data Objects**. Interfaz de abstracción de bases de datos. | Proporciona una interfaz común para interactuar con diferentes bases de datos (MySQL, PostgreSQL, etc.). |
+| **pdo_mysql** | Controlador específico de MySQL para la extensión **PDO**. | Permite que PDO se conecte a MySQL. |
+| **Phar** | Archivos de PHP (*PHP Archive*). | Empaquetar aplicaciones PHP completas en un solo archivo ejecutable. |
+| **posix** | Funciones del sistema operativo compatibles con **POSIX**. | Interacción con el sistema operativo (IDs de usuario, procesos, señales). |
+| **random** | Generación de números y bytes **criptográficamente seguros** al azar. | Seguridad y generación de tokens únicos. |
+| **readline** | Interfaz para la librería **Readline** de GNU. | Permite leer líneas desde la entrada estándar con capacidades de edición (en el CLI). |
+| **Reflection** | Proporciona información sobre la estructura de clases, métodos, etc., en tiempo de ejecución. | Análisis e inspección de código (usado por frameworks y ORMs). |
+| **session** | Soporte para la gestión de sesiones de usuario. | Almacenamiento de datos de usuario entre diferentes peticiones HTTP. |
+| **shmop** | **Shared Memory Operations**. Funciones para memoria compartida en sistemas Unix. | Comunicación entre procesos a través de memoria. |
+| **SimpleXML** | Una forma sencilla y orientada a objetos de trabajar con documentos XML. | Lectura fácil y rápida de datos en archivos XML. |
+| **sockets** | Interfaz de bajo nivel para la comunicación de red. | Crear servidores o clientes de *sockets* personalizados (TCP/UDP). |
+| **sodium** | Librería de criptografía moderna (NaCL/libsodium). | Operaciones criptográficas de alto rendimiento y fácil uso. |
+| **SPL** | **Standard PHP Library**. Colección de interfaces y clases de utilidad. | Iteradores, estructuras de datos y gestión de excepciones (siempre habilitado). |
+| **standard** | Contiene funciones de uso general no asignadas a otras extensiones. | Funciones básicas de I/O, cadenas, *arrays*, etc. (siempre habilitado). |
+| **sysvmsg** | Funciones para colas de mensajes del sistema V. | Comunicación entre procesos. |
+| **sysvsem** | Funciones para semáforos del sistema V. | Control de concurrencia entre procesos. |
+| **sysvshm** | Funciones para memoria compartida del sistema V. | Comunicación entre procesos. |
+| **tokenizer** | Divide el código PHP en sus *tokens* componentes. | Análisis estático de código (usado por herramientas de calidad de código). |
+| **xdebug** | Herramienta de **depuración** y perfilado. | Depuración paso a paso, análisis de cobertura y optimización de código. |
+| **xml** | Analizador sintáctico (parser) XML basado en **SAX**. | Procesamiento de XML basado en eventos. |
+| **xmlreader** | Analizador sintáctico XML basado en *streams* (Pull parser). | Lectura eficiente de grandes documentos XML. |
+| **xmlwriter** | API para escribir documentos XML de forma incremental. | Creación rápida de archivos XML. |
+| **xsl** | Soporte para **XSLT (eXtensible Stylesheet Language Transformations)**. | Transformación de documentos XML a otros formatos (HTML, texto, etc.). |
+| **Zend OPcache** | Módulo de **caché de código de operación**. | Acelera la ejecución de PHP almacenando código precompilado en memoria. |
+| **zip** | Soporte para archivos **Zip**. | Lectura, escritura y manipulación de archivos `.zip`. |
+| **zlib** | Soporte para la compresión **Zlib/Gzip**. | Compresión y descompresión de datos (comúnmente usado en la compresión de salida HTTP). |
+
+
+## 1.7 XDebug
 
 **Xdebug** es una extensión de PHP diseñada para ayudar en la **depuración (debugging)** y el **análisis de rendimiento (profiling)** del código PHP.
 Permite ver qué hace el programa internamente mientras se ejecuta, paso a paso, y medir su rendimiento.
 
 * Funciones principales
 
-* 🐞 Depurador paso a paso (*step debugging*)
+*  Depurador paso a paso (*step debugging*)
 
   * Permite pausar la ejecución del script en cualquier punto (*breakpoint*).
   * Permite inspeccionar variables, pilas de llamadas (*call stack*) y expresiones.
@@ -1029,8 +1155,10 @@ sudo touch /tmp/xdebug.log
 sudo chmod 666 /tmp/xdebug.log
 sudo chown root:root /tmp/xdebug.log
 ```
+* Se puede ver que está habilitado en el phpinfo  
+![alt text](images/xdebug.png)  
 
-## 1.6 REDIRECCION POR DNS
+## 1.8 REDIRECCION POR DNS
 Redireccion por DNS
 ### **En Plesk** 
 * Se va a Sitios web y dominios y en la parte central vamos a la pestaña y hacemos clic en hosting y DNS
@@ -1049,17 +1177,43 @@ Redireccion por DNS
 ![alt text](images/dnsPlesk3.png)
 
 ### **En el servidor**
+* Se crea la carpeta error si no está creada.
+```bash
+sudo mkdir /var/www/enjaulado1/error
+sudo chmod 2775 -R /var/www/enjaulado1/error
+sudo chown enjaulado1:www-data -R /var/www/enjaulado1/error
+```
+(con el 2 se asegura de que todos los archivos o subdirectorios creados dentro de ese directorio hereden el grupo propietario de ese directorio, en lugar del grupo primario del usuario que los creó.)  
+
 * Se hace una copia del ficheros /etc/apache2/sites-available/000-default.conf 
 Se entre en la carpeta /etc/apache2/sites-available y se hace la copia del fichero
 ```bash
-sudo cp 000-default sitio1-veroniquegru-ieslossauces-es.conf
+sudo sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/sitio1-veroniquegru-ieslossauces-es.conf
+
 ```
 * Se modifica el archivo
+```bash
+sudo nano /etc/apache2/sites-available/sitio1-veroniquegru-ieslossauces-es.conf
+```
+```bash
+  ServerName sitio1.veroniquegru.ieslossauces.es
+  ServerAdmin webmaster@localhost
+  DocumentRoot /var/www/enjaulado1
+
+  ErrorLog ${APACHE_LOG_DIR}/error-sitio1.log
+  ErrorLog /var/www/enjaulado1/error/error.log
+  CustomLog ${APACHE_LOG_DIR}/access-sitio1.log combined
+  ProxyPassMatch ^/(.*\.php)$ unix:/run/php/php8.3-fpm.sock|fcgi://127.0.0.1/var/www/enjaulado1/httpdocs
+```
 ![alt text](images/dnsServidor.png)
 
 * Se habilita el sitio
 ```bash
 sudo a2ensite sitio1-veroniquegru-ieslossauces-es.conf
+```
+* Se verifica que la configuración de apache no tenga errores
+```bash
+sudo apache2ctl configtest
 ```
 * Y se recarga el Apache
 ```bash
@@ -1068,11 +1222,48 @@ sudo systemctl reload apache2
 
 * Para saber los sitios que están habilitados
 ```bash
-sudo systemctl reload apache2
+sudo apache2ctl -S
 ```
 
+## 1.9 Redirección DirectoryIndex
+El DirectoryIndex define la página de inicio por defecto de cada directorio, resolviendo la petición de una carpeta a un archivo específico sin que el usuario tenga que escribirlo. Está manejado por el modulo : mod_dir.
+Se puede buscar el archivo con 
+```bash
+ls /etc/apache2/mods-enabled | grep dir
+```  
+Para saber como está definido se abre el fichero dir.conf
+```bash
+sudo /etc/apache2/mods-enabled/dir.conf 
+```  
+![alt text](images/directoryIndex.png)  
+Los archivos están por orden de prioridad.
 
-## 1.7 SFTP
+El servidor lee primero el fichero dir.conf y luego lee el .htaccess de los proyectos, que sobreescribe esta lista. Si el index principal del proyecto no es ninguno de los de dir.conf, busca en .htaccess. 
+Ejemplo de redirección en .htaccess   
+![alt text](images/ficheroHtaccess.png)  
+
+
+## 1.10 SFTP
+* Si no está instalado lo instalamos.
+Actualizamos
+```bash
+sudo apt update
+```
+Instalamos el openssh
+```bash
+sudo apt install openssh-server -y 
+```
+Y lo iniciamos
+```bash
+sudo systemctl restart ssh
+```
+
+Otros comandos para el ssh:
+```bash
+sudo systemctl start ssh      # Iniciar el servicio
+sudo systemctl stop ssh       # Detener el servicio
+```
+
 * Usuarios Enjaulados
   Se crean usuarios enjaulados para que tengas acceso unicamente a la carpeta en la que tiene que trabajar y no pueda acceder al árbol de directorios de nuestro servidor, es decir, solo puede entrar, modificar, leer y borrar en cualquier fichero o directorio dentro del directorio al que tiene acceso.
 
@@ -1142,11 +1333,11 @@ X11Forwarding no
 #Se guarda el archivo y se reinicia el sercivio ssh
 sudo systemctl restart ssh
 ```
-## 1.8 LDAP 
+## 1.11 LDAP 
 Protocolo Ligero de Acceso a Directorios (Lightweight Directory Access Protocol)
 
-## 1.9 Herramientas de Desarrollo
-### 1.9.1 PHPDocumentor
+## 1.12 Herramientas de Desarrollo
+### 1.2.1 PHPDocumentor
 * Se actualiza el servidor
 ```bash
 sudo apt update
@@ -1212,4 +1403,3 @@ phpdoc --directory . --target docs
 El proceso finalizará creando la carpeta docs con el archivo index.html, que
 contiene tu documentación.
 
-## 1.10 phpMyAdmin

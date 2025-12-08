@@ -76,7 +76,7 @@ network:
              via: 10.199.8.1
          search: [educa.jcyl.es]
   version: 2
-````
+```
 
 ##### **Actualizar el sistema**
 
