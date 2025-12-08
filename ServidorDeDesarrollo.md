@@ -522,6 +522,10 @@ ls
 ```bash
 sudo a2ensite vg-used.conf
 ```
+```bash
+#para desactivar el sitio si lo necesitamos
+sudo a2dissite vg-used.conf
+```
  Se reinicia el servicio apache
 ```bash
 sudo systemctl restart apache2
@@ -541,10 +545,11 @@ sudo ufw delete numeroproceso
 
 ### **HTTP A HTTPS**
 Para redireccionar apache HTTP a HTTPS hay que 
-* Activar el modulo alias
+* Activar el modulo alias 
 ```bash
 sudo a2enmod alias
 ```
+
 * Recargar Apache
 ```bash
 sudo systemctl reload apache2
@@ -565,6 +570,19 @@ sudo systemctl reload apache2
 sudo apache2ctl configtest
 ```
 Debe mostrar : Syntax OK
+
+
+También se puede hacer de esta forma.
+activando el modulo rewrite
+```bash
+sudo a2enmod rewrite
+```
+y escribiendo esto en el .haccess
+```bash
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://10.199.10.49/$1 [R,L]
+```
 
 ### Módulos de Apache Instalados
 
@@ -655,6 +673,10 @@ Por último activamos (o comprobamos que esta activado) y se recarga apache2:
 ```bash
 sudo a2enconf php8.3-fpm
 systemctl reload apache2
+```
+```bash
+#si se quisiera desactivar el fichero de configuración
+sudo a2disconf php8.3-fpm
 ```
 
 ### **Configuración del php.ini para un entorno de desarrollo.**
@@ -1085,6 +1107,16 @@ sudo apt install php8.3-intl
 | **Zend OPcache** | Módulo de **caché de código de operación**. | Acelera la ejecución de PHP almacenando código precompilado en memoria. |
 | **zip** | Soporte para archivos **Zip**. | Lectura, escritura y manipulación de archivos `.zip`. |
 | **zlib** | Soporte para la compresión **Zlib/Gzip**. | Compresión y descompresión de datos (comúnmente usado en la compresión de salida HTTP). |
+
+Comandos para activar y desactivar módulos.
+```bash
+#activar el módulo
+sudo a2enmod nombreModulo
+```
+```bash
+#desactivar el módulo
+sudo a2dismod nombreModulo
+```
 
 
 ## 1.7 XDebug
