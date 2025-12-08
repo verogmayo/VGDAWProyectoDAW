@@ -112,32 +112,38 @@ git config --list
 ####  **Merge con "ola"**
 
 * Primero se hace el merge de developerVG a master --no--ff
- ```bash
+```bash
 # Estar en master
 git checkout master
-
+```
+```bash
 # Traer los cambios remotos
 git pull origin master
-
+```
+```bash
 # Merge NO fast-forward
 git merge developerVG --no-ff -m "Merge branch 'developerVG' into master"
-
+```
+```bash
 # Subir a GitHub
 git push origin master
 ```
 
 * Segundo se hace el merge de master a devloperVG --ff
 
- ```bash
+```bash
 # Estar en developerVG
 git checkout developerVG
-
+```
+```bash
 # Traer cambios de master
 git pull origin master
-
+```
+```bash
 # Merge fast-forward
 git merge master --ff
-
+```
+```bash
 # Subir a GitHub
 git push origin developerVG
 ```
