@@ -122,91 +122,91 @@ Descargar MobaXterm en este enlace : https://mobaxterm.mobatek.net/download.html
 ### 2.4 **Netbeans**
 
 #### Creación de un proyecto de PHP
-Se hace clic en File -> New Project o se hace clic en el pestaña del cuadrado naranja con un más
+Se hace clic en File -> New Project o se hace clic en el pestaña del cuadrado naranja con un más  
 
-![Alt](images/File-NewProject.png)
+![Alt](images/File-NewProject.png)  
 
 
-![Alt](images/botonNewProject.png)
+![Alt](images/botonNewProject.png)  
 
 En el primer paso de la creación de proyecto, se selecciona PHP en Categories, y PHP Aplicación from Remote Server y se hace clic en Next
 
-![Alt](images/newFile-paso1.png)
+![Alt](images/newFile-paso1.png)  
 
 En el paso 2 se indica el nombre del proyecto, y la ubicación en local
-y se hace clic en Next
+y se hace clic en Next  
 
-![Alt](images/newFile-paso2.png)
+![Alt](images/newFile-paso2.png)  
 
 
 En el paso 3 se indica la IP del servidor...
-![Alt](images/newFile-paso3-1.png)
+![Alt](images/newFile-paso3-1.png)  
 
  y se hace clic en Manage...
- para configurar la conexion al servidor remoto, donde se indicará el nombre del servidor, la IP , el puerto, el nombre del usuario con permisos para actuar en las carpetas del proyecto, la contraseña....
+ para configurar la conexion al servidor remoto, donde se indicará el nombre del servidor, la IP , el puerto, el nombre del usuario con permisos para actuar en las carpetas del proyecto, la contraseña....  
 
 ![Alt](images/newFile-paso3-conexion.png)
 
- se hace un test de conexión y saldrá un mensaje de confirmación
+ se hace un test de conexión y saldrá un mensaje de confirmación  
 
- ![Alt](images/mensajeConfirmacion.png)
+ ![Alt](images/mensajeConfirmacion.png)  
 
    hacer clic en Yes,  si el test es ok, hacer clic en OK...(el servidor remoto tiene que estar encendido sino no hace la conexion)
 
-  ![Alt](images/conexionOk.png)
+  ![Alt](images/conexionOk.png)  
 
    se cierra la ventana de conexion se indica la ubicación de la carpeta del proyecto en el servidor y se hace clic en Next en la ventana del paso 3.
 
-![Alt](images/newFile-paso3-2.png)
+![Alt](images/newFile-paso3-2.png)  
 
-Sale de nuevo el mensaje de Confirmación de conexión y se hace clic en Yes.
+Sale de nuevo el mensaje de Confirmación de conexión y se hace clic en Yes.  
 
-![Alt](images/mensajeConfirmacion.png)
+![Alt](images/mensajeConfirmacion.png)  
 
-Se checkea que la carpeta del proyecto tenga todos los elementos necesarios y se hace clic en finish.
+Se checkea que la carpeta del proyecto tenga todos los elementos necesarios y se hace clic en finish.  
 
-![Alt](images/newFile-paso4.png)
+![Alt](images/newFile-paso4.png)  
 
-Sale de nuevo el mensaje de Confirmación de conexión y se hace clic en Yes.
+Sale de nuevo el mensaje de Confirmación de conexión y se hace clic en Yes.  
 
-![Alt](images/mensajeConfirmacion.png)
+![Alt](images/mensajeConfirmacion.png)  
 
-El proyecto aparecerá en la parte izquierda del IDE.
+El proyecto aparecerá en la parte izquierda del IDE.  
 
 ![Alt](images/newFile-Fin.png)
 
 #### Abrir un proyecto de PHP
-* Se hace clic en el icono de abrir, o en File - Open Project.
+* Se hace clic en el icono de abrir, o en File - Open Project.  
 
-![alt text](images/netbeans-AbrirProj.png) ![alt text](images/netbeans-AbrirProj2.png)
+![alt text](images/netbeans-AbrirProj.png) ![alt text](images/netbeans-AbrirProj2.png)  
 
-* Aparece una ventana con los proyecto y se elije el que se quiera abrir y se hace clic en open Proyect
+* Aparece una ventana con los proyecto y se elije el que se quiera abrir y se hace clic en open Proyect  
 
-![alt text](images/netbeans-AbrirProj3.png)
+![alt text](images/netbeans-AbrirProj3.png)   
 
 #### Depurar un fichero en Netbeans
 Depurar  sirve para identificar y corregir errores en el código, lo que mejora la estabilidad, fiabilidad y rendimiento del software. Permite ejecutar el código paso a paso, inspeccionar variables y comprender el flujo de ejecución para encontrar la causa raíz de los problemas. 
 
 * Despues de haber elegido el fichero y de haber puesto el o los break point en las lineas de codigo deseadas. 
-Para poner los break point hay que hacer clic en la parte izquierda del codido, donde aparecen los cuadraditos rosas en la imagen.
+Para poner los break point hay que hacer clic en la parte izquierda del codido, donde aparecen los cuadraditos rosas en la imagen.  
   
-![alt text](images/netbeansDebug.png)
+![alt text](images/netbeansDebug.png)  
 
-* Se hace clic en Debug-Debug File
+* Se hace clic en Debug-Debug File  
 
-![alt text](images/netbeansDebug1.png)
+![alt text](images/netbeansDebug1.png)  
 
-* Inicia la depuración y se situa el "cursor" de depuración al principio del codigo . Para que pase al primer break point se hace clic en "play".
+* Inicia la depuración y se situa el "cursor" de depuración al principio del codigo . Para que pase al primer break point se hace clic en "play".  
+ 
+![alt text](images/netbeansDebug2.png)  
 
-![alt text](images/netbeansDebug2.png)
+* A cada vez que se para en los break points, en la pestaña de variables, se pueden ver el contenido de las variable en ese momento.  
 
-* A cada vez que se para en los break points, en la pestaña de variables, se pueden ver el contenido de las variable en ese momento.
+![alt text](images/netbeansDebug3.png)  
 
-![alt text](images/netbeansDebug3.png)
+* Para salir del debug se hace clic en "stop".  
 
-* Para salir del debug se hace clic en "stop".
-
-![alt text](images/netbeansDebug4.png)
+![alt text](images/netbeansDebug4.png)  
 
 
 #### Instalación y Configuración de phpDocumentor en Windows con NetBeans
