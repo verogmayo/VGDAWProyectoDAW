@@ -54,6 +54,9 @@
   - [1.11 LDAP](#111-ldap)
   - [1.12 Herramientas de Desarrollo](#112-herramientas-de-desarrollo)
     - [1.2.1 PHPDocumentor](#121-phpdocumentor)
+    - [Requisitos Mínimos](#requisitos-mínimos)
+    - [Verificación de Requisitos Previos](#verificación-de-requisitos-previos)
+    - [Instalación](#instalación-4)
 
 
 
@@ -1370,68 +1373,106 @@ Protocolo Ligero de Acceso a Directorios (Lightweight Directory Access Protocol)
 
 ## 1.12 Herramientas de Desarrollo
 ### 1.2.1 PHPDocumentor
+### Requisitos Mínimos
+
+- **Sistema Operativo**: Ubuntu/Debian (o distribuciones basadas en APT)
+- **PHP**: Versión 8.1 o superior (en este manual se usa PHP 8.3)
+- **Extensiones PHP requeridas**:
+  - php-xml (DOM, XMLWriter, SimpleXML)
+  - php-mbstring
+- **Herramientas del sistema**: wget, sudo
+- **Espacio en disco**: Al menos 50 MB para phpDocumentor y las dependencias
+
+---
+
+### Verificación de Requisitos Previos
+
+Antes de comenzar la instalación, se verifica que se tiene los componentes necesarios:
+
+* **Comprobar la versión de PHP instalada:**
+```bash
+php -v
+```
+
+* **Verificar si las extensiones PHP ya están instaladas:**
+```bash
+php -m | grep -E "xml|mbstring"
+```
+Si aparecen `xml` y `mbstring` en la salida, las extensiones ya están instaladas y se puede omitir su instalación.
+
+
+---
+
+### Instalación
+
 * Se actualiza el servidor
 ```bash
 sudo apt update
 sudo apt upgrade
 ```
-Antes de instalar phpDocumentor, es crucial instalar las extensiones de PHP que
-necesita para procesar archivos y plantillas XML/HTML.
-* Instalar la extensión XML: Necesaria para leer la configuración y plantillas
-de phpDocumentor.
-```Bash
+Si no están instaladas se instalan las extensiones de PHP que se necesita para procesar archivos y plantillas XML/HTML.
+
+* Instalar la extensión XML: Necesaria para leer la configuración y plantillas de phpDocumentor.  
+```bash
 sudo apt install php8.3-xml
 ```
 
 * Instalar la extensión MBString: Necesaria para el manejo correcto de
 cadenas de múltiples bytes (caracteres especiales, acentos).
-```Bash
+```bash
 sudo apt install php8.3-mbstring
 ```
 
 * Reiniciar el servicio de PHP: Para que las extensiones recién instaladas se
 carguen.
-```Bash
+```bash
 sudo service php8.3-fpm restart # Si usas PHP-FPM
+```
 o
+```bash
 sudo service apache2 restart # Si usas Apache
 ```
 
 * Descarga e Instalación de phpDocumentor (Método PHAR)
   Descargar el archivo PHAR: Utiliza wget para descargar el ejecutable a tu
-servidor
+servidor  
+```bash
 wget https://phpdoc.org/phpDocumentor.phar
+```
 
-* Se pasa el archivo al servidor y se le otorga los permisos de ejecucion
+* Se pasa el archivo al servidor y se le otorgan los permisos de ejecución
 (yo lo he copiado en la carpeta de DWES)
-```Bash
+```bash
 sudo chmod +x phpDocumentor.phar
 ```
+
 * Se mueve a una ubicación global /usr/local/bin y se renombra a phpdoc para poder ejecutarlo desde cualquier directorio
-```Bash
-sudo  mv phpDocumentor.phar /usr/local/bin/phpdoc
+```bash
+sudo mv phpDocumentor.phar /usr/local/bin/phpdoc
 ```
 
 * Se ejecuta phpdoc
-```Bash
+```bash
 phpdoc
 ```
 
-* Se entra en la carpeta del codigo fuente:
-```Bash
+* Se entra en la carpeta del código fuente:
+```bash
 cd /var/www/html/VGDWESProyectoTema3/codigoPHP
 ```
+
 Para que no haya problema para que se cree la carpeta docs en la carpeta codigoPHP, hay que dar permisos.
-```Bash
-sudo chown -R www-data:www-data /var/www/html/VGDWESProyectoTema4
-sudo chmod -R 775 /var/www/html/VGDWESProyectoTema4
+```bash
+sudo chmod -R 775 /var/www/html/VGDWESProyectoTema3
 ```
+
 * Se ejecuta el phpDocumentor
-```Bash
+```bash
 phpdoc --directory . --target docs
 ```
 --directory .: Busca archivos PHP en el directorio actual.
---target doc: Genera el HTML de salida en la carpeta docs.
-El proceso finalizará creando la carpeta docs con el archivo index.html, que
-contiene tu documentación.
+--target docs: Genera el HTML de salida en la carpeta docs.
+
+El proceso finaliza creando la carpeta docs con el archivo index.html, que
+contiene la documentación.
 

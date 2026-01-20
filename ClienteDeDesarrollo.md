@@ -19,7 +19,23 @@
       - [Creación de un proyecto de PHP](#creación-de-un-proyecto-de-php)
       - [Abrir un proyecto de PHP](#abrir-un-proyecto-de-php)
       - [Depurar un fichero en Netbeans](#depurar-un-fichero-en-netbeans)
+      - [Instalación y Configuración de phpDocumentor en Windows con NetBeans](#instalación-y-configuración-de-phpdocumentor-en-windows-con-netbeans)
+      - [Requisitos Mínimos](#requisitos-mínimos)
+      - [1. Instalación de PHP en Windows](#1-instalación-de-php-en-windows)
+      - [2. Descargar phpDocumentor](#2-descargar-phpdocumentor)
+      - [3. Configuración de NetBeans](#3-configuración-de-netbeans)
+      - [4. Generar Documentación desde NetBeans](#4-generar-documentación-desde-netbeans)
+    - [4.2. Ejecutar phpDocumentor](#42-ejecutar-phpdocumentor)
+  - [](#)
+      - [5. Solución de Problemas](#5-solución-de-problemas)
     - [2.5 **Visual Studio Code**](#25-visual-studio-code)
+      - [Instalación y Configuración de phpDocumentor en Windows con NetBeans](#instalación-y-configuración-de-phpdocumentor-en-windows-con-netbeans-1)
+      - [Requisitos Mínimos](#requisitos-mínimos-1)
+      - [Instalación de PHP en Windows](#instalación-de-php-en-windows)
+      - [Ejecutar phpDocumentor](#ejecutar-phpdocumentor)
+    - [2.6 **Complementos de phpDocumentor**](#26-complementos-de-phpdocumentor)
+      - [Instalación de Graphviz](#instalación-de-graphviz)
+      - [Alternativa: Doxygen](#alternativa-doxygen)
 
 
 ## Windows 11
@@ -193,4 +209,232 @@ Para poner los break point hay que hacer clic en la parte izquierda del codido, 
 ![alt text](images/netbeansDebug4.png)
 
 
+#### Instalación y Configuración de phpDocumentor en Windows con NetBeans
+
+#### Requisitos Mínimos
+
+- **Sistema Operativo**: Windows 10 o superior
+- **PHP**: Versión 8.1 o superior (en este manual se usa PHP 8.3.29)
+- **NetBeans IDE**: Versión 12 o superior
+- **Extensiones PHP requeridas**:
+  - php-xml (DOM, XMLWriter, SimpleXML)
+  - php-mbstring
+- **Espacio en disco**: Al menos 100 MB para PHP y phpDocumentor
+- **Opcional**: Graphviz (para generar diagramas de clases)
+
+---
+
+#### 1. Instalación de PHP en Windows
+
+- **Descargar PHP**
+
+1. Ir la página oficial: [https://windows.php.net/download/](https://windows.php.net/download/)
+2. Descargar la versión **Thread Safe** (TS) en formato ZIP
+   ![alt text](images/ClienteDeDesarrollo/image-2.png)
+3. Extraer el contenido en una carpeta.
+
+ - **Configurar Variables de Entorno**
+
+1. Abrir **Variables de entorno del sistema**:
+   - Clic derecho en "Este equipo" → Propiedades → Configuración avanzada del sistema → Variables de entorno
+2. En **Variables del sistema**, buscar la variable `Path` y hacer clic en **Editar**
+3. Añadir la ruta donde se encuentra `php.exe`:
+![alt text](images/ClienteDeDesarrollo/image.png)
+4. Aceptar y cerrar
+
+ - Verificar la instalación de PHP
+
+Abrir una terminal (CMD o PowerShell) y ejecutar:
+```cmd
+php -v
+```  
+
+![alt text](images/ClienteDeDesarrollo/image-1.png)  
+
+---
+
+#### 2. Descargar phpDocumentor
+
+1. Visitar la página oficial: [https://docs.phpdoc.org/guide/getting-started/installing.html](https://docs.phpdoc.org/guide/getting-started/installing.html)
+2. Descargar el archivo **phpDocumentor.phar**:
+```
+   https://phpdoc.org/phpDocumentor.phar
+```  
+![alt text](images/ClienteDeDesarrollo/image-3.png)  
+3. Guardar el archivo en una ubicación accesible:
+```
+   D:\Software\phpdoc\phpDocumentor.phar
+```
+
+---
+
+#### 3. Configuración de NetBeans
+
+- **Configurar PHP en NetBeans**
+
+1. Abrir NetBeans
+2. Ir a **Tools** (Herramientas) → **Options** (Opciones)
+3. Seleccionar la pestaña **PHP**
+4. En **PHP**, hacer clic en **Browse** y seleccionar la ubicación del ejecutable de PHP:
+```
+   D:\Software\phpdoc\php-8.3.29\php-8.3.29-Win32-vs16-x64\php.exe
+```  
+![alt text](images/ClienteDeDesarrollo/image-4.png)  
+
+5. Aplicar los cambios
+
+- **Configurar phpDocumentor en NetBeans**
+
+1. En **Options** → **PHP** → **Frameworks & Tools**
+2. Seleccionar la pestaña **PHPDoc**
+3. Hacer clic en **Browse** y seleccionar la ubicación de `phpDocumentor.phar`:
+```
+   D:\Software\phpdoc\phpDocumentor.phar
+```
+4. Aplicar y aceptar
+
+---
+
+#### 4. Generar Documentación desde NetBeans
+
+- **Abrir el Proyecto**
+
+1. Abrir el proyecto PHP en NetBeans
+2. Ejemplo: `D:\ProyectosNetbeans\DAW2LibreriaValidacion`
+
+### 4.2. Ejecutar phpDocumentor
+
+**Opción 1: Desde el menú de NetBeans**
+1. Clic derecho sobre el proyecto
+2. Seleccionar **Generate Documentation** (Generar documentación)
+
+Para que no salga el error, ir a **Properties** - **Documentación** e indicar la carpeta Target
+![alt text](images/ClienteDeDesarrollo/image-5.png)
+
+**Opción 2: Desde la línea de comandos**
+
+1. Copiar el comando generado por NetBeans (aparece en la ventana de salida)
+2. Ejecutar en CMD:
+```cmd
+"D:\Software\phpdoc\php-8.3.29\php-8.3.29-Win32-vs16-x64\php.exe" "D:\Software\phpdoc\phpDocumentor.phar" "run" "--ansi" "--directory" "D:/ProyectosNetbeans/DAW2LibreriaValidacion" "--target" "D:/ProyectosNetbeans/DAW2LibreriaValidacion/doc" "--title" "DAW2LibreriaValidacion"
+```
+![alt text](images/ClienteDeDesarrollo/image-6.png)
+---
+
+#### 5. Solución de Problemas
+
+Si aparece un error relacionado con espacios o rutas en `Program Files\`, la solución es:
+
+1. Crear una carpeta `.phpdoc` en la raíz del proyecto
+2. Crear un archivo de configuración XML (`phpdoc.xml`) dentro de `.phpdoc`
+
+3. Ejecutar nuevamente el comando
+
+---
+
+
+
+
 ### 2.5 **Visual Studio Code**
+
+#### Instalación y Configuración de phpDocumentor en Windows con NetBeans
+
+#### Requisitos Mínimos
+
+- **Sistema Operativo**: Windows 10 o superior
+- **PHP**: Versión 8.1 o superior (en este manual se usa PHP 8.3.29)
+- **NetBeans IDE**: Versión 12 o superior
+- **Extensiones PHP requeridas**:
+  - php-xml (DOM, XMLWriter, SimpleXML)
+  - php-mbstring
+- **Espacio en disco**: Al menos 100 MB para PHP y phpDocumentor
+- **Opcional**: Graphviz (para generar diagramas de clases)
+
+---
+
+#### Instalación de PHP en Windows
+
+- Descargar PHP
+
+1. Ir la página oficial: [https://windows.php.net/download/](https://windows.php.net/download/)
+2. Descargar la versión **Thread Safe** (TS) en formato ZIP
+   ![alt text](images/ClienteDeDesarrollo/image-2.png)
+3. Extraer el contenido en una carpeta.
+
+ - Configurar Variables de Entorno
+
+1. Abrir **Variables de entorno del sistema**:
+   - Clic derecho en "Este equipo" → Propiedades → Configuración avanzada del sistema → Variables de entorno
+2. En **Variables del sistema**, buscar la variable `Path` y hacer clic en **Editar**
+3. Añadir la ruta donde se encuentra `php.exe`:
+![alt text](images/ClienteDeDesarrollo/image.png)
+4. Aceptar y cerrar
+
+ - Verificar la instalación de PHP
+
+Abrir una terminal (CMD o PowerShell) y ejecutar:
+```cmd
+php -v
+```  
+
+![alt text](images/ClienteDeDesarrollo/image-1.png)  
+
+---
+#### Ejecutar phpDocumentor
+1. Abrir la terminal integrada en VS Code
+2. Navegar a la carpeta del proyecto
+3. Ejecutar el comando:
+```cmd
+php D:\Software\phpdoc\phpDocumentor.phar run -d . -t .\doc
+```
+
+Donde:
+- `-d .`: Directorio actual (código fuente)
+- `-t .\doc`: Carpeta de destino para la documentación
+
+---
+
+
+### 2.6 **Complementos de phpDocumentor**
+#### Instalación de Graphviz
+
+Graphviz permite generar diagramas de clases y relaciones entre componentes.
+
+- **Descargar e Instalar**
+
+1. Visitar: [https://graphviz.org/](https://graphviz.org/)
+2. Descargar el instalador para Windows
+![alt text](images/ClienteDeDesarrollo/image-7.png)
+
+- **Configurar Variables de Entorno**
+
+1. Añadir a la variables de entornos `Path` la ruta de los binarios de Graphviz:  
+![alt text](images/ClienteDeDesarrollo/image-8.png)
+2. **Importante**: Cerrar sesión y volver a iniciar para que los cambios surtan efecto  
+
+- **Verificar la instalación**
+```cmd
+dot -v
+```  
+
+![alt text](images/ClienteDeDesarrollo/image-9.png)
+
+---
+
+#### Alternativa: Doxygen
+
+Otra herramienta popular para documentación es Doxygen:
+
+- **Sitio web**: [https://www.doxygen.nl/](https://www.doxygen.nl/)
+- **Ventajas**: Soporte para múltiples lenguajes (C++, Java, Python, PHP, etc.)
+- **Instalación de Doxygen**: 
+![alt text](images/ClienteDeDesarrollo/image-10.png)  
+![alt text](images/ClienteDeDesarrollo/image-11.png)  
+![alt text](images/ClienteDeDesarrollo/image-12.png)  
+![alt text](images/ClienteDeDesarrollo/image-13.png)  
+![alt text](images/ClienteDeDesarrollo/image-14.png)  
+![alt text](images/ClienteDeDesarrollo/image-15.png)  
+![alt text](images/ClienteDeDesarrollo/image-16.png)  
+
+---
+
