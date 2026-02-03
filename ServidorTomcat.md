@@ -56,7 +56,6 @@ Apache Tomcat es un servidor de aplicaciones Java de código abierto que impleme
     - [4.3 Tomcat no inicia en Ubuntu](#43-tomcat-no-inicia-en-ubuntu)
     - [4.4 Error 404 al acceder a la aplicación](#44-error-404-al-acceder-a-la-aplicación)
     - [4.5 Permisos denegados en Ubuntu](#45-permisos-denegados-en-ubuntu)
-  - [5. Conclusión](#5-conclusión)
 
 
 
@@ -631,9 +630,9 @@ sudo chmod -R 755 /opt/tomcat/
 
 ---
 
-## 5. Conclusión
 
-Esta guía ha cubierto la instalación y configuración de Apache Tomcat en tres entornos diferentes: servidor Ubuntu, Windows con NetBeans y Windows con Visual Studio Code. Cada entorno tiene sus particularidades, pero todos comparten los conceptos fundamentales de despliegue y gestión de aplicaciones web Java.
+
+
 
 **Recursos adicionales:**
 
@@ -644,4 +643,4 @@ Esta guía ha cubierto la instalación y configuración de Apache Tomcat en tres
 
 ---
 
-**¡Buen desarrollo con Apache Tomcat!**
+
