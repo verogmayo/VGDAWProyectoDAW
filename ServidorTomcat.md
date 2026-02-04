@@ -1,5 +1,4 @@
 [Volver al menu principal](README.md)
-[OTRO SERVIDOR DE DESARROLLO - APACHE TOMCAT]
 
 # OTRO SERVIDOR DE DESARROLLO - APACHE TOMCAT
 Apache Tomcat es un servidor de aplicaciones Java de código abierto que implementa las especificaciones Java Servlet, JavaServer Pages (JSP) y WebSocket. Esta guía proporciona instrucciones detalladas para instalar y configurar Tomcat en tres entornos diferentes:
