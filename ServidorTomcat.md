@@ -1,4 +1,4 @@
-
+[Volver al menu principal](README.md)
 [OTRO SERVIDOR DE DESARROLLO - APACHE TOMCAT]
 
 # OTRO SERVIDOR DE DESARROLLO - APACHE TOMCAT
@@ -634,13 +634,5 @@ sudo chmod -R 755 /opt/tomcat/
 
 
 
-**Recursos adicionales:**
-
-- Documentación oficial de Apache Tomcat: https://tomcat.apache.org/
-- Apache NetBeans: https://netbeans.apache.org/
-- Visual Studio Code: https://code.visualstudio.com/
-- Java Development Kit: https://adoptium.net/
-
----
 
 

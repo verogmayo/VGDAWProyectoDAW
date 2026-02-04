@@ -29,10 +29,10 @@
   - [](#)
       - [5. Solución de Problemas](#5-solución-de-problemas)
     - [2.5 **Visual Studio Code**](#25-visual-studio-code)
-      - [Instalación y Configuración de phpDocumentor en Windows con NetBeans](#instalación-y-configuración-de-phpdocumentor-en-windows-con-netbeans-1)
+      - [Instalación y Configuración de phpDocumentor en Windows](#instalación-y-configuración-de-phpdocumentor-en-windows)
       - [Requisitos Mínimos](#requisitos-mínimos-1)
       - [Instalación de PHP en Windows](#instalación-de-php-en-windows)
-      - [Ejecutar phpDocumentor](#ejecutar-phpdocumentor)
+      - [Ejecutar phpDocumentor en Visual](#ejecutar-phpdocumentor-en-visual)
     - [2.6 **Complementos de phpDocumentor**](#26-complementos-de-phpdocumentor)
       - [Instalación de Graphviz](#instalación-de-graphviz)
       - [Alternativa: Doxygen](#alternativa-doxygen)
@@ -337,7 +337,7 @@ Si aparece un error relacionado con espacios o rutas en `Program Files\`, la sol
 
 ### 2.5 **Visual Studio Code**
 
-#### Instalación y Configuración de phpDocumentor en Windows con NetBeans
+#### Instalación y Configuración de phpDocumentor en Windows
 
 #### Requisitos Mínimos
 
@@ -356,9 +356,9 @@ Si aparece un error relacionado con espacios o rutas en `Program Files\`, la sol
 
 - Descargar PHP
 
-1. Ir la página oficial: [https://windows.php.net/download/](https://windows.php.net/download/)
-2. Descargar la versión **Thread Safe** (TS) en formato ZIP
-   ![alt text](images/ClienteDeDesarrollo/image-2.png)
+1. Ir la página oficial: [https://windows.php.net/download/](https://windows.php.net/download/)  
+2. Descargar la versión **Thread Safe** (TS) en formato ZIP  
+   ![alt text](images/ClienteDeDesarrollo/image-2.png)  
 3. Extraer el contenido en una carpeta.
 
  - Configurar Variables de Entorno
@@ -366,8 +366,8 @@ Si aparece un error relacionado con espacios o rutas en `Program Files\`, la sol
 1. Abrir **Variables de entorno del sistema**:
    - Clic derecho en "Este equipo" → Propiedades → Configuración avanzada del sistema → Variables de entorno
 2. En **Variables del sistema**, buscar la variable `Path` y hacer clic en **Editar**
-3. Añadir la ruta donde se encuentra `php.exe`:
-![alt text](images/ClienteDeDesarrollo/image.png)
+3. Añadir la ruta donde se encuentra `php.exe`:  
+![alt text](images/ClienteDeDesarrollo/image.png)  
 4. Aceptar y cerrar
 
  - Verificar la instalación de PHP
@@ -380,7 +380,7 @@ php -v
 ![alt text](images/ClienteDeDesarrollo/image-1.png)  
 
 ---
-#### Ejecutar phpDocumentor
+#### Ejecutar phpDocumentor en Visual
 1. Abrir la terminal integrada en VS Code
 2. Navegar a la carpeta del proyecto
 3. Ejecutar el comando:
