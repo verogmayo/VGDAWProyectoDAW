@@ -73,7 +73,7 @@ Descargar la iso de Ubuntu Server en la página (Server install image) : https:/
 > **Memoria RAM**: 2G\
 > **Particiones**: 150G(/) y resto (/var)\
 > **Configuración de red interface**: xxxx \
-> **Dirección IP** :xx.xx.xx.xx/22\
+> **Dirección IP** :10.199.10.49/22\
 > **GW**: xx.xx.xx.xx/22\
 > **DNS**: xx.xx.xx.xx
 
@@ -1475,4 +1475,6 @@ phpdoc --directory . --target docs
 
 El proceso finaliza creando la carpeta docs con el archivo index.html, que
 contiene la documentación.
+
+
 
