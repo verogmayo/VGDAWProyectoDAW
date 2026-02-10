@@ -1,142 +1,31 @@
-[Volver al menu principal](README.md)
+# Guía Completa de Comandos Git
 
-# 3 GIT Y GITHUB
+## Índice
 
-- [3 GIT Y GITHUB](#3-git-y-github)
-  - [3.1 **Git**](#31-git)
-    - [**Descarga e Instalación**](#descarga-e-instalación)
-      - [1. Descargar Git](#1-descargar-git)
-      - [2. Instalar Git](#2-instalar-git)
-      - [3. Verificar la instalación](#3-verificar-la-instalación)
-      - [**Inicialización y Configuración**](#inicialización-y-configuración)
-      - [4. Comandos Básicos](#4-comandos-básicos)
-      - [Gestión de Ramas](#gestión-de-ramas)
-      - [Ver ramas](#ver-ramas)
-      - [Integración de Cambios](#integración-de-cambios)
-      - [Comandos de Historial](#comandos-de-historial)
-      - [1. **Lightweight tag** (simple referencia)](#1-lightweight-tag-simple-referencia)
-      - [2. **Annotated tag** (recomendado, con metadata)](#2-annotated-tag-recomendado-con-metadata)
-  - [](#)
-      - [Comandos de Sincronización](#comandos-de-sincronización)
-      - [Comandos Avanzados](#comandos-avanzados)
-      - [**Merge con "ola"**](#merge-con-ola)
-  - [3.2  **GitHub**](#32--github)
-    - [Crear un repositorio](#crear-un-repositorio)
-  - [Generación de una clave ssh](#generación-de-una-clave-ssh)
-
-## 3.1 **Git**
-    Git es un sistema de control de versiones distribuido gratuito y de código abierto que se utiliza para rastrear los cambios en el código fuente durante el desarrollo de las aplicaciones.
-### **Descarga e Instalación**
- 
-#### 1. Descargar Git
-
-1. Se accede al sitio oficial de Git:
-    [https://git-scm.com/downloads](https://git-scm.com/downloads)
-2. Se hace clic en **Windows**.
-   Se descarga la versión acorde con su equipo. Existe una versión de escritorio y una portable.
-    Al pinchar en el enlace de la versión, que se quiera, la descarga comenzará automaticamente.
+1. [Comandos Básicos](#comandos-básicos)
+2. [Gestión de Ramas](#gestión-de-ramas)
+3. [Integración de Cambios](#integración-de-cambios)
+4. [Comandos de Historial](#comandos-de-historial)
+5. [Comandos de Sincronización](#comandos-de-sincronización)
+6. [Comandos Avanzados](#comandos-avanzados)
+7. [GitHub vs Git](#github-vs-git)
+8. [Flujos de Trabajo Comunes](#flujos-de-trabajo-comunes)
 
 ---
 
-#### 2. Instalar Git
+## 
 
-1. Se ejecuta el instalador descargado.
-2. Se acepta los términos de licencia y se siguen los pasos recomendados:
-    * **Se elije la carpeta de instalación :** se puede dejar la que viene por defecto.
-    * **Select Components:** se puede dejar las opciones por defecto.
-    * **Start Menu Folder:** se puede dejar lo que viene por defecto.
-    * **Editor por defecto:** se selecciona el editor de texto que se prefiera.
-    * **Name of the initial branch:** se puede dejar la que viene por defecto o poner el nombre que se quiera.Es la rama que se creara por defecto al iniciar una repositorio nuevo.
-    * **PATH environment:** se recomienda seleccionar :
-     `Git from the command line and also from 3rd-party software`.
-    * **SSH executable:** se puede dejar la que viene por defecto(bundle ssh) para poder utilizar openSSH. .
-    * **HTTPS transport backend:** se puede dejar la que viene por defecto para poder utilizar la libreria de windows .
-    * El resto de opciones puedes dejarlas por defecto.
-3. Se empieza con la instalación haciendo clic en **Instalar**.
-4. Finaliza la instalación haciendo clic en **Finish**.
-
----
-
-#### 3. Verificar la instalación
-
- Se abre **Símbolo del sistema (CMD)**, **PowerShell**, **GitBash** o la **terminal de VS Code** y se ejecuta:
-
-```bash
-git --version
-```
-
-Deberías ver algo como:
-```
-git version 2.47.1.windows.1
-```
-
----
-#### **Inicialización y Configuración**
-
-- 1. Inicialización 
-Se abre el editor de texto dentro de la carpeta del proyecto y se inicializa git.
-```bash
-git init
-```
-
-Tambien se puede clonar de un repositorio de github
-  ```bash
-  git clone <URL>
-  ```
-- 2. Nombre y email 
-Se debe de configurar git con un nombre y un correo
-Estos datos se asocian a los *commits*:
-
-```bash
-git config --global user.name "Nombre"
-git config --global user.email "email@ejemplo.com"
-```
+### 
 
 
 
----
-
-- 3. Configurar el editor de texto (opcional) 
 
 
-```bash
-git config --global core.editor "editorDeTexto"
-```
-
----
-- 4. Verificar la configuración 
-
-```bash
-git config --list
-```
----
-
-#### 4. Comandos Básicos
-- `git status`
-
-Muestra el estado actual del repositorio: archivos modificados, staged, untracked...
-
-```bash
-git status
-```  
- 
-
-**Cuándo usar:**
-- Antes de hacer commit para ver qué cambios hay
-- Para verificar en qué rama estás  
-![alt text](images/Git/image-1.png)  
-- Para ver si hay archivos sin seguimiento
-
-**Estados de archivos:**
-- **Untracked**: Archivos nuevos que Git no está siguiendo  
-- **Modified**: Archivos modificados pero no en staging
-![alt text](images/Git/image-2.png)
-- **Staged**: Archivos listos para commit
-![alt text](images/Git/image-3.png)
-- **Committed**: Cambios guardados en el historial  
 
 
-- `git log`
+
+
+### `git log`
 
 Muestra el historial de commits del repositorio.
 
@@ -154,118 +43,104 @@ git log --oneline
 git log -n 5
 
 # Ver historial con gráfico de ramas
-git log --graph --oneline --all  
-```
-```bash
-# Ver cambios de cada commit
-git log -p  
-```
-![alt text](images/Git/image-5.png)
+git log --graph --oneline --all
 
-```bash
+# Ver cambios de cada commit
+git log -p
+
 # Ver estadísticas de cada commit
-git log --stat  
-![alt text](images/Git/image-6.png)
-```
-```bash
+git log --stat
+
 # Filtrar por autor
 git log --author="Juan"
 
 # Filtrar por fecha
 git log --since="2 weeks ago"
 git log --after="2024-01-01" --before="2024-12-31"
-```
-```bash
+
 # Buscar en mensajes de commit
-git log --grep="Primer"  
-![alt text](images/Git/image-7.png)  
-```
-```bash
+git log --grep="bug fix"
+
 # Ver commits que afectaron un archivo específico
-git log -- c:\Users\Usuario\Desktop\FP-INFORMATICA\AAADAW2\VGDAWMiApp/index.html 
-``` 
-![alt text](images/Git/image-8.png)  
+git log -- ruta/archivo.js
+```
 
+**Ejemplo de salida:**
+```bash
+commit a1b2c3d4e5f6g7h8i9j0 (HEAD -> main, origin/main)
+Author: Juan Pérez <juan@email.com>
+Date:   Mon Feb 10 14:30:00 2025 +0100
 
+    Fix: Corregir error en login
 
+commit b2c3d4e5f6g7h8i9j0k1
+Author: María García <maria@email.com>
+Date:   Sun Feb 09 10:15:00 2025 +0100
+
+    Feature: Añadir página de contacto
+```
 
 **Formato personalizado:**
 ```bash
 # Formato bonito y detallado
 git log --pretty=format:"%h - %an, %ar : %s" --graph
+
 # Explicación del formato:
 # %h  = hash corto del commit
 # %an = nombre del autor
 # %ar = fecha relativa
 # %s  = mensaje del commit
-```  
-![alt text](images/Git/image-9.png)
-
+```
 
 ---
 
-#### Gestión de Ramas
+## Gestión de Ramas
 
-- Conceptos Básicos de Ramas
+### Conceptos Básicos de Ramas
 
 Una **rama** es una línea independiente de desarrollo. Te permite trabajar en nuevas características sin afectar el código principal.
 
 ```
-master     A---B---C---F---G
+main     A---B---C---F---G
               \         /
 feature        D---E---
 ```
 
-- Crear y cambiar de rama
+### Crear y cambiar de rama
 
 ```bash
 # Crear nueva rama
-git branch nombre-rama  
-```  
+git branch nombre-rama
 
-![alt text](images/Git/image-11.png)  
-```bash
 # Cambiar a una rama
-git checkout nombre-rama  
-```  
-![alt text](images/Git/image-10.png)  
-```bash
-# Crear y cambiar en un solo comando 
-git checkout -b nombre-rama  
-```  
-![alt text](images/Git/image-12.png)  
-```bash
-# Forma moderna (Git 2.23+)
-git switch nombre-rama  
-git switch -c nombre-rama  # crear y cambiar  
-```  
-![alt text](images/Git/image-13.png)  
-![alt text](images/Git/image-14.png)
+git checkout nombre-rama
 
-#### Ver ramas
+# Crear y cambiar en un solo comando (recomendado)
+git checkout -b nombre-rama
+
+# Forma moderna (Git 2.23+)
+git switch nombre-rama
+git switch -c nombre-rama  # crear y cambiar
+```
+
+### Ver ramas
 
 ```bash
 # Listar ramas locales
 git branch
-``` 
-![alt text](images/Git/image-15.png)  
-```bash
+
 # Listar todas las ramas (locales y remotas)
 git branch -a
-```  
-![alt text](images/Git/image-16.png)  
-```bash
+
 # Ver última commit de cada rama
 git branch -v
-```  
-![alt text](images/Git/image-17.png)
-```bash
+
 # Ver ramas fusionadas/no fusionadas
 git branch --merged
 git branch --no-merged
 ```
 
-- Eliminar ramas
+### Eliminar ramas
 
 ```bash
 # Eliminar rama local (solo si está fusionada)
@@ -276,73 +151,72 @@ git branch -D nombre-rama
 
 # Eliminar rama remota
 git push origin --delete nombre-rama
-```  
-![alt text](images/Git/image-18.png)
+```
 
 ---
 
-#### Integración de Cambios
+## Integración de Cambios
 
-- `git merge`
+### `git merge`
 
 Fusiona cambios de una rama en otra, creando un **commit de merge**.
 
 **Cómo funciona:**
 ```
 Antes:
-master     A---B---C
+main     A---B---C
               \
-developer      D---E
+feature        D---E
 
-Después de: git merge develpoer (estando en master)
-master     A---B---C-------F (merge commit)
+Después de: git merge feature (estando en main)
+main     A---B---C-------F (merge commit)
               \         /
-developer      D---E---
+feature        D---E---
 ```
 
-
+**Sintaxis:**
 ```bash
 # Estar en la rama destino
-git checkout master
+git checkout main
 
 # Fusionar otra rama
-git merge developer
+git merge feature
 
 # Merge sin fast-forward (siempre crea commit de merge)
-git merge --no-ff developer
+git merge --no-ff feature
 
 # Merge solo si puede hacer fast-forward
-git merge --ff-only developer
+git merge --ff-only feature
 ```
 
 **Tipos de merge:**
 
 1. **Fast-forward**: Cuando no hay commits divergentes
 ```
-master     A---B
+main     A---B
               \
-developer      C---D
+feature        C---D
 
 Después:
-master     A---B---C---D
+main     A---B---C---D
 ```
 
 2. **Three-way merge**: Cuando hay commits en ambas ramas
 ```
-master     A---B---C
+main     A---B---C
               \
-developer      D---E
+feature        D---E
 
 Después (crea commit de merge):
-master     A---B---C-------F
+main     A---B---C-------F
               \         /
-developer      D---E---
+feature        D---E---
 ```
 
 **Resolver conflictos:**
 ```bash
 # Si hay conflictos, Git te lo indicará
-git merge developer
+git merge feature
 # Auto-merging archivo.js
 # CONFLICT (content): Merge conflict in archivo.js
 
@@ -359,30 +233,30 @@ git commit  # finaliza el merge
 
 ---
 
-- `git rebase`
+### `git rebase`
 
 Reescribe el historial moviendo commits a una nueva base. Crea un historial **lineal**.
 
 **Cómo funciona:**
 ```
 Antes:
-master     A---B---C
+main     A---B---C
               \
-developer      D---E
+feature        D---E
 
-Después de: git rebase master (estando en feature)
-master     A---B---C
+Después de: git rebase main (estando en feature)
+main     A---B---C
                   \
-developer          D'---E'
+feature            D'---E'
 ```
 
 **Sintaxis:**
 ```bash
 # Estar en la rama que quieres mover
-git checkout developer
+git checkout feature
 
 # Rebase sobre otra rama
-git rebase master
+git rebase main
 
 # Rebase interactivo (para editar commits)
 git rebase -i HEAD~3  # últimos 3 commits
@@ -396,7 +270,7 @@ git rebase --abort
 # Saltar commit conflictivo
 git rebase --skip
 ```
-![alt text](images/Git/image-19.png)
+
 **Rebase Interactivo:**
 ```bash
 git rebase -i HEAD~3
@@ -420,7 +294,7 @@ pick c3d4e5f Commit 3
 - Antes de hacer merge de tu feature
 - Para limpiar commits locales antes de push
 
-** NUNCA se ha de hacer rebase de commits públicos** (ya pusheados y compartidos)
+**⚠️ NUNCA hagas rebase de commits públicos** (ya pusheados y compartidos)
 
 **Merge vs Rebase:**
 
@@ -434,26 +308,26 @@ pick c3d4e5f Commit 3
 
 ---
 
-- `git cherry-pick`
+### `git cherry-pick`
 
 Aplica cambios de commits específicos a la rama actual.
 
 **Cómo funciona:**
 ```
-master     A---B---C
+main     A---B---C
               \
 feature        D---E---F
 
-# Quiero solo el commit E en master
-git checkout master
+# Quiero solo el commit E en main
+git checkout main
 git cherry-pick <hash-de-E>
 
-master     A---B---C---E'
+main     A---B---C---E'
               \
 feature        D---E---F
 ```
 
-
+**Sintaxis:**
 ```bash
 # Aplicar un commit específico
 git cherry-pick a1b2c3d
@@ -462,7 +336,7 @@ git cherry-pick a1b2c3d
 git cherry-pick a1b2c3d b2c3d4e c3d4e5f
 
 # Aplicar rango de commits
-git cherry-pick master~3..master~1
+git cherry-pick main~3..main~1
 
 # Cherry-pick sin hacer commit automáticamente
 git cherry-pick -n a1b2c3d
@@ -481,36 +355,36 @@ git cherry-pick --abort
 
 **Ejemplo práctico:**
 ```bash
-# Hay un bugfix en develop que necesitas en master
+# Tienes un bugfix en develop que necesitas en main
 git log develop --oneline
 # a1b2c3d Fix: Corregir error crítico
 
-git checkout master
+git checkout main
 git cherry-pick a1b2c3d
 ```
 
 ---
 
-#### Comandos de Historial
+## Comandos de Historial
 
-- `git revert`
+### `git revert`
 
 Crea un **nuevo commit** que deshace los cambios de un commit anterior, **sin reescribir historial**.
 
 **Cómo funciona:**
 ```
 Antes:
-A---B---C (master)
+A---B---C (main)
         ↑
      mal commit
 
 Después de: git revert C
-A---B---C---C' (master)
+A---B---C---C' (main)
             ↑
         deshace C
 ```
 
-
+**Sintaxis:**
 ```bash
 # Revertir último commit
 git revert HEAD
@@ -535,15 +409,15 @@ git revert -m 1 a1b2c3d  # -m 1 indica que quieres mantener la rama principal
 
 ---
 
-- `git reset`
+### `git reset`
 
 Mueve el puntero HEAD y opcionalmente modifica staging area y working directory.
 
-** Cuidado !!**: Se pueden perder cambios permanentemente.
+**⚠️ Peligroso**: Puede perder cambios permanentemente.
 
 **Tres modos:**
 
-* 1. **Soft**: Solo mueve HEAD
+#### 1. **Soft**: Solo mueve HEAD
 ```bash
 git reset --soft HEAD~1
 
@@ -553,7 +427,7 @@ git reset --soft HEAD~1
 # - Working directory sin cambios
 ```
 
-* 2. **Mixed** (por defecto): Mueve HEAD y unstage
+#### 2. **Mixed** (por defecto): Mueve HEAD y unstage
 ```bash
 git reset HEAD~1
 # o
@@ -565,7 +439,7 @@ git reset --mixed HEAD~1
 # - Archivos modificados pero no staged
 ```
 
-* 3. **Hard**: Elimina todo
+#### 3. **Hard**: Elimina todo
 ```bash
 git reset --hard HEAD~1
 
@@ -579,18 +453,18 @@ git reset --hard HEAD~1
 **Diagrama comparativo:**
 ```
 Estado inicial:
-A---B---C (HEAD, master)
+A---B---C (HEAD, main)
 
 git reset --soft HEAD~1:
-A---B (HEAD, master)
+A---B (HEAD, main)
 Cambios de C en staging
 
 git reset --mixed HEAD~1:
-A---B (HEAD, master)
+A---B (HEAD, main)
 Cambios de C sin staging
 
 git reset --hard HEAD~1:
-A---B (HEAD, master)
+A---B (HEAD, main)
 Cambios de C eliminados
 ```
 
@@ -631,7 +505,7 @@ git reset --hard b2c3d4e
 
 ---
 
-- `git tag`
+### `git tag`
 
 Marca puntos específicos en el historial como importantes (releases, versiones).
 
@@ -672,8 +546,8 @@ git push origin --tags       # todos los tags
 
 # Checkout a un tag
 git checkout v1.0.0  # entra en "detached HEAD state"
-```  
-![alt text](images/Git/image-20.png)
+```
+
 **Convención de nombres (Semantic Versioning):**
 ```
 v1.2.3
@@ -691,18 +565,18 @@ v1.2.3
 **Ejemplo práctico:**
 ```bash
 # Acabas de terminar la versión 1.0.0
-git tag -a v2.0.0 -m "Release 2.0.0 - Primera versión estable"
-git push origin v2.0.0
+git tag -a v1.0.0 -m "Release 1.0.0 - Primera versión estable"
+git push origin v1.0.0
 
 # Luego puedes hacer:
-git checkout v2.0.0  # volver a esa versión
-```  
-![alt text](images/Git/image-21.png)
+git checkout v1.0.0  # volver a esa versión
+```
+
 ---
 
-#### Comandos de Sincronización
+## Comandos de Sincronización
 
-- `git push`
+### `git push`
 
 Envía commits locales al repositorio remoto.
 
@@ -712,7 +586,7 @@ Envía commits locales al repositorio remoto.
 git push
 
 # Push especificando remoto y rama
-git push origin master
+git push origin main
 
 # Primera vez que pusheas una rama
 git push -u origin feature-nueva
@@ -731,7 +605,7 @@ git push --force-with-lease  # solo fuerza si nadie más ha pusheado
 git push --tags
 
 # Pushear y establecer upstream
-git push -u origin master
+git push -u origin main
 
 # Eliminar rama remota
 git push origin --delete nombre-rama
@@ -753,13 +627,13 @@ git push
 # Solución: Verifica tus credenciales o token
 
 # Primera vez en nuevo repo
-git remote add origin https://github.com/usuario/repositorio.git
-git push -u origin master
+git remote add origin https://github.com/usuario/repo.git
+git push -u origin main
 ```
 
 ---
 
-- `git fetch`
+### `git fetch`
 
 Descarga cambios del remoto **sin fusionarlos** (más seguro que pull).
 
@@ -772,7 +646,7 @@ git fetch
 git fetch origin
 
 # Fetch de una rama específica
-git fetch origin master
+git fetch origin main
 
 # Fetch y eliminar referencias a ramas remotas eliminadas
 git fetch --prune
@@ -780,13 +654,13 @@ git fetch --prune
 
 **Qué hace:**
 ```
-Remoto:  A---B---C---D (origin/master)
-Local:   A---B---C (master)
+Remoto:  A---B---C---D (origin/main)
+Local:   A---B---C (main)
 
 Después de: git fetch
-Remoto:  A---B---C---D (origin/master)
-Local:   A---B---C (master)
-         origin/master apunta a D (actualizado)
+Remoto:  A---B---C---D (origin/main)
+Local:   A---B---C (main)
+         origin/main apunta a D (actualizado)
 ```
 
 **Cuándo usar:**
@@ -800,18 +674,18 @@ Local:   A---B---C (master)
 git fetch origin
 
 # 2. Comparar con tu rama
-git log master..origin/master  # ver commits que no tienes
-git diff master origin/master  # ver diferencias
+git log main..origin/main  # ver commits que no tienes
+git diff main origin/main  # ver diferencias
 
 # 3. Decidir qué hacer
-git merge origin/master   # fusionar
+git merge origin/main   # fusionar
 # o
-git rebase origin/master  # rebase
+git rebase origin/main  # rebase
 ```
 
 ---
 
-- `git pull`
+### `git pull`
 
 Descarga cambios del remoto **y los fusiona** (fetch + merge).
 
@@ -824,7 +698,7 @@ git pull
 git pull --rebase
 
 # Pull de remoto y rama específicos
-git pull origin master
+git pull origin main
 ```
 
 **Qué hace:**
@@ -832,12 +706,12 @@ git pull origin master
 git pull
 # equivale a:
 git fetch
-git merge origin/master
+git merge origin/main
 
 git pull --rebase
 # equivale a:
 git fetch
-git rebase origin/master
+git rebase origin/main
 ```
 
 **Configurar pull por defecto:**
@@ -851,7 +725,7 @@ git config pull.rebase true
 
 **Resolver conflictos en pull:**
 ```bash
-git pull origin master
+git pull origin main
 # CONFLICT (content): Merge conflict in archivo.js
 
 # Editar archivos, resolver conflictos
@@ -866,7 +740,7 @@ git rebase --continue
 
 ---
 
-- `git clone`
+### `git clone`
 
 Copia un repositorio completo a tu máquina local.
 
@@ -893,7 +767,7 @@ git clone --depth 1 https://github.com/usuario/repo.git
 
 ---
 
-- `git remote`
+### `git remote`
 
 Gestiona repositorios remotos.
 
@@ -928,16 +802,16 @@ git remote add upstream https://github.com/usuario-original/repo.git
 # Fetch de upstream
 git fetch upstream
 
-# Merge de upstream a tu master
-git checkout master
-git merge upstream/master
+# Merge de upstream a tu main
+git checkout main
+git merge upstream/main
 ```
 
 ---
 
-#### Comandos Avanzados
+## Comandos Avanzados
 
-- `git stash`
+### `git stash`
 
 Guarda cambios temporalmente sin hacer commit.
 
@@ -957,7 +831,7 @@ git stash -a
 
 # Listar stashes
 git stash list
-# stash@{0}: WIP on master: a1b2c3d mensaje
+# stash@{0}: WIP on main: a1b2c3d mensaje
 # stash@{1}: WIP on feature: b2c3d4e otro mensaje
 
 # Aplicar último stash
@@ -985,7 +859,7 @@ git stash show -p stash@{0}
 # Te piden un hotfix urgente
 
 git stash  # guardar trabajo actual
-git checkout master
+git checkout main
 git checkout -b hotfix
 # ... hacer el fix ...
 git checkout feature
@@ -994,7 +868,7 @@ git stash pop  # recuperar trabajo
 
 ---
 
-- `git diff`
+### `git diff`
 
 Muestra diferencias entre commits, branches, archivos.
 
@@ -1015,7 +889,7 @@ git diff a1b2c3d
 git diff a1b2c3d b2c3d4e
 
 # Comparar ramas
-git diff master feature
+git diff main feature
 
 # Diferencias de un archivo específico
 git diff archivo.js
@@ -1029,7 +903,7 @@ git diff --stat
 
 ---
 
-- `git reflog`
+### `git reflog`
 
 Historial de **todos** los movimientos de HEAD (útil para recuperar trabajo perdido).
 
@@ -1042,7 +916,7 @@ git reflog
 git reflog --relative-date
 
 # Reflog de una rama específica
-git reflog show master
+git reflog show main
 ```
 
 **Recuperar trabajo perdido:**
@@ -1058,91 +932,363 @@ git reset --hard b2c3d4e
 
 ---
 
+### `git blame`
 
+Muestra quién modificó cada línea de un archivo y cuándo.
 
-
-
-####  **Merge con "ola"**
-
-* Primero se hace el merge de developerVG a master --no--ff
+**Sintaxis:**
 ```bash
-# Estar en master
-git checkout master
-```
-```bash
-# Traer los cambios remotos
-git pull origin master
-```
-```bash
-# Merge NO fast-forward
-git merge developerVG --no-ff -m "Merge branch 'developerVG' into master"
-```
-```bash
-# Subir a GitHub
-git push origin master
+# Ver blame de un archivo
+git blame archivo.js
+
+# Mostrar email del autor
+git blame -e archivo.js
+
+# Ver solo líneas específicas
+git blame -L 10,20 archivo.js
+
+# Formato más legible
+git blame -c archivo.js
 ```
 
-* Segundo se hace el merge de master a devloperVG --ff
-
-```bash
-# Estar en developerVG
-git checkout developerVG
+**Ejemplo de salida:**
 ```
-```bash
-# Traer cambios de master
-git pull origin master
-```
-```bash
-# Merge fast-forward
-git merge master --ff
-```
-```bash
-# Subir a GitHub
-git push origin developerVG
+a1b2c3d (Juan Pérez  2025-01-15 10:30:00 +0100  1) function login() {
+b2c3d4e (María López 2025-02-01 14:20:00 +0100  2)   return auth.verify();
+c3d4e5f (Juan Pérez  2025-02-05 09:15:00 +0100  3) }
 ```
 
+---
 
+### `git bisect`
 
-## 3.2  **GitHub**
+Búsqueda binaria para encontrar qué commit introdujo un bug.
 
-### Crear un repositorio
-* Para crear un repositorio en gitHub se hace clic en el icono que está arriba a la derecha y se elije Repositories.
-
-![alt text](images/githubCrearRepo.png)
-
-* Se hace clic en new, arriba a  la derecha
-
-![alt text](images/githubCrearRepo2.png)
-
-* Se indica un nombre para el repositorio y si no se necesita nada mas, se puede hacer clic en Creat Repository
-
-![alt text](images/githubCrearRepo3.png)
-
-## Generación de una clave ssh 
-
-* Se abre el gitbash y se pega este texto
+**Proceso:**
 ```bash
-ssh-keygen -t ed25519 -C "veronique.gru@educa.jcyl.es"
+# Iniciar bisect
+git bisect start
+
+# Marcar commit actual como malo
+git bisect bad
+
+# Marcar último commit bueno conocido
+git bisect good a1b2c3d
+
+# Git hace checkout a commit intermedio
+# Pruebas si funciona...
+
+# Si funciona:
+git bisect good
+# Si no funciona:
+git bisect bad
+
+# Repetir hasta encontrar el commit culpable
+
+# Terminar bisect
+git bisect reset
 ```
-y se siguen las instrucciones.
-![alt text](images/sshKey4.png)  
-Se aigna una contraseña para más seguridad, que hay que recordar porque sino no se podrá utilizar la clave.
 
-* Se crean los archivos, la clave privada y la clave publica que habrá que guradar para poder utilizarlas.
-![alt text](images/sshKey5.png)  
+**Automatizado:**
+```bash
+git bisect start HEAD v1.0.0
+git bisect run npm test  # ejecuta tests automáticamente
+```
 
-* Se entra en los Settings de GitHub.  
-![alt text](images/settingsGithub.png)  
+---
 
-* Y se entra en SSH and GPG keys en en menu de la izquierda  
-![alt text](images/ssh.png)  
+## GitHub vs Git
 
-* Se crea una nueva ssh key haciendo clic en new ssh Key  
-![alt text](images/newsshKey.png)  
+### ¿Qué es Git?
 
-* Se  le da un nombre se elige el tipo de key y se copia la clave publica en el recuadro 
-![alt text](images/sshKey2.png)  
+**Git** es el **sistema de control de versiones** (software) que se ejecuta en tu máquina local.
 
-* Y se ve la clave publica agregada. 
-![alt text](images/sshKey3.png)  
+- Creado por Linus Torvalds en 2005
+- Es de código abierto y gratuito
+- Funciona completamente offline
+- Se instala en tu ordenador
+
+### ¿Qué es GitHub?
+
+**GitHub** es un **servicio de hosting** para repositorios Git en la nube (como Dropbox pero para código).
+
+- Plataforma web propiedad de Microsoft
+- Aloja repositorios Git remotos
+- Añade funcionalidades extra: Issues, Pull Requests, Actions, etc.
+- Requiere conexión a internet
+
+### Diferencias clave
+
+| Aspecto | Git | GitHub |
+|---------|-----|--------|
+| Tipo | Software/herramienta | Servicio web |
+| Ubicación | Tu ordenador | Servidores de GitHub |
+| Funcionamiento | Offline | Online |
+| Costo | Gratis | Freemium |
+| Funcionalidad | Control de versiones | Hosting + colaboración |
+
+### Alternativas a GitHub
+
+- **GitLab** - Similar a GitHub, con CI/CD integrado
+- **Bitbucket** - De Atlassian, integración con Jira
+- **Gitea** - Auto-hosted, open source
+- **SourceForge** - Uno de los más antiguos
+- **Azure DevOps** - De Microsoft, para empresas
+
+**Todos usan Git** como sistema de control de versiones.
+
+### Flujo de trabajo Git + GitHub
+
+```bash
+# 1. LOCAL (Git)
+git init
+git add .
+git commit -m "Initial commit"
+
+# 2. CONECTAR CON GITHUB
+git remote add origin https://github.com/usuario/repo.git
+
+# 3. SINCRONIZAR (Git + GitHub)
+git push -u origin main    # subir a GitHub
+git pull origin main       # bajar de GitHub
+```
+
+### Características exclusivas de GitHub
+
+- **Pull Requests**: Proponer cambios y revisión de código
+- **Issues**: Sistema de tickets/bugs
+- **Actions**: CI/CD automatizado
+- **Projects**: Gestión de proyectos estilo Kanban
+- **Discussions**: Foros de comunidad
+- **Releases**: Publicar versiones
+- **GitHub Pages**: Hosting de sitios estáticos gratis
+- **Colaboración**: Forks, Code review, etc.
+
+---
+
+## Flujos de Trabajo Comunes
+
+### Flujo Básico Diario
+
+```bash
+# 1. Actualizar tu repo
+git pull origin main
+
+# 2. Crear rama para nueva feature
+git checkout -b feature/nueva-funcionalidad
+
+# 3. Hacer cambios y commits
+git add .
+git commit -m "feat: añadir nueva funcionalidad"
+
+# 4. Pushear tu rama
+git push -u origin feature/nueva-funcionalidad
+
+# 5. Crear Pull Request en GitHub
+# (desde la interfaz web)
+
+# 6. Después de aprobación, fusionar
+git checkout main
+git pull origin main
+git branch -d feature/nueva-funcionalidad
+```
+
+### GitHub Flow (Recomendado para equipos)
+
+```
+main
+  │
+  ├── feature/login ──┐
+  │                   │ (Pull Request)
+  │                   │ (Code Review)
+  │◄──────────────────┘ (Merge)
+  │
+  ├── feature/payment ─┐
+  │                    │
+  │◄───────────────────┘
+  │
+```
+
+**Reglas:**
+1. `main` siempre está lista para producción
+2. Cada feature en su propia rama
+3. Pull Requests para todo
+4. Deploy después de merge a main
+
+### Git Flow (Para proyectos grandes)
+
+```
+main          ●────────●────────●
+              ↑        ↑        ↑
+develop  ─────●────●───●────●───●
+              ↑    ↑        ↑
+feature/x     ●────●
+feature/y          ●────────●
+hotfix             ●─────────────→●
+```
+
+**Ramas:**
+- `main`: Producción
+- `develop`: Desarrollo principal
+- `feature/*`: Nuevas funcionalidades
+- `release/*`: Preparación de releases
+- `hotfix/*`: Correcciones urgentes
+
+### Conventional Commits
+
+Formato estándar para mensajes de commit:
+
+```
+<tipo>[ámbito opcional]: <descripción>
+
+[cuerpo opcional]
+
+[footer opcional]
+```
+
+**Tipos:**
+- `feat`: Nueva funcionalidad
+- `fix`: Corrección de bug
+- `docs`: Documentación
+- `style`: Formato (no afecta código)
+- `refactor`: Refactorización
+- `test`: Tests
+- `chore`: Mantenimiento
+
+**Ejemplos:**
+```bash
+git commit -m "feat(auth): añadir login con Google"
+git commit -m "fix(api): corregir error 500 en /users"
+git commit -m "docs: actualizar README con instrucciones"
+git commit -m "refactor(utils): simplificar función de validación"
+```
+
+---
+
+## Resolución de Problemas Comunes
+
+### "Detached HEAD state"
+
+**Problema:** Hiciste checkout a un commit específico.
+
+```bash
+# Salir sin cambios
+git checkout main
+
+# Guardar cambios en nueva rama
+git checkout -b nueva-rama
+```
+
+### Conflictos de merge
+
+**Solución:**
+```bash
+# Git marca los conflictos en archivos:
+<<<<<<< HEAD
+tu código
+=======
+código del otro
+>>>>>>> rama-otra
+
+# 1. Editar archivos manualmente
+# 2. Quitar marcadores <<<<, ====, >>>>
+# 3. Guardar la versión correcta
+
+git add archivo-resuelto.js
+git commit  # o git merge --continue
+```
+
+### Deshice algo por error
+
+```bash
+# Ver historial completo
+git reflog
+
+# Volver a estado anterior
+git reset --hard HEAD@{2}
+```
+
+### Necesito cambiar el último commit
+
+```bash
+# Cambiar mensaje
+git commit --amend -m "Nuevo mensaje"
+
+# Añadir archivos olvidados
+git add archivo-olvidado.js
+git commit --amend --no-edit
+```
+
+### Commit en rama equivocada
+
+```bash
+# Estás en main pero el commit debía ir a feature
+git log  # copiar hash del commit erróneo
+
+git checkout feature
+git cherry-pick <hash>
+
+git checkout main
+git reset --hard HEAD~1  # eliminar de main
+```
+
+---
+
+## Configuración Útil
+
+### Configuración Global
+
+```bash
+# Identidad
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"
+
+# Editor por defecto
+git config --global core.editor "code --wait"  # VSCode
+git config --global core.editor "vim"          # Vim
+
+# Colores
+git config --global color.ui auto
+
+# Alias útiles
+git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.cm commit
+git config --global alias.lg "log --oneline --graph --all"
+
+# Pull por defecto con rebase
+git config --global pull.rebase true
+
+# Auto-setup de tracking en push
+git config --global push.autoSetupRemote true
+```
+
+### Archivo .gitignore
+
+```bash
+# Archivos de Node.js
+node_modules/
+npm-debug.log
+
+# Variables de entorno
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.log
+```
+
+---
 
