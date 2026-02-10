@@ -19,7 +19,7 @@
     - [**Comprobar conexión**](#comprobar-conexión)
   - [**1.2 Apache2**](#12-apache2)
     - [Instalación](#instalación)
-    - [**Verficación del servicio**](#verficación-del-servicio)
+    - [**Comprobar su estado del servicio**](#comprobar-su-estado-del-servicio)
     - [**Permisos y usuarios**](#permisos-y-usuarios)
     - [**HTTPS**](#https)
     - [**HTTP A HTTPS**](#http-a-https)
@@ -46,9 +46,8 @@
       - [Funciones principales](#funciones-principales)
     - [Módulos y Extensiones Comunes de PHP](#módulos-y-extensiones-comunes-de-php)
   - [1.7 XDebug](#17-xdebug)
-  - [1.8 REDIRECCION POR DNS](#18-redireccion-por-dns)
-    - [**En Plesk**](#en-plesk)
-    - [**En el servidor**](#en-el-servidor)
+  - [1.8 SITIOS VIRTUALES](#18-sitios-virtuales)
+    - [Se configura sitio1 en el servidor](#se-configura-sitio1-en-el-servidor)
   - [1.9 Redirección DirectoryIndex](#19-redirección-directoryindex)
   - [1.10 SFTP](#110-sftp)
   - [1.11 LDAP](#111-ldap)
@@ -413,7 +412,7 @@ sudo touch /var/www/html/.htaccess
 sudo systemctl restart apache2
 ```
 
-### **Verficación del servicio**
+### **Comprobar su estado del servicio**
 * Comprobar si se puede ver el index de Apache2
 ```bash
 sudo nano /var/www/html/index.html
@@ -1193,9 +1192,8 @@ sudo chown root:root /tmp/xdebug.log
 * Se puede ver que está habilitado en el phpinfo  
 ![alt text](images/xdebug.png)  
 
-## 1.8 REDIRECCION POR DNS
-Redireccion por DNS
-### **En Plesk** 
+## 1.8 SITIOS VIRTUALES
+###Se crea el DNS sitio1 en Plesk
 * Se va a Sitios web y dominios y en la parte central vamos a la pestaña y hacemos clic en hosting y DNS
 ![alt text](images/dnsPlesk.png)
 
@@ -1211,7 +1209,7 @@ Redireccion por DNS
   
 ![alt text](images/dnsPlesk3.png)
 
-### **En el servidor**
+### Se configura sitio1 en el servidor
 * Se crea la carpeta error si no está creada.
 ```bash
 sudo mkdir /var/www/enjaulado1/error
@@ -1259,6 +1257,8 @@ sudo systemctl reload apache2
 ```bash
 sudo apache2ctl -S
 ```
+* Resolución de nombre
+![alt text](images/ServidorDeDesarrollo/image.png)
 
 ## 1.9 Redirección DirectoryIndex
 El DirectoryIndex define la página de inicio por defecto de cada directorio, resolviendo la petición de una carpeta a un archivo específico sin que el usuario tenga que escribirlo. Está manejado por el modulo : mod_dir.

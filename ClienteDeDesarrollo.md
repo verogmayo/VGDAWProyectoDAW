@@ -25,10 +25,11 @@
       - [2. Descargar phpDocumentor](#2-descargar-phpdocumentor)
       - [3. Configuración de NetBeans](#3-configuración-de-netbeans)
       - [4. Generar Documentación desde NetBeans](#4-generar-documentación-desde-netbeans)
-    - [4.2. Ejecutar phpDocumentor](#42-ejecutar-phpdocumentor)
   - [](#)
       - [5. Solución de Problemas](#5-solución-de-problemas)
+      - [Uso de Git con Netbeans](#uso-de-git-con-netbeans)
     - [2.5 **Visual Studio Code**](#25-visual-studio-code)
+      - [Uso de Git con Visual](#uso-de-git-con-visual)
       - [Instalación y Configuración de phpDocumentor en Windows](#instalación-y-configuración-de-phpdocumentor-en-windows)
       - [Requisitos Mínimos](#requisitos-mínimos-1)
       - [Instalación de PHP en Windows](#instalación-de-php-en-windows)
@@ -302,7 +303,7 @@ php -v
 1. Abrir el proyecto PHP en NetBeans
 2. Ejemplo: `D:\ProyectosNetbeans\DAW2LibreriaValidacion`
 
-### 4.2. Ejecutar phpDocumentor
+- **Ejecutar phpDocumentor**
 
 **Opción 1: Desde el menú de NetBeans**
 1. Clic derecho sobre el proyecto
@@ -332,10 +333,91 @@ Si aparece un error relacionado con espacios o rutas en `Program Files\`, la sol
 
 ---
 
+#### Uso de Git con Netbeans
+- **Inicializar un proyecto en git**
+Estando selecionado el proyecto:
+Teams - Git - Initialize Repository  
+![alt text](images/ClienteDeDesarrollo/image-17.png)  
 
+o tambien se puede hacer desde el proyecto
+Botón derecho - Versionnig - Initialize Git Repository  
+![alt text](images/ClienteDeDesarrollo/image-18.png)
 
+Se selecciona la carpeta del proyecto y OK  
+ ![alt text](images/ClienteDeDesarrollo/image-19.png)
+
+- **Hacer un commit**
+* Primero se añade lo que hay que commitear
+Team - Add  
+![alt text](images/ClienteDeDesarrollo/image-22.png)
+o botón derecho en el proyecto - Git - Add  
+![alt text](images/ClienteDeDesarrollo/image-23.png)
+
+* Se hace el commit
+Team - Commit   
+![alt text](images/ClienteDeDesarrollo/image-20.png)  
+o en botón derecho en el proyecto - Git - Commit  
+![alt text](images/ClienteDeDesarrollo/image-21.png)  
+Se escribe el mensaje del commit, se comprueban los fichero que se han añadido
+![alt text](images/ClienteDeDesarrollo/image-24.png)
+
+- **Ver los Commit**
+Team - Show History  
+![alt text](images/ClienteDeDesarrollo/image-25.png)  
+o botón derecho - Git - Show History  
+![alt text](images/ClienteDeDesarrollo/image-26.png)  
+Se ve el listado de commit  
+![alt text](images/ClienteDeDesarrollo/image-27.png)  
+
+- **Crear una rama nueva**
+Team - Branch/Tag - Create Branch
+![alt text](images/ClienteDeDesarrollo/image-29.png)
+o botón derecho en el proyecto - Git - Branch/Tag - Create Branch    
+![alt text](images/ClienteDeDesarrollo/image-28.png) 
+
+Se indica el nombre de la rama y se puede elegir que se cambie de rama al crearla o no   
+![alt text](images/ClienteDeDesarrollo/image-30.png)  
+En este caso se cambiará de rama
+
+- **Cambiar de rama**
+Botón derecho - Git - Branch/Tag - Switch To Branch...
+![alt text](images/ClienteDeDesarrollo/image-31.png)  
+Se elige la rama y OK   
+![alt text](images/ClienteDeDesarrollo/image-32.png)
+
+- **Abrir el navegador de repositorios**
+Botón derecho - Git - Repository - Repository Browser  
+![alt text](images/ClienteDeDesarrollo/image-33.png)  
+Se ve el navegador  
+![alt text](images/ClienteDeDesarrollo/image-34.png)  
 
 ### 2.5 **Visual Studio Code**
+
+#### Uso de Git con Visual  
+- **Inicializar un repositorio**  
+Icono de Git en la parte izquierda - Initialize Repository  
+![alt text](images/ClienteDeDesarrollo/image-35.png)
+
+- **Hacer un commit**
+Icono de Git en la parte izquierda, en la pantalla de Git, se hace clic en los 3 puntitos en la linea de CHANGES
+changes - Stages All changes(si se quieren pasar todos los cambios)  
+![alt text](images/ClienteDeDesarrollo/image-36.png)
+Sino se pasan los archivos que se quieran con el + que se encuentra al lado del nombre del archivo   
+![alt text](images/ClienteDeDesarrollo/image-37.png)
+Se escribe el mensaje de Commit y se hace clic en commit  
+![alt text](images/ClienteDeDesarrollo/image-38.png)  
+
+- **Crear Una rama**
+Los tres puntitos de CHANGES - Branch - Create Branch  
+![alt text](images/ClienteDeDesarrollo/image-39.png)  
+Aparece un cuadro de texto para indicar el nombre de la rama  y enter
+![alt text](images/ClienteDeDesarrollo/image-40.png)  
+Se cambia automaticamente y se puede ver el nombre de la rama en la que estamos abajo a la izquierda  
+![alt text](images/ClienteDeDesarrollo/image-41.png)  
+
+- **Cambiar de Rama**
+Hacer clic en el nombre de la rama y aparece un menu  y se elige la rama a la que se quiere ir
+![alt text](images/ClienteDeDesarrollo/image-42.png)
 
 #### Instalación y Configuración de phpDocumentor en Windows
 
