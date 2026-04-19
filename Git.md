@@ -20,6 +20,7 @@
       - [Comandos de Sincronización](#comandos-de-sincronización)
       - [Comandos Avanzados](#comandos-avanzados)
       - [**Merge con "ola"**](#merge-con-ola)
+      - [**Dejar de trackear una carpeta o archivo incluido en .gitignore**](#dejar-de-trackear-una-carpeta-o-archivo-incluido-en-gitignore)
   - [3.2  **GitHub**](#32--github)
     - [Crear un repositorio](#crear-un-repositorio)
   - [Generación de una clave ssh](#generación-de-una-clave-ssh)
@@ -1101,7 +1102,17 @@ git merge master --ff
 git push origin developerVG
 ```
 
-
+####  **Dejar de trackear una carpeta o archivo incluido en .gitignore**
+En este ejemplo queremos dejar de trackear(hacer el seguimiento en git) la carpeta .vscode.
+```bash
+git rm -r --cached .vscode
+```
+```bash
+git commit -m "Eliminar carpeta .vscode del repositorio"
+```
+```bash
+git push
+```
 
 ## 3.2  **GitHub**
 
