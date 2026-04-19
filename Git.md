@@ -570,7 +570,7 @@ git reset --mixed HEAD~1
 ```bash
 git reset --hard HEAD~1
 
-# ⚠️ Efecto:
+# Efecto:
 # - Commits deshechos
 # - Staging limpio
 # - Working directory restaurado
@@ -614,7 +614,7 @@ git reset --hard a1b2c3d
 
 # Deshacer un push accidental (si nadie ha pulleado)
 git reset --hard HEAD~1
-git push --force  # ⚠️ Cuidado con esto
+git push --force  
 ```
 
 **Recuperar después de reset hard:**
@@ -723,7 +723,7 @@ git push -u origin feature-nueva
 **Opciones importantes:**
 
 ```bash
-# Forzar push (⚠️ PELIGROSO - reescribe historial remoto)
+# Forzar push (PELIGROSO - reescribe historial remoto)
 git push --force
 # o más seguro:
 git push --force-with-lease  # solo fuerza si nadie más ha pusheado
